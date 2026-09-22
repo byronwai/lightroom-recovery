@@ -5,10 +5,6 @@ Lightroom (cloud version)** — without the Lightroom app, without an Adobe
 account, without any entitlement. Works after your subscription ended,
 your license was revoked, or you simply can't sign in anymore.
 
-Built and battle-tested on a real recovery: 1,692 originals (64 GB),
-full develop settings (XMP) for every edited photo, edited JPEG renders,
-and 234 presets — all pulled from the local cache after access was revoked.
-
 **New: [docs/walkthrough.md](docs/walkthrough.md)** — a detailed
 step-by-step forensic reconstruction of how the RAW and XMP files were
 actually found, every code snippet explained: the database snapshots,

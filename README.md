@@ -5,10 +5,19 @@ Lightroom (cloud version)** — without the Lightroom app, without an Adobe
 account, without any entitlement. Works after your subscription ended,
 your license was revoked, or you simply can't sign in anymore.
 
+Built and battle-tested on a real recovery: 1,692 originals (64 GB),
+full develop settings (XMP) for every edited photo, edited JPEG renders,
+and 234 presets — all pulled from the local cache after access was revoked.
+
 **New: [docs/walkthrough.md](docs/walkthrough.md)** — a detailed
 step-by-step forensic reconstruction of how the RAW and XMP files were
 actually found, every code snippet explained: the database snapshots,
 the dead ends, the sha256 content store, and the perceptual matcher.
+
+**[docs/diagrams.md](docs/diagrams.md)** — Mermaid diagrams of the data
+structure: local storage layout, the table↔file join graph, the
+XMP-to-sidecar resolution chain, the pipeline, what is ACR-importable
+vs not — plus references to the underlying Adobe/XMP/CBOR documentation.
 
 > **Scope:** this project rescues **your own photos from your own disk**.
 > It is not a way to keep using Adobe's software or services without a

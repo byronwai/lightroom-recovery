@@ -138,9 +138,11 @@ for s, p in on_disk.items():
 print(f"placed next to RAW: {placed} (+{revs} old revisions) | no-original sidecars: {sidecar} "
       f"| extra linked: {len(extra)} | unlinked: {n_unlinked}")
 
-# --- presets (unchanged)
+# --- presets (rebuild folder cleanly so re-runs don't duplicate)
 presets = {S(doc): S(nm) for doc, nm in wfx.execute("SELECT docId, name FROM presetsAndProfiles")}
-pdir = os.path.join(OUT, "presets"); os.makedirs(pdir, exist_ok=True)
+pdir = os.path.join(OUT, "presets")
+shutil.rmtree(pdir, ignore_errors=True)
+os.makedirs(pdir, exist_ok=True)
 n_pre = 0
 for p in glob.glob(os.path.join(DATA, "cr_settings", "*.xmp")):
     stem = os.path.splitext(os.path.basename(p))[0]

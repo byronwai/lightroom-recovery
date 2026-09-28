@@ -43,7 +43,7 @@ Managed Catalog.notifdb             …
 ```
 
 Everything a recovery could want is visible in this one census — the RAWs
-immediately (`originals\2025\2025-09-27\DSC00001.ARW`), the catalog as
+immediately (`originals\2025\2024-11-16\DSC00001.ARW`), the catalog as
 SQLite files, and (once decoded) the rest.
 
 > **The mistake to avoid:** judging folders by their names. `settings\`
@@ -150,9 +150,12 @@ edited = {K(a) for (a,) in wfx.execute("SELECT DISTINCT assetId FROM versions")}
 print(len(assets), "photos,", len(edited), "edited")
 ```
 
-At this point the RAWs are already recovered in principle — copy the
-`originals\` tree to safe storage. That's 95% of the value, done in one
-`copytree`. The rest of this document is about the edits.
+At this point the RAWs are safe — one `copytree` away. Keep the framing
+honest, though: these are byte-identical copies of files the user already
+owned, so this step is redistribution, not recovery — a lifeline only when
+the original import source (cards, drives) is gone. The genuinely
+irreplaceable data — the edits, which exist nowhere else — is what the
+rest of this document recovers.
 
 ---
 
@@ -169,7 +172,7 @@ for r in wfx.execute("""SELECT binaryType, COUNT(*), SUM(hasLocalFile)
 
 ```
 b'aux'          5403 total, 4676 local
-b'xmp_develop'  3457 total, 2123 local   ← 2,123 edit-settings blobs ON DISK
+b'xmp_develop'  3457 total, 2123 local   ← 2,123 rows point at local blobs
 b'original'     1998 total, 1646 local
 b'proxy'        1998 total,  310 local
 ```
@@ -281,7 +284,8 @@ ids = {S(r[0]) for r in wfx.execute(
 on_disk = {os.path.basename(p)
            for p in glob.glob(os.path.join(DATA, "settings", "*"))}
 print(len(ids & on_disk), "of the promised XMPs are right here")
-# → 2,123 … plus 525 more the index had already forgotten about
+# → 1,345 of 1,345 distinct shas found (100%) · 1,303 orphan files on disk
+#   (row view: 2,123/2,123 rows with a sha resolve to a file)
 ```
 
 Verify the payload is what it claims:

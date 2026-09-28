@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="644" viewBox="0 0 1080 644" font-family="Consolas, 'Cascadia Mono', 'Courier New', monospace">
+<rect width="1080" height="644" fill="#0d1117"/>
+<text x="28" y="28" font-size="17" font-weight="bold" fill="#e6edf3">XMP data map — Adobe cache sources to recovery layout</text>
+<text x="28" y="55" font-size="15" xml:space="preserve"><tspan fill="#d2a8ff">SOURCE — Adobe cache: where XMP lives</tspan></text>
+<text x="28" y="97" font-size="15" xml:space="preserve"><tspan fill="#79c0ff">Data\&lt;catalog-guid&gt;\</tspan></text>
+<text x="28" y="118" font-size="15" xml:space="preserve"><tspan fill="#4d5761">├── </tspan><tspan fill="#e6edf3">settings\&lt;64-hex sha256&gt;</tspan><tspan fill="#ffa657">                  2,648 per-photo develop blobs</tspan></text>
+<text x="28" y="139" font-size="15" xml:space="preserve"><tspan fill="#4d5761">                                              </tspan><tspan fill="#8b949e">current + superseded revisions, no envelope</tspan></text>
+<text x="28" y="160" font-size="15" xml:space="preserve"><tspan fill="#4d5761">├── </tspan><tspan fill="#e6edf3">auxiliary\&lt;digest[:3]&gt;\&lt;digest[3:]&gt;</tspan><tspan fill="#8b949e">       31 zlib XMPs among 4,734 files</tspan></text>
+<text x="28" y="181" font-size="15" xml:space="preserve"><tspan fill="#4d5761">                                              </tspan><tspan fill="#8b949e">23 Generative Remove · 8 develop (redundant)</tspan></text>
+<text x="28" y="202" font-size="15" xml:space="preserve"><tspan fill="#4d5761">├── </tspan><tspan fill="#e6edf3">cr_settings\&lt;preset-docId&gt;.xmp</tspan><tspan fill="#ffa657">            234 user presets (ACR schema)</tspan></text>
+<text x="28" y="223" font-size="15" xml:space="preserve"><tspan fill="#4d5761">├── </tspan><tspan fill="#e6edf3">cr_defaults\</tspan><tspan fill="#8b949e">                              RawDefaults.xmp · FavoriteStyles.xmp</tspan></text>
+<text x="28" y="244" font-size="15" xml:space="preserve"><tspan fill="#4d5761">└── </tspan><tspan fill="#e6edf3">xmp\&lt;2-hex&gt;\</tspan><tspan fill="#ff7b72">                              transient shards — empty (red herring)</tspan></text>
+<text x="28" y="286" font-size="15" xml:space="preserve"><tspan fill="#d2a8ff">DESTINATION — recovery output: 3,665 .xmp files</tspan></text>
+<text x="28" y="328" font-size="15" xml:space="preserve"><tspan fill="#79c0ff">&lt;out&gt;\</tspan></text>
+<text x="28" y="349" font-size="15" xml:space="preserve"><tspan fill="#4d5761">├── </tspan><tspan fill="#79c0ff">originals\&lt;year&gt;\&lt;date&gt;\</tspan><tspan fill="#ffa657">                  1,785 XMPs beside their RAWs</tspan></text>
+<text x="28" y="370" font-size="15" xml:space="preserve"><tspan fill="#4d5761">│   ├── </tspan><tspan fill="#e6edf3">DSC02091.ARW</tspan><tspan fill="#8b949e">                          </tspan></text>
+<text x="28" y="391" font-size="15" xml:space="preserve"><tspan fill="#4d5761">│   ├── </tspan><tspan fill="#e6edf3">DSC02091.xmp</tspan><tspan fill="#ffa657">                          current edit — byte-identical base name</tspan></text>
+<text x="28" y="412" font-size="15" xml:space="preserve"><tspan fill="#4d5761">│   ├── </tspan><tspan fill="#e6edf3">DSC02091_1045a0.xmp</tspan><tspan fill="#8b949e">                   older revision (sha6 suffix)</tspan></text>
+<text x="28" y="433" font-size="15" xml:space="preserve"><tspan fill="#4d5761">│   └── </tspan><tspan fill="#e6edf3">DSC02091_aux.xmp</tspan><tspan fill="#8b949e">                      Generative Remove record</tspan></text>
+<text x="28" y="454" font-size="15" xml:space="preserve"><tspan fill="#4d5761">├── </tspan><tspan fill="#79c0ff">xmp-sidecars\</tspan><tspan fill="#8b949e">                             336 (photo's RAW not cached locally)</tspan></text>
+<text x="28" y="475" font-size="15" xml:space="preserve"><tspan fill="#4d5761">│   ├── </tspan><tspan fill="#e6edf3">&lt;date&gt;_&lt;RAW stem&gt;.xmp</tspan><tspan fill="#8b949e">                 current edit, date = disambiguator</tspan></text>
+<text x="28" y="496" font-size="15" xml:space="preserve"><tspan fill="#4d5761">│   └── </tspan><tspan fill="#79c0ff">_unlinked\</tspan><tspan fill="#8b949e">                            1,308 orphans no table can link</tspan></text>
+<text x="28" y="517" font-size="15" xml:space="preserve"><tspan fill="#4d5761">├── </tspan><tspan fill="#e6edf3">presets\&lt;name&gt;.xmp</tspan><tspan fill="#ffa657">                        234 ACR presets (real names)</tspan></text>
+<text x="28" y="538" font-size="15" xml:space="preserve"><tspan fill="#4d5761">└── </tspan><tspan fill="#79c0ff">raw-defaults\</tspan><tspan fill="#8b949e">                             2 (RawDefaults, FavoriteStyles)</tspan></text>
+<text x="28" y="580" font-size="15" xml:space="preserve"><tspan fill="#ffa657">rule: Camera Raw reads only a byte-identical base name —</tspan><tspan fill="#8b949e">  every suffix exists to protect it</tspan></text>
+</svg>

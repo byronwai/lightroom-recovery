@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1560" height="1130" viewBox="0 0 1560 1130" font-family="'Segoe UI', sans-serif">
+<rect width="1560" height="1130" fill="#0d1117"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8b949e"/></marker></defs>
+<text x="40" y="52" font-size="30" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">Catalog tables ↔ file stores — the join graph</text>
+<text x="40" y="82" font-size="15" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">wfindex (SQL) left · content-addressed stores right · every arrow is the exact join key</text>
+<rect x="40" y="110" width="560" height="860" rx="14" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
+<text x="60" y="142" font-size="15" fill="#d2a8ff" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">Managed Catalog.wfindex — TABLES</text>
+<rect x="56" y="162" width="528" height="84" rx="10" fill="#0e1420" stroke="#58a6ff" stroke-width="2"/>
+<text x="72" y="196" font-size="16.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">assets</text>
+<text x="72" y="224" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">assetId · filename · captureDate · rating</text>
+<rect x="56" y="268" width="528" height="84" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="302" font-size="16.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">versions</text>
+<text x="72" y="330" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">docId · assetId — one row per edit</text>
+<rect x="56" y="374" width="528" height="84" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="408" font-size="16.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">externalDevelopSettings</text>
+<text x="72" y="436" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">docId · sha256 (settings\ space)</text>
+<rect x="56" y="480" width="528" height="84" rx="10" fill="#0e1420" stroke="#ffa657" stroke-width="2"/>
+<text x="72" y="514" font-size="16.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">purgeCandidates</text>
+<text x="72" y="542" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">assetId · binaryType · contentIdOrSha256 · hasLocalFile</text>
+<rect x="56" y="586" width="528" height="84" rx="10" fill="#0e1420" stroke="#58a6ff" stroke-width="2"/>
+<text x="72" y="620" font-size="16.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">assetPathsAndInfo</text>
+<text x="72" y="648" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">docId (= assetId!) · originalRelativePath</text>
+<rect x="56" y="692" width="528" height="84" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="726" font-size="16.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">localAuxTracker</text>
+<text x="72" y="754" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">docId · digest</text>
+<rect x="56" y="798" width="528" height="84" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="832" font-size="16.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">presetsAndProfiles</text>
+<text x="72" y="860" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">docId · name</text>
+<rect x="960" y="110" width="560" height="860" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+<text x="980" y="142" font-size="15" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">FILE STORES — plain files, content-addressed</text>
+<rect x="976" y="168" width="528" height="118" rx="14" fill="#161b22" stroke="#ffa657" stroke-width="2"/>
+<text x="994" y="202" font-size="19" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">settings\</text>
+<text x="994" y="230" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">&lt;64-hex sha256&gt; · no extension</text>
+<text x="994" y="258" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">per-photo develop XMPs</text>
+<rect x="976" y="308" width="528" height="118" rx="14" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
+<text x="994" y="342" font-size="19" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">auxiliary\</text>
+<text x="994" y="370" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">&lt;digest[:3]&gt;\&lt;digest[3:]&gt;</text>
+<text x="994" y="398" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">renditions + zlib XMP payloads</text>
+<rect x="976" y="448" width="528" height="118" rx="14" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+<text x="994" y="482" font-size="19" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">originals\</text>
+<text x="994" y="510" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">&lt;year&gt;\&lt;capture-date&gt;\*.ARW</text>
+<text x="994" y="538" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">the RAW files</text>
+<rect x="976" y="588" width="528" height="118" rx="14" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+<text x="994" y="622" font-size="19" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">proxies\</text>
+<text x="994" y="650" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">2560\&lt;assetId[:3]&gt;\&lt;assetId[3:]&gt;</text>
+<text x="994" y="678" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">2560 px DNG stand-ins (unedited)</text>
+<rect x="976" y="728" width="528" height="118" rx="14" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="994" y="762" font-size="19" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">cr_settings\</text>
+<text x="994" y="790" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">&lt;preset-docId&gt;.xmp</text>
+<text x="994" y="818" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">ACR presets</text>
+<line x1="588" y1="522" x2="972" y2="227" stroke="#ffa657" stroke-width="1.8" marker-end="url(#arr)"/>
+<text x="780" y="300" font-size="13.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">binaryType='xmp_develop'</text>
+<text x="780" y="320" font-size="12.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle">contentIdOrSha256 = filename</text>
+<line x1="588" y1="734" x2="972" y2="367" stroke="#d2a8ff" stroke-width="1.8" marker-end="url(#arr)"/>
+<text x="780" y="445" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">digest = folder + name</text>
+<line x1="588" y1="628" x2="972" y2="507" stroke="#58a6ff" stroke-width="1.8" marker-end="url(#arr)"/>
+<text x="780" y="590" font-size="13.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">originalRelativePath</text>
+<line x1="588" y1="204" x2="972" y2="647" stroke="#58a6ff" stroke-width="1.8" marker-end="url(#arr)"/>
+<text x="780" y="735" font-size="13.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">assetId = folder + name</text>
+<line x1="588" y1="840" x2="972" y2="787" stroke="#7ee787" stroke-width="1.8" marker-end="url(#arr)"/>
+<text x="780" y="880" font-size="13.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">docId = filename</text>
+<rect x="40" y="996" width="1480" height="100" rx="14" fill="#161b22" stroke="#ff7b72" stroke-width="1.6" stroke-dasharray="8 5"/>
+<text x="60" y="1026" font-size="14" fill="#ff7b72" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">KEY-SPACE GOTCHAS — where silent join failures live</text>
+<text x="60" y="1052" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">assets.docId = INTEGER row id (a third, unrelated space)  ·  assetPathsAndInfo.docId actually holds assetIds</text>
+<text x="60" y="1076" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">docId joins across versions · purgeCandidates · localAuxTracker · externalDevelopSettings — no single table covers all documents</text>
+</svg>

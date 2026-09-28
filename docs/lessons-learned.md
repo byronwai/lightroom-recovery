@@ -1,7 +1,7 @@
 # Recovering a Lightroom (cloud) Library After Access Revocation
 
 **Case:** Lightroom desktop (cloud version, not Classic) — access revoked (subscription/license ended) with ~621 edited photos and 1,991 assets in the catalog.
-**Outcome:** 100% of originals (1,692 files, 64 GB) recovered locally; 303 edited renders (2048 px JPEGs) recovered; **full develop settings (XMP) for 1,952 photos — every edited photo included — extracted from the local `settings\` cache**; 234 presets recovered with names; full library backed up. Everything done offline, without any Adobe app or account.
+**Outcome:** **full develop settings (XMP) for 1,952 photos — every edited photo included — extracted from the local `settings\` cache**; 303 edited renders (2048 px JPEGs) recovered; 234 presets recovered with names; and, as a bonus, a sha256-verified second copy of all 1,692 originals (64 GB). Everything done offline, without any Adobe app or account. The edits, renders, and presets are the irreplaceable part — created inside Lightroom, they exist nowhere else; the originals copy matters only if the user's import source is gone.
 **Date:** 2026-09-21
 
 ---
@@ -14,7 +14,7 @@ Adobe's access gate lives **in the application, not in the data**:
 - The cloud Lightroom keeps a **complete local copy of everything it synced** under `%LOCALAPPDATA%\Adobe\Lightroom CC\Data\<guid>\` — unencrypted, standard SQLite databases plus plain files on disk.
 - Reading those files requires nothing but file access to your own user profile. No account, no entitlement, no app.
 
-So "bypassing" Adobe's logic here is trivial by design: the moment you stop thinking *app first* and start thinking *files first*, the whole library is sitting on disk in the open. The only real work was decoding the formats, because none of them are documented.
+So "bypassing" Adobe's logic here is trivial by design: the moment you stop thinking *app first* and start thinking *files first*, the whole library is sitting on disk in the open. The only real work was decoding the formats — they are *barely* documented: Adobe's [local sync database page](https://helpx.adobe.com/hk_zh/lightroom-classic/desktop/kb/local-sync-database.html) (written for Classic's cloud sync) confirms `Managed Catalog.mcat` + `.wfindex` exist and may be deleted, but says nothing about their schema or the content stores.
 
 What the gate genuinely protects (and what could NOT be recovered offline): the cloud-side originals of edits — the full develop settings (every slider) for most photos are stored only on Adobe's servers, referenced by sha256. Local caches held only *renders* of the edits plus a handful of cached XMP payloads. For the rest you need one of:
 
@@ -167,4 +167,4 @@ Dependencies: `pip install numpy pillow` (`cbor2` optional). Total runtime is do
 
 ## 9. Bottom line
 
-Access revocation is an **application-level** control. Against a user's own files it's a door made of paper: the local library is unencrypted, standard SQLite plus files, and every edit Adobe ever rendered on that machine left a recoverable artifact — in the end including the full develop settings for essentially the whole library (`settings\` cache). Nothing of this user's editing work was actually hostage to the cloud.
+Access revocation is an **application-level** control. Against a user's own files it's a door made of paper: the local library is unencrypted, standard SQLite plus files, and every edit Adobe ever rendered on that machine left a recoverable artifact — in the end including the full develop settings for essentially the whole library (`settings\` cache). Nothing of this user's editing work was actually hostage to the cloud. And on value: the cached originals are a *second copy* of data the user already owned — substitutable, contingent. The edits — settings, renders, presets — are the non-substitutable payload, and they are what this kind of recovery exists for.

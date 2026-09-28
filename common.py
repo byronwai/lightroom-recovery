@@ -20,6 +20,9 @@ def find_catalog_dir(data_root):
     if not data_root or not os.path.isdir(data_root):
         sys.exit(f"Lightroom cloud Data folder not found: {data_root!r}\n"
                  "Pass --data <path to .../Adobe/Lightroom CC/Data>")
+    # a specific catalog folder was passed directly
+    if glob.glob(os.path.join(data_root, "*.mcat")):
+        return data_root
     candidates = []
     for d in sorted(glob.glob(os.path.join(data_root, "*"))):
         if not os.path.isdir(d):

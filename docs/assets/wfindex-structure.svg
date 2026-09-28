@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1560" height="1030" viewBox="0 0 1560 1030" font-family="'Segoe UI', sans-serif">
+<rect width="1560" height="1030" fill="#0d1117"/>
+<text x="40" y="52" font-size="30" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">Managed Catalog.wfindex — internal structure</text>
+<text x="40" y="82" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">62 SQLite tables · 31 populated · derived from the sync stream (mcat is the source of truth)</text>
+<rect x="40" y="110" width="930" height="500" rx="14" fill="#161b22" stroke="#ffa657" stroke-width="2"/>
+<text x="60" y="144" font-size="15" fill="#ffa657" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">RECOVERY-CRITICAL TABLES</text>
+<text x="60" y="168" font-size="14" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">the seven that carry every join the toolkit needs</text>
+<rect x="56" y="190" width="898" height="56" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="214" font-size="16" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">assets</text>
+<text x="72" y="234" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">assetId · filename · captureDate · rating · flag</text>
+<text x="938" y="214" font-size="15" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">1,991</text>
+<text x="938" y="234" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">the photo's identity — pivot of every join</text>
+<rect x="56" y="252" width="898" height="56" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="276" font-size="16" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">assetPathsAndInfo</text>
+<text x="72" y="296" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">docId (= assetId!) · fileName · originalRelativePath</text>
+<text x="938" y="276" font-size="15" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">1,998</text>
+<text x="938" y="296" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">where the RAW lives on disk</text>
+<rect x="56" y="314" width="898" height="56" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="338" font-size="16" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">versions</text>
+<text x="72" y="358" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">docId · assetId — one row per edit</text>
+<text x="938" y="338" font-size="15" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">1,459</text>
+<text x="938" y="358" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">which photos are edited</text>
+<rect x="56" y="376" width="898" height="56" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="400" font-size="16" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">externalDevelopSettings</text>
+<text x="72" y="420" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">docId · sha256</text>
+<text x="938" y="400" font-size="15" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">3,457</text>
+<text x="938" y="420" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">edit-blob references (same shas as settings\)</text>
+<rect x="56" y="438" width="898" height="56" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="462" font-size="16" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">purgeCandidates</text>
+<text x="72" y="482" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">assetId · binaryType · contentIdOrSha256 · hasLocalFile · dateLastUpdated</text>
+<text x="938" y="462" font-size="15" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">12,856</text>
+<text x="938" y="482" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">THE master index: photo ↔ sha ↔ on-disk flag</text>
+<rect x="56" y="500" width="898" height="56" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="524" font-size="16" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">localAuxTracker</text>
+<text x="72" y="544" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">docId · digest</text>
+<text x="938" y="524" font-size="15" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">10,461</text>
+<text x="938" y="544" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">digest chain → auxiliary\ payloads</text>
+<rect x="56" y="562" width="898" height="56" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="586" font-size="16" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">presetsAndProfiles</text>
+<text x="72" y="606" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">docId · name</text>
+<text x="938" y="586" font-size="15" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">235</text>
+<text x="938" y="606" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">preset names for cr_settings\</text>
+<rect x="1000" y="110" width="520" height="500" rx="14" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
+<text x="1020" y="144" font-size="15" fill="#d2a8ff" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">TWO KEY SPACES  (+ one trap)</text>
+<rect x="1020" y="164" width="480" height="120" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="1036" y="192" font-size="16" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">assetId</text>
+<text x="1036" y="216" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">32-hex · one per photo</text>
+<text x="1036" y="240" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">assets.assetId — and ⚠ assetPathsAndInfo.docId holds these</text>
+<text x="1036" y="266" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">proxies\2560\ folders are sharded by it</text>
+<rect x="1020" y="296" width="480" height="120" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="1036" y="324" font-size="16" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">docId</text>
+<text x="1036" y="348" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">32-hex · one per document</text>
+<text x="1036" y="372" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">versions · purgeCandidates · localAuxTracker</text>
+<text x="1036" y="396" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">externalDevelopSettings — no single table covers all</text>
+<rect x="1020" y="428" width="480" height="78" rx="10" fill="#0e1420" stroke="#7A8899" stroke-width="2"/>
+<text x="1036" y="454" font-size="15" fill="#ff7b72" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">assets.docId — INTEGER row id</text>
+<text x="1036" y="476" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">a different space entirely — the classic silent-join trap</text>
+<text x="1036" y="498" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">(length() also lies on binary TEXT columns)</text>
+<rect x="1020" y="520" width="480" height="72" rx="10" fill="#0e1420" stroke="#d2a8ff" stroke-width="2"/>
+<text x="1036" y="546" font-size="14" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">self-describing schema</text>
+<text x="1036" y="568" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">PRAGMA table_info reveals every column —</text>
+<text x="1036" y="586" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">how this whole map was established</text>
+<rect x="40" y="640" width="480" height="200" rx="14" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+<text x="60" y="670" font-size="14" fill="#58a6ff" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">IDENTITY &amp; FILES</text>
+<text x="60" y="696" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">mediaTypes</text>
+<text x="500" y="696" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">3,982</text>
+<text x="60" y="720" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">importSource</text>
+<text x="500" y="720" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">1,991</text>
+<text x="60" y="744" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">cameras · cameraModelsInUse</text>
+<text x="500" y="744" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">1,991</text>
+<text x="60" y="768" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">extensions</text>
+<text x="500" y="768" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">1,991</text>
+<text x="60" y="792" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">locations</text>
+<text x="500" y="792" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">516</text>
+<text x="60" y="816" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">asset_sync_local_file_type_ui</text>
+<text x="500" y="816" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">1,998</text>
+<rect x="550" y="640" width="480" height="200" rx="14" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="570" y="670" font-size="14" fill="#7ee787" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">DATES — precomputed calendar buckets</text>
+<text x="570" y="696" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">captureDate</text>
+<text x="1010" y="696" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">1,991</text>
+<text x="570" y="720" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">importTime</text>
+<text x="1010" y="720" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">1,991</text>
+<text x="570" y="744" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">modifiedTime</text>
+<text x="1010" y="744" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">1,991</text>
+<text x="570" y="768" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">editedDate (isEdited)</text>
+<text x="1010" y="768" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">1,230</text>
+<rect x="1060" y="640" width="460" height="200" rx="14" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
+<text x="1080" y="670" font-size="14" fill="#d2a8ff" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">SYNC &amp; CACHE STATE</text>
+<text x="1080" y="696" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">asset_sync_status_ui</text>
+<text x="1500" y="696" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">7,992</text>
+<text x="1080" y="720" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">auxReferenceTracker</text>
+<text x="1500" y="720" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">10,461</text>
+<text x="1080" y="744" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">localStatusAndOzStatus</text>
+<text x="1500" y="744" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">3,457</text>
+<text x="1080" y="768" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">assetReferredCameraProfile</text>
+<text x="1500" y="768" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">975</text>
+<text x="1080" y="792" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">trashAssets · indexStatus · localState</text>
+<text x="1500" y="792" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">7/58/3</text>
+<text x="1080" y="816" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">schemaVersion</text>
+<text x="1500" y="816" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">1</text>
+<rect x="40" y="870" width="1480" height="110" rx="14" fill="#161b22" stroke="#7A8899" stroke-width="1.6" stroke-dasharray="7 5"/>
+<text x="60" y="898" font-size="14" fill="#7A8899" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">31 EMPTY TABLES — schema scaffolding for features never used</text>
+<text x="60" y="922" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">albums · album_asset_v2 · smart_albums · project_albums · space · space_album · space_user · spaceRelatives ·</text>
+<text x="60" y="944" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">spacefavorite · keywords · faces · person · comment · stacks · stack_assets · conflicts · errors · watermark · quota_exceeded …</text>
+<text x="60" y="964" font-size="12" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">their presence still teaches the schema's shape — empty tables name the features Adobe plans or syncs lazily</text>
+</svg>

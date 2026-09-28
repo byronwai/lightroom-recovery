@@ -7,6 +7,8 @@ header 0x0000, IFD0 0x0008 (20 entries), ExifIFD 0x11CC (45), MakerNotes
 SubIFD 0x21D22 (40 entries, StripOffsets -> 0x1EA000, 36,259,568 B),
 embedded preview JPEG 0x300A2 (177,176 B), EOF 0x247F000.
 """
+import os
+
 W, H = 1240, 820
 
 C = {  # palette (matches the repo's scoreboard chart)
@@ -178,5 +180,6 @@ arrow(RX, r2[0], "strip", "strip")
 svg.append(f'<text x="{RX}" y="{ty-10}" font-size="11" fill="{C["dim"]}">offsets in monospace are byte offsets into the file · arrow colour = destination block</text>')
 svg.append("</svg>")
 
-open(r"C:\Users\byronwai\ZCodeProject\lightroom-recovery\docs\img\arw-structure.svg", "w", encoding="utf-8").write("\n".join(svg))
-print("svg written")
+out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "arw-structure.svg")
+open(out, "w", encoding="utf-8").write("\n".join(svg))
+print("svg written:", out)

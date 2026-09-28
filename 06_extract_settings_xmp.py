@@ -4,6 +4,7 @@ NEXT TO ITS ORIGINAL photo in the recovery tree.
 Layout produced:
   originals\<year>\<date>\<DSCbase>.xmp          current edit (name = RAW name)
   originals\<year>\<date>\<DSCbase>_<sha6>.xmp    older edit revisions
+  originals\<year>\<date>\<DSCbase>_aux.xmp       Generative Remove records
   xmp-sidecars\<date>_<DSCbase>.xmp              photos with no recovered original
   xmp-sidecars\_unlinked\<sha256>.xmp            orphaned revisions (no asset link)
 
@@ -12,9 +13,12 @@ Sidecar naming rule: an XMP must share the EXACT base name of its photo
 why placed files carry no date prefix, and why leftovers keep one (their
 RAW is not on disk, the prefix is the only disambiguator).
 
+Re-runnable: writes are idempotent (identical content is skipped, never
+duplicated with a counter suffix).
+
 Dependencies: none beyond Python stdlib.
 """
-import sqlite3, os, glob, shutil, csv, re, collections
+import sqlite3, os, glob, shutil, csv, re, zlib, collections
 from common import get_paths
 
 _p = get_paths("Extract per-photo develop XMPs and place them next to their RAWs")
@@ -56,6 +60,15 @@ for doc, sha in wfx.execute("SELECT docId, sha256 FROM externalDevelopSettings")
     a = doc2asset.get(S(doc))
     if a: sha2asset[S(sha)] = a
 
+# digest -> assetId (auxiliary-store chain, for Generative Remove records)
+purge_by_doc = {}
+for doc, aid in wfx.execute("SELECT DISTINCT docId, assetId FROM purgeCandidates"):
+    purge_by_doc.setdefault(S(doc), S(aid))
+dig2asset = {}
+for doc, dg in wfx.execute("SELECT docId, digest FROM localAuxTracker"):
+    a = purge_by_doc.get(S(doc))
+    if a: dig2asset.setdefault(S(dg).upper(), a)
+
 on_disk = {os.path.basename(p): p for p in glob.glob(os.path.join(DATA, "settings", "*"))}
 print("settings files:", len(on_disk))
 
@@ -74,20 +87,27 @@ def safe_dst(directory, name):
         dst = os.path.join(directory, f"{stem}_{n}{ext}"); n += 1
     return dst
 
-# --- preserve pre-existing _aux (generative-remove metadata) by placing them too
-aux_moves = []
-for f in glob.glob(os.path.join(XDIR, "*_aux.xmp")):
-    m = re.match(r'(\d{4}-\d\d-\d\d)_(.+)_aux\.xmp$', os.path.basename(f))
-    if m:
-        d = os.path.join(ORIG, m.group(1)[:4], m.group(1))
-        if os.path.isdir(d): aux_moves.append((f, d, f"{m.group(2)}_aux.xmp"))
+def write_if_changed(path, data):
+    """Idempotent write: skip identical content; suffix only on real conflict."""
+    if os.path.exists(path):
+        if open(path, 'rb').read() == data:
+            return path
+        stem, ext = os.path.splitext(path)
+        n = 1
+        while os.path.exists(cand := os.path.join(os.path.dirname(path),
+                                                  f"{os.path.basename(stem)}_{n}{ext}")):
+            if open(cand, 'rb').read() == data:
+                return cand
+            n += 1
+        path = cand
+    with open(path, 'wb') as f:
+        f.write(data)
+    return path
 
-# --- clean the sidecar folder root (regenerating everything)
+# --- clean the sidecar folder root (regenerating everything below)
 os.makedirs(XDIR, exist_ok=True)
 for f in glob.glob(os.path.join(XDIR, "*.xmp")):
     os.remove(f)
-for f, d, n in aux_moves:
-    shutil.copy2(f, safe_dst(d, n)); print("aux placed:", n)
 
 placed = sidecar = revs = 0
 covered = set()
@@ -104,12 +124,12 @@ for aid, lst in asset_shas.items():
         current = (k == len(hits) - 1)
         if d:
             name = f"{base}.xmp" if current else f"{base}_{s[:6]}.xmp"
-            with open(safe_dst(d, name), 'wb') as f: f.write(pkt)
+            write_if_changed(os.path.join(d, name), pkt)
             if current: placed += 1
             else: revs += 1
         else:
             name = f"{cap[:10]}_{base}.xmp" if current else f"{cap[:10]}_{base}_{s[:6]}.xmp"
-            with open(safe_dst(XDIR, name), 'wb') as f: f.write(pkt)
+            write_if_changed(os.path.join(XDIR, name), pkt)
             if current: sidecar += 1
             else: revs += 1
         covered.add(aid)
@@ -127,16 +147,46 @@ for s, p in on_disk.items():
         fn, cap = assets[aid]
         base = os.path.splitext(fn)[0]; d = asset_dir.get(aid)
         if d:
-            with open(safe_dst(d, f"{base}_{s[:6]}.xmp"), 'wb') as f: f.write(pkt)
+            write_if_changed(os.path.join(d, f"{base}_{s[:6]}.xmp"), pkt)
         else:
-            with open(safe_dst(XDIR, f"{cap[:10]}_{base}_{s[:6]}.xmp"), 'wb') as f: f.write(pkt)
+            write_if_changed(os.path.join(XDIR, f"{cap[:10]}_{base}_{s[:6]}.xmp"), pkt)
         extra.add(aid)
     else:
         os.makedirs(os.path.join(XDIR, "_unlinked"), exist_ok=True)
-        shutil.copy2(p, os.path.join(XDIR, "_unlinked", s + '.xmp'))
+        write_if_changed(os.path.join(XDIR, "_unlinked", s + '.xmp'), pkt)
         n_unlinked += 1
 print(f"placed next to RAW: {placed} (+{revs} old revisions) | no-original sidecars: {sidecar} "
       f"| extra linked: {len(extra)} | unlinked: {n_unlinked}")
+
+# --- Generative Remove records (auxiliary zlib payloads, not develop settings)
+n_aux = n_aux_unlinked = 0
+for p in glob.glob(os.path.join(DATA, "auxiliary", "*", "*")):
+    dg = (os.path.basename(os.path.dirname(p)) + os.path.basename(p)).upper()
+    raw = open(p, 'rb').read()
+    if raw[4:6] != b"\x78\x9c": continue
+    try: xml = zlib.decompress(raw[4:])
+    except Exception: continue
+    if (b'ResponseInfo' not in xml and b'clio-erase' not in xml) or b'Exposure2012' in xml:
+        continue
+    i = xml.find(b'<x:xmpmeta'); j = xml.rfind(b'</x:xmpmeta>')
+    if i == -1 or j == -1: continue
+    pkt = (b'<?xpacket begin="\xef\xbb\xbf" id="W5M0MpCehiHzreSzNTczkc9d"?>\n'
+           + xml[i:j + 12] + b'\n<?xpacket end="w"?>')
+    aid = dig2asset.get(dg)
+    if aid and aid in assets:
+        fn, capd = assets[aid]
+        base = os.path.splitext(fn)[0]
+        d = asset_dir.get(aid)
+        if d:
+            write_if_changed(os.path.join(d, f"{base}_aux.xmp"), pkt)
+        else:
+            write_if_changed(os.path.join(XDIR, f"{capd[:10]}_{base}_aux.xmp"), pkt)
+        n_aux += 1
+    else:
+        os.makedirs(os.path.join(XDIR, "_unlinked"), exist_ok=True)
+        write_if_changed(os.path.join(XDIR, "_unlinked", dg + '.xmp'), pkt)
+        n_aux_unlinked += 1
+print(f"Generative Remove records: {n_aux} placed (+{n_aux_unlinked} unlinked)")
 
 # --- presets (rebuild folder cleanly so re-runs don't duplicate)
 presets = {S(doc): S(nm) for doc, nm in wfx.execute("SELECT docId, name FROM presetsAndProfiles")}

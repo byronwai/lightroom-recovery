@@ -6,6 +6,9 @@ pieces back into photos, edits, and presets.
 
 - [1. Local storage layout](#1-local-storage-layout)
 - [2. Catalog tables and file stores — the join graph](#2-catalog-tables-and-file-stores--the-join-graph)
+- [2.1 The settings join in detail — wfindex → named sidecars](#21-the-settings-join-in-detail--wfindex--named-sidecars)
+- [2.2 wfindex internal structure — 62 tables at a glance](#22-wfindex-internal-structure--62-tables-at-a-glance)
+- [2.3 How the linkage was discovered — the forensic path](#23-how-the-linkage-was-discovered--the-forensic-path)
 - [3. How one photo's edit becomes a sidecar](#3-how-one-photos-edit-becomes-a-sidecar)
 - [4. The recovery pipeline](#4-the-recovery-pipeline)
 - [5. ACR files vs aux payloads — what is importable](#5-acr-files-vs-aux-payloads--what-is-importable)
@@ -15,6 +18,22 @@ pieces back into photos, edits, and presets.
 ---
 
 ## 1. Local storage layout
+
+![Lightroom cloud local data layout](assets/lightroom-cc-layout.png)
+
+*(with sizes/counts from the recovered library · vector:
+[lightroom-cc-layout.svg](assets/lightroom-cc-layout.svg))*
+
+Library-agnostic version — same structure, no sizes or counts:
+
+![Lightroom cloud local data layout (plain)](assets/lightroom-cc-layout-plain.png)
+
+*(vector: [lightroom-cc-layout-plain.svg](assets/lightroom-cc-layout-plain.svg))*
+
+Both regenerate with `scripts/make_layout_diagram.py`. Monospace tree
+versions: [detailed with counts](assets/lightroom-cc-data-tree.png) ·
+[simplified, no counts](assets/lightroom-cc-data-tree-plain.png) —
+and the exact text tree below.
 
 Everything lives under one folder — unencrypted, plain files + SQLite:
 
@@ -27,7 +46,7 @@ flowchart TB
             NDB["Managed Catalog.notifdb<br/>notifications (ignorable)"]
         end
         subgraph STORES["content-addressed file stores"]
-            ORIG["originals / year / date / *.ARW<br/>1,692 full-resolution RAWs (64 GB)<br/>★★★ the photos"]
+            ORIG["originals / year / date / *.ARW<br/>1,692 full-resolution RAWs (64 GB)<br/>second copy of files you already own"]
             SET["settings / &lt;sha256&gt;<br/>2,648 extensionless blobs<br/>★ per-photo develop XMPs"]
             PREV["previews / &lt;shard&gt; / &lt;key&gt;&lt;suffix&gt;<br/>5,530 JPEG renders, edits baked in<br/>suffix: afa=320px ama=640px baa=2048px"]
             AUX["auxiliary / &lt;digest[:3]&gt; / &lt;digest[3:]&gt;<br/>4,734 mixed: TIFF renditions (02)<br/>+ zlib XMP payloads (uint32 len + 78 9c)"]
@@ -51,6 +70,12 @@ rest name the file.
 The core data structure: `wfindex` tables (plain SQL) linked to each other
 by three overlapping key-spaces, and to the physical files by digests and
 sha256s. Bold row names are the ones that matter most.
+
+![Catalog tables and file stores — the join graph](assets/join-graph.png)
+
+*(vector: [join-graph.svg](assets/join-graph.svg) — regenerate with
+`scripts/make_join_graph_image.py`; the interactive Mermaid version below
+adds the table-to-table relations)*
 
 ```mermaid
 flowchart LR
@@ -100,6 +125,128 @@ Key-space gotchas (all three bite during joins):
 
 (`hasLocalFile` is Adobe's own flag for "the blob is on this machine";
 `ozHasBinary=1` means Adobe's cloud still has it.)
+
+### 2.1 The `settings\` join in detail — wfindex → named sidecars
+
+The whole mapping rests on one co-occurrence: every
+`purgeCandidates` row with `binaryType='xmp_develop'` carries **both** the
+photo's `assetId` **and** the `contentIdOrSha256` — and that sha256 *is the
+file name* inside `settings\`. No decoding, no hashing, no parsing: one SQL
+row is the entire link.
+
+![wfindex to settings join flow](assets/wfindex-settings-join.png)
+
+*(with counts from the recovered library · vector:
+[wfindex-settings-join.svg](assets/wfindex-settings-join.svg) —
+regenerate with `scripts/make_settings_flow_image.py`)*
+
+Library-agnostic version (no counts):
+
+![wfindex to settings join flow (plain)](assets/wfindex-settings-join-plain.png)
+
+*(vector: [wfindex-settings-join-plain.svg](assets/wfindex-settings-join-plain.svg))*
+
+```mermaid
+flowchart TB
+    subgraph WFX["Managed Catalog.wfindex (SQLite)"]
+        P["purgeCandidates<br/>binaryType='xmp_develop' → 3,457 rows<br/>assetId · contentIdOrSha256<br/>dateLastUpdatedInSeconds · hasLocalFile"]
+        A["assets<br/>assetId → filename · captureDate"]
+        API["assetPathsAndInfo<br/>docId column = assetId<br/>→ originalRelativePath"]
+    end
+    SET[("settings\\&lt;sha256&gt;<br/>2,648 bare develop XMPs<br/>(no envelope, no extension)")]
+    P -->|"contentIdOrSha256<br/>IS the file name"| SET
+    P -->|"several shas per photo?<br/>sort by dateLastUpdatedInSeconds,<br/>newest wins"| REV["current = &lt;stem&gt;.xmp<br/>older = &lt;stem&gt;_&lt;sha6&gt;.xmp"]
+    A -->|"filename → stem<br/>(byte-identical base name)"| REV
+    API -->|"originals\\&lt;year&gt;\\&lt;date&gt;\\"| REV
+    REV --> W["wrap(): add &lt;?xpacket?&gt; envelope"]
+    W --> OUT["DSC02091.ARW  +  DSC02091.xmp<br/>sidecar beside its RAW<br/>1,952 photos recovered this way"]
+    EXT["externalDevelopSettings.docId→sha256<br/>versions.docId→assetId · localAuxTracker.digest"] -.->|"fallback joins<br/>(same sha space / aux chain)"| SET
+```
+
+Why the fallbacks exist: `purgeCandidates` is cache bookkeeping, so Adobe
+prunes it — some on-disk shas have no row left (they landed in
+`_unlinked\`), and some XMPs travel through the `auxiliary\` zlib chain
+instead. The other tables are redundant key-spaces covering those gaps.
+
+### 2.2 wfindex internal structure — 62 tables at a glance
+
+![wfindex structure](assets/wfindex-structure.png)
+
+*(with row counts from the recovered library · vector:
+[wfindex-structure.svg](assets/wfindex-structure.svg) — regenerate with
+`scripts/make_wfindex_diagram.py`)*
+
+Simplified overview (the 7 tables + key spaces only):
+
+![wfindex structure (plain)](assets/wfindex-structure-plain.png)
+
+*(vector: [wfindex-structure-plain.svg](assets/wfindex-structure-plain.svg))*
+
+Same map as Mermaid (renders natively on GitHub):
+
+```mermaid
+flowchart TB
+    KEYS{{"two key spaces: assetId (photos) + docId (documents)<br/>trap: assets.docId is an INTEGER row id — a third, unrelated space"}}
+    subgraph CRIT["recovery-critical tables — these seven carry every join"]
+        ASSETS["assets · 1,991<br/>assetId · filename · captureDate · rating"]
+        API["assetPathsAndInfo · 1,998<br/>docId = assetId! · originalRelativePath"]
+        VER["versions · 1,459<br/>docId · assetId — one row per edit"]
+        EDS["externalDevelopSettings · 3,457<br/>docId · sha256 (settings\\ space)"]
+        PURGE["purgeCandidates · 12,856<br/>assetId · binaryType · contentIdOrSha256<br/>hasLocalFile — THE master index"]
+        LAT["localAuxTracker · 10,461<br/>docId · digest → auxiliary\\"]
+        PRE["presetsAndProfiles · 235<br/>docId · name → cr_settings\\"]
+    end
+    subgraph DERIVED["derived search indexes — every fact also lives in the mcat"]
+        D1["captureDate · importTime · modifiedTime · editedDate"]
+        D2["mediaTypes · importSource · cameras · cameraModelsInUse<br/>extensions · locations · asset_sync_local_file_type_ui"]
+        D3["ratings · reviews · labelColors"]
+    end
+    subgraph SYNC["sync & cache state"]
+        S1["asset_sync_status_ui · 7,992"]
+        S2["auxReferenceTracker · 10,461<br/>localStatusAndOzStatus · 3,457"]
+        S3["assetReferredCameraProfile · 975 · trashAssets · 7<br/>indexStatus · localState · schemaVersion"]
+    end
+    EMPTY["31 EMPTY TABLES — albums · album_asset_v2 · smart_albums · project_albums<br/>space_* · keywords · faces · person · stacks · conflicts · errors …<br/>schema scaffolding for features never used"]
+    KEYS --- CRIT
+    CRIT ~~~ DERIVED
+    CRIT ~~~ SYNC
+    DERIVED ~~~ EMPTY
+    SYNC ~~~ EMPTY
+```
+
+Seven tables do all the recovery work; everything else is derived search
+indexing (`captureDate`, `ratings`, …), sync state, or empty scaffolding
+for features never used (albums, faces, keywords — 31 empty tables whose
+names still teach the schema's shape). Two key-spaces interlock the whole
+database — `assetId` (photos) and `docId` (documents) — plus the one trap
+that costs everyone an hour: `assets.docId` is an INTEGER row id in a
+*third*, unrelated space.
+
+About the name: `.wfindex` most likely stands for *window-function index* — Adobe does not say; treat it as a SQLite projection either way.
+
+Remember the hierarchy: **wfindex is derived data.** The `mcat` document
+store is the sync source of truth; Adobe's own troubleshooting pages tell
+users to delete the local catalog and let Lightroom rebuild it — which is
+also why the toolkit snapshots these files before anything else.
+
+### 2.3 How the linkage was discovered — the forensic path
+
+The mechanism above (§2.1) reads clean in hindsight; this is what finding
+it actually looked like — dead ends and the wrong conclusion included:
+
+![How the Catalog-XMP linkage was discovered](assets/catalog-xmp-discovery.png)
+
+*(vector: [catalog-xmp-discovery.svg](assets/catalog-xmp-discovery.svg) —
+regenerate with `scripts/make_discovery_flow_image.py`; mirrors
+[walkthrough.md](walkthrough.md) steps 3–6)*
+
+The short version: the obvious folders were empty, so the working theory
+became "edits are cloud-only" — until one census query showed Adobe's own
+index claiming 2,123 develop XMPs were on the machine. Trusting the index
+over intuition led to a full filename census, which exposed `settings\`
+(sitting there the whole time, misjudged by its name), and one comparison
+— index column vs filenames — settled the linkage: **every indexed sha
+matched (2,123/2,123 rows · 1,345/1,345 distinct — 100%, zero misses).**
 
 ---
 
@@ -195,14 +342,14 @@ pointing at data anywhere else in the file.
 
 ### 6.1 ARW — a TIFF with the sensor data in a SubIFD
 
-![ARW structure](img/arw-structure.png)
+![ARW structure](assets/arw-structure.png)
 
-*(vector source: `img/arw-structure.svg` · regenerate either with
-`img/make_arw_diagram.py`; render the PNG via headless Chromium against
+*(vector source: `assets/arw-structure.svg` · regenerate either with
+`assets/make_arw_diagram.py`; render the PNG via headless Chromium against
 the SVG — e.g. `msedge --headless=new --user-data-dir=<tmp> --screenshot=...`)*
 
 The diagram's offsets are real, parsed from `DSC00001.ARW` (38.3 MB —
-regenerate it with `img/make_arw_diagram.py`):
+regenerate it with `assets/make_arw_diagram.py`):
 
 ```
 00000000  49 49 2a 00 08 00 00 00 14 00 fe 00 04 00 01 00  II*.............
@@ -271,22 +418,56 @@ stand-ins, keyed directly by assetId — no matching needed, pure rename.
 
 ### 6.4 XMP — not chunks at all, RDF/XML
 
+![XMP internal structure](assets/xmp-structure.png)
+
+*(vector source: `assets/xmp-structure.svg` · regenerate with
+`scripts/make_xmp_structure_image.py` — every offset and value above is
+real, measured from `DSC08974.xmp`, 24,340 bytes: 178 scalar attributes,
+50 `rdf:Seq` arrays, 11 nested Descriptions incl. a mask group "Water")*
+
 One edit is one flat bag of `crs:*` attributes in a namespaced XML tree —
-there is no binary container to parse:
+there is no binary container to parse. The full skeleton, with the real
+byte offsets from that file:
 
 ```
-<?xpacket begin="<BOM>" id="W5M0MpCehiHzreSzNTczkc9d"?>   ← packet envelope (id is a fixed GUID)
-<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 7.0-c000 …">
-  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <rdf:Description rdf:about=""
-                     xmlns:crs="http://ns.adobe.com/camera-raw-settings/1.0/">
-      crs:Version="18.5.1"
-      crs:Exposure2012="…" … crs:MaskGroupBasedCorrections="…"
-    </rdf:Description>
-  </rdf:RDF>
-</x:xmpmeta>
-<?xpacket end="w"?>                                      ← "w" = padding may be reused for in-place edits
+     0   <?xpacket begin="<BOM>" id="W5M0MpCehiHzreSzNTczkc9d"?>  ← envelope (fixed GUID id)
+    54   <x:xmpmeta x:xmptk="Adobe XMP Core 7.0-c000 …">          ← wrapper + toolkit identity
+   164     <rdf:RDF>                                              ← RDF graph root
+   232       <rdf:Description rdf:about="" xmlns:crs="…/camera-raw-settings/1.0/">
+               │
+               ├─ scalars: flat attributes — the sliders
+               │    crs:ProcessVersion="15.4"  crs:WhiteBalance="Custom"
+               │    crs:Temperature="5200"  crs:Tint="+13"  crs:Vibrance="+15"
+               │    crs:Exposure2012="0.00"  crs:Saturation="+5"  … (178 here)
+               │
+               ├─ arrays: child elements, values in rdf containers
+               │  4098   <crs:ToneCurvePV2012>            curves = Seq of "x, y" points
+               │           <rdf:Seq><rdf:li>0, 0</rdf:li><rdf:li>255, 255</rdf:li></rdf:Seq>
+               │
+               └─ structs: nested Descriptions inside a Seq
+               │  5085   <crs:MaskGroupBasedCorrections>   one li per mask group
+               │           <rdf:li><rdf:Description crs:What="Correction"
+               │             crs:CorrectionName="Water"  crs:CorrectionActive="true"
+               │             crs:CorrectionSyncID="178CE3C8FA3715C7…">
+               │             <crs:CorrectionMasks> … brush/radial/linear/AI geometry
+               │                                + LumEq range curves … </rdf:Description></rdf:li>
+               │         <crs:RangeMaskMapInfo> … </crs:RangeMaskMapInfo>
+               │
+ 24297   </rdf:RDF></x:xmpmeta>
+ 24321   <?xpacket end="w"?>                          ← "w" = in-place rewrite allowed (tail padding)
 ```
+
+Encoding rules the tree implies:
+
+- **flat slider → attribute** on the Description; **list/curve → `rdf:Seq`**
+  (ordered — curve points); **unordered set → `rdf:Bag`** (e.g. Looks);
+  **alternative → `rdf:Alt`** (e.g. localized `dc:title`).
+- **A mask is a full nested `rdf:Description`** — masks are edits-within-
+  the-edit, each carrying its own name, sync id, geometry, and even its
+  own curves (`LumEq`). That is why one sidecar can reach 24 KB while a
+  slider-only edit is ~1.7 KB.
+- **`crs:CorrectionSyncID`** is how Adobe links a mask across the sync
+  ecosystem — the same id family the recovery chases in the catalog.
 
 The `settings\` store keeps these **bare**: the blob on disk starts directly
 with `<x:xmpmeta` and carries **no `<?xpacket?>` envelope** (verified — every
@@ -340,9 +521,97 @@ Rules that make the merge correct rather than just possible:
   the whole recovery is *naming* preview JPEGs (§3, perceptual matching) —
   and that is read-only too.
 
+### 6.7 The XMP directory map — source stores → recovery layout
+
+![XMP directory map](assets/xmp-directory-map.png)
+
+*(PNG above; vector version: [xmp-directory-map.svg](assets/xmp-directory-map.svg) — regenerate with `scripts/make_xmp_map_image.py`.)*
+
+Every place XMP lives in Adobe's cache, and where the toolkit puts it.
+Counts are from the real recovery.
+
+**Source — XMP-bearing paths inside `Data\<guid>\`:**
+
+```
+Data\<guid>\
+├── settings\<64-hex sha256>              2,648 per-photo develop blobs
+│                                         (current + superseded revisions,
+│                                          bare <x:xmpmeta>, no envelope)
+├── auxiliary\<digest[:3]>\<digest[3:]>   31 zlib-compressed XMPs among 4,734 files:
+│                                         23 Generative Remove records
+│                                         + 8 develop settings (already covered by settings\)
+├── cr_settings\<preset-docId>.xmp        234 user presets (ACR preset schema)
+├── cr_defaults\                          RawDefaults.xmp · FavoriteStyles.xmp
+└── xmp\<2-hex>\                          transient download shards — empty between syncs
+```
+
+**Destination — the recovery output (3,665 .xmp files total):**
+
+```
+<out>\
+├── originals\<year>\<date>\                1,785 XMPs beside their RAWs
+│   ├── DSC02091.ARW
+│   ├── DSC02091.xmp                        1,639 current edits (byte-identical base name)
+│   ├── DSC02091_1045a0.xmp                 124 older revisions (sha6 suffix)
+│   ├── DSC02091_1117ef_1.xmp                 4 collision-renamed revisions (distinct content)
+│   └── DSC02091_aux.xmp                     18 Generative Remove records
+├── xmp-sidecars\                           336 XMPs for photos with no local RAW
+│   ├── 2025-04-03_DSC01127.xmp             313 current edits (date prefix = disambiguator)
+│   ├── 2025-04-03_DSC01127_<sha6>.xmp       22 orphan revisions
+│   └── 2025-04-03_DSC01127_aux.xmp            1 Generative Remove record
+├── xmp-sidecars\_unlinked\                 1,308 orphans no table can link
+│   ├── <sha256>.xmp                        1,303 develop revisions
+│   └── <digest>.xmp                            5 Generative Remove records
+├── presets\<name>.xmp                        234 ACR presets (real names)
+└── raw-defaults\                              2 (RawDefaults, FavoriteStyles)
+```
+
+**Naming grammar** — every suffix the pipeline can produce:
+
+| Pattern | Meaning | Importable as-is? |
+|---|---|---|
+| `<RAW stem>.xmp` | current edit of that photo | ✅ (this is the required form) |
+| `<RAW stem>_<sha6>.xmp` | older edit revision | ✅ after renaming (drop suffix) |
+| `<RAW stem>_<sha6>_<n>.xmp` | revision whose sha6 prefix collided | ✅ after renaming |
+| `<RAW stem>_aux.xmp` | Generative Remove record — provenance, not look | ❌ AI pixels are cloud-held |
+| `<date>_<RAW stem>.xmp` | photo whose RAW was never cached locally | ✅ rename when the RAW is found |
+
+The one rule underneath all of them: **Camera Raw only reads a sidecar whose
+base name is byte-identical to the photo's** — every suffix above exists to
+preserve information without breaking that rule for the *current* revision.
+
 ---
 
 ## 7. References
+
+### Evidence base — what is documented vs what was established empirically
+
+Adobe does **not** document the cloud Lightroom's local internals. This
+project's claims split into two classes, and readers should know which is
+which:
+
+| Claim | Basis |
+|---|---|
+| XMP packet format, `crs:` namespace, sidecar naming, presets folders | **Adobe-documented** (links below) |
+| The local sync database exists — `Managed Catalog.mcat` + `.wfindex` — and is safe to delete | **Adobe-documented**: [local sync database](https://helpx.adobe.com/hk_zh/lightroom-classic/desktop/kb/local-sync-database.html) (written for Classic's cloud sync, same component) + corrupted-catalog troubleshooting pages |
+| `wfindex`'s ~60-table schema, `purgeCandidates` semantics (`binaryType`, `contentIdOrSha256`, `hasLocalFile`) | **Empirical** — SQLite schemas are self-describing (`PRAGMA table_info`); semantics verified by falsifiable tests |
+| `settings\` files are the per-photo develop XMPs, sha-addressed | **Empirical** — every indexed sha matches a filename (2,123/2,123 rows · 1,345/1,345 distinct); census: 2,648/2,648 files begin `<x:xmpmeta`, declare the documented `crs:` namespace, and carry develop sliders (`Exposure2012`); 2,592/2,648 filenames are *literally* sha256 of the file bytes (56 rewritten in place keep their birth hash) |
+| Join outputs are correct | **Empirical** — end-to-end checks: named sidecars contain the right sliders/masks for the right photos; counts reconcile (3,457 indexed · 2,648 on disk · 1,952 joined · all 621 edited covered) |
+
+No public third-party documentation of these internals exists as of this
+writing (the only outside mention of `wfindex` found is a diagnostic-log
+excerpt). The verification snippets live in
+[walkthrough.md](walkthrough.md) steps 5–6 — re-run them against any
+library to reproduce the finding. Treat everything not in Adobe's docs as
+reverse-engineered knowledge: accurate for the versions tested, subject to
+change by Adobe without notice.
+
+### External references
+
+- Adobe: **The local sync database** (Lightroom Classic cloud sync) — the closest thing to official documentation of `Managed Catalog.mcat` / `.wfindex` —
+  <https://helpx.adobe.com/hk_zh/lightroom-classic/desktop/kb/local-sync-database.html>
+- FileInfo: the `.mcat` extension entry (community file-format database) —
+  <https://fileinfo.com/zh/extension/mcat>
 
 - Adobe: **Create XMP/ACR files in Lightroom Classic** — the definitive
   Adobe reference for what "ACR files" are (XMP sidecars written by

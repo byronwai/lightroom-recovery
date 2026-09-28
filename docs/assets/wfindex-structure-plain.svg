@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="660" viewBox="0 0 1160 660" font-family="'Segoe UI', sans-serif">
+<rect width="1160" height="660" fill="#0d1117"/>
+<text x="40" y="52" font-size="30" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">Managed Catalog.wfindex — the 7 tables that matter</text>
+<text x="40" y="82" font-size="15" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">62 tables total · all of it derived, rebuildable data — the mcat document store is the source of truth</text>
+<rect x="40" y="110" width="660" height="440" rx="14" fill="#161b22" stroke="#ffa657" stroke-width="2"/>
+<text x="60" y="144" font-size="14" fill="#ffa657" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">RECOVERY-CRITICAL</text>
+<rect x="56" y="166" width="628" height="48" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="196" font-size="17" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">assets</text>
+<text x="672" y="196" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">the photo's identity</text>
+<rect x="56" y="220" width="628" height="48" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="250" font-size="17" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">assetPathsAndInfo</text>
+<text x="672" y="250" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">where the RAW lives on disk</text>
+<rect x="56" y="274" width="628" height="48" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="304" font-size="17" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">versions</text>
+<text x="672" y="304" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">which photos are edited</text>
+<rect x="56" y="328" width="628" height="48" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="358" font-size="17" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">purgeCandidates</text>
+<text x="672" y="358" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">photo ↔ sha ↔ on-disk flag — the master index</text>
+<rect x="56" y="382" width="628" height="48" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="412" font-size="17" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">externalDevelopSettings</text>
+<text x="672" y="412" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">edit-blob references</text>
+<rect x="56" y="436" width="628" height="48" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="466" font-size="17" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">localAuxTracker</text>
+<text x="672" y="466" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">auxiliary payload digests</text>
+<rect x="56" y="490" width="628" height="48" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="72" y="520" font-size="17" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">presetsAndProfiles</text>
+<text x="672" y="520" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="end">preset names</text>
+<rect x="730" y="110" width="390" height="440" rx="14" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
+<text x="750" y="144" font-size="14" fill="#d2a8ff" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">KEY SPACES</text>
+<rect x="750" y="162" width="350" height="92" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="766" y="190" font-size="17" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">assetId</text>
+<text x="766" y="214" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">one per photo — pivot of every join</text>
+<text x="766" y="236" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">⚠ assetPathsAndInfo.docId holds these</text>
+<rect x="750" y="266" width="350" height="92" rx="10" fill="#0e1420" stroke="#30363d" stroke-width="2"/>
+<text x="766" y="294" font-size="17" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">docId</text>
+<text x="766" y="318" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">one per document (edit, preset, aux ref)</text>
+<text x="766" y="340" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">versions · purgeCandidates · localAuxTracker</text>
+<rect x="750" y="370" width="350" height="66" rx="10" fill="#0e1420" stroke="#7A8899" stroke-width="2"/>
+<text x="766" y="394" font-size="14.5" fill="#ff7b72" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">assets.docId — INTEGER row id</text>
+<text x="766" y="418" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">a third, unrelated space — the silent-join trap</text>
+<rect x="750" y="448" width="350" height="82" rx="10" fill="#0e1420" stroke="#d2a8ff" stroke-width="2"/>
+<text x="766" y="476" font-size="14" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">self-describing schema</text>
+<text x="766" y="500" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">PRAGMA table_info reveals every</text>
+<text x="766" y="520" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">column — how this map was made</text>
+<rect x="40" y="574" width="1080" height="62" rx="14" fill="#161b22" stroke="#7A8899" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="60" y="600" font-size="14.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">the other 55 tables — derived search indexes (dates, ratings, cameras) · sync state · 31 empty scaffolding tables</text>
+<text x="60" y="624" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">(albums · faces · keywords · stacks … present but unused — their names still teach the schema's shape)</text>
+</svg>

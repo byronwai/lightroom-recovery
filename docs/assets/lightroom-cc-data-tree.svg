@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="938" viewBox="0 0 1080 938" font-family="Consolas, 'Cascadia Mono', 'Courier New', monospace">
+<rect width="1080" height="938" fill="#0d1117"/>
+<text x="28" y="28" font-size="17" font-weight="bold" fill="#e6edf3">Adobe Lightroom (cloud) — local data layout</text>
+<text x="28" y="55" font-size="15" xml:space="preserve"><tspan fill="#79c0ff">%LOCALAPPDATA%\Adobe\Lightroom CC\</tspan></text>
+<text x="28" y="76" font-size="15" xml:space="preserve"><tspan fill="#4d5761">├── </tspan><tspan fill="#79c0ff">Caches\</tspan><tspan fill="#8b949e">                    8 files — per-user cache blobs (guid-named, ~12 KB)</tspan></text>
+<text x="28" y="97" font-size="15" xml:space="preserve"><tspan fill="#4d5761">├── </tspan><tspan fill="#79c0ff">Connections\</tspan><tspan fill="#8b949e">              2 files — sync connection state</tspan></text>
+<text x="28" y="118" font-size="15" xml:space="preserve"><tspan fill="#4d5761">├── </tspan><tspan fill="#79c0ff">Preferences\</tspan><tspan fill="#8b949e">              1 file</tspan></text>
+<text x="28" y="139" font-size="15" xml:space="preserve"><tspan fill="#4d5761">├── </tspan><tspan fill="#79c0ff">avatar\</tspan><tspan fill="#8b949e">                   26 files — Adobe profile avatars</tspan></text>
+<text x="28" y="160" font-size="15" xml:space="preserve"><tspan fill="#4d5761">└── </tspan><tspan fill="#79c0ff">Data\</tspan></text>
+<text x="28" y="181" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    ├── </tspan><tspan fill="#79c0ff">&lt;catalog-guid&gt;\</tspan><tspan fill="#8b949e">     ← one folder per cloud catalog</tspan></text>
+<text x="28" y="202" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#e6edf3">Managed Catalog.mcat</tspan><tspan fill="#8b949e">        160 MB — document store,</tspan></text>
+<text x="28" y="223" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   │</tspan><tspan fill="#8b949e">                                     sync source of truth (CBOR blobs)</tspan></text>
+<text x="28" y="244" font-size="15" xml:space="preserve"><tspan fill="#8b949e">    │   │   + -shm / -wal</tspan><tspan fill="#ff7b72">                         WAL siblings — copy together!</tspan></text>
+<text x="28" y="265" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#e6edf3">Managed Catalog.mru</tspan></text>
+<text x="28" y="286" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#e6edf3">Managed Catalog.notifdb</tspan><tspan fill="#8b949e"> (+ -wal)</tspan><tspan fill="#8b949e">   notifications (ignorable)</tspan></text>
+<text x="28" y="307" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#e6edf3">Managed Catalog.wfindex</tspan><tspan fill="#ffa657">      36 MB — • SQL index: the goldmine</tspan></text>
+<text x="28" y="328" font-size="15" xml:space="preserve"><tspan fill="#8b949e">    │   │   + -shm / -wal</tspan></text>
+<text x="28" y="349" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#e6edf3">cullingScores.db</tspan><tspan fill="#8b949e">          2.9 MB — AI culling scores</tspan></text>
+<text x="28" y="370" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#79c0ff">originals\</tspan><tspan fill="#8b949e">                 1,692 RAWs — 64 GB — 2nd copy of your own files</tspan></text>
+<text x="28" y="391" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   │   ├── </tspan><tspan fill="#79c0ff">2025\2024-11-16\DSCxxxxx.ARW</tspan><tspan fill="#8b949e">   grouped by year\capture-date</tspan></text>
+<text x="28" y="412" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   │   ├── </tspan><tspan fill="#79c0ff">2026\2025-02-08\ … 2025-06-08\</tspan><tspan fill="#8b949e">  9 date folders</tspan></text>
+<text x="28" y="433" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   │   └── </tspan><tspan fill="#79c0ff">0000\0000-00-00\</tspan><tspan fill="#ff7b72">              ← photos with unknown capture date</tspan></text>
+<text x="28" y="454" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#79c0ff">settings\</tspan><tspan fill="#ffa657">                 2,648 files — •• per-photo develop XMPs</tspan></text>
+<text x="28" y="475" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   │   └── </tspan><tspan fill="#e6edf3">&lt;64-hex sha256&gt;</tspan><tspan fill="#8b949e">             no extension — named by content hash</tspan></text>
+<text x="28" y="496" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#79c0ff">auxiliary\</tspan><tspan fill="#8b949e">               4,734 files in 2,801 shards</tspan></text>
+<text x="28" y="517" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   │   └── </tspan><tspan fill="#e6edf3">&lt;digest[:3]&gt;\&lt;digest[3:]&gt;</tspan><tspan fill="#8b949e">       TIFF renditions + zlib XMP payloads</tspan></text>
+<text x="28" y="538" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#79c0ff">previews\</tspan><tspan fill="#8b949e">                5,530 renders in 256 shards</tspan></text>
+<text x="28" y="559" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   │   └── </tspan><tspan fill="#e6edf3">&lt;2-hex&gt;\&lt;key&gt;&lt;suffix&gt;</tspan><tspan fill="#8b949e">            afa=320px ama=640px baa=2048px (edited)</tspan></text>
+<text x="28" y="580" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#79c0ff">proxies\</tspan><tspan fill="#8b949e">                 318 files — 2560px DNG stand-ins (unedited)</tspan></text>
+<text x="28" y="601" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   │   └── </tspan><tspan fill="#e6edf3">2560\&lt;assetId[:3]&gt;\&lt;assetId[3:]&gt;</tspan></text>
+<text x="28" y="622" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#79c0ff">cr_settings\</tspan><tspan fill="#ffa657">             234 user presets (real ACR .xmp format)</tspan></text>
+<text x="28" y="643" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   │   └── </tspan><tspan fill="#e6edf3">&lt;preset-docId&gt;.xmp</tspan></text>
+<text x="28" y="664" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#79c0ff">cr_defaults\</tspan><tspan fill="#8b949e">             FavoriteStyles.xmp · RawDefaults.xmp</tspan></text>
+<text x="28" y="685" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#79c0ff">cr_cameraprofiles\</tspan><tspan fill="#8b949e">        (empty — profiles ship with the app)</tspan></text>
+<text x="28" y="706" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#79c0ff">watermarks\ · people\</tspan><tspan fill="#8b949e">       (empty here)</tspan></text>
+<text x="28" y="727" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   ├── </tspan><tspan fill="#79c0ff">xmp\</tspan><tspan fill="#ff7b72">                     2,570 shards — transient downloads,</tspan></text>
+<text x="28" y="748" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   │   └── </tspan><tspan fill="#e6edf3">&lt;2-hex&gt;\ + Index_*.dat</tspan><tspan fill="#ff7b72">         empty between syncs (the red herring)</tspan></text>
+<text x="28" y="769" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    │   └── </tspan><tspan fill="#79c0ff">big_table_cache\</tspan><tspan fill="#8b949e">          (empty)</tspan></text>
+<text x="28" y="790" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    ├── </tspan><tspan fill="#79c0ff">&lt;other catalog guids&gt;\</tspan><tspan fill="#8b949e">         one per account/library that synced</tspan></text>
+<text x="28" y="811" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    ├── </tspan><tspan fill="#79c0ff">FolderSourcePreviews\ · TemporaryEdits\</tspan><tspan fill="#8b949e">   app working areas</tspan></text>
+<text x="28" y="832" font-size="15" xml:space="preserve"><tspan fill="#4d5761">    └── </tspan><tspan fill="#79c0ff">big_table_cache\ · profiles\ · user\</tspan><tspan fill="#8b949e">   app-level defaults</tspan></text>
+<text x="28" y="874" font-size="15" xml:space="preserve"><tspan fill="#ffa657">• = recovery-critical      </tspan><tspan fill="#8b949e">│ tree verified against a live library · counts = real file counts</tspan></text>
+</svg>

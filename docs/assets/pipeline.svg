@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1560" viewBox="0 0 1200 1560" font-family="'Segoe UI', sans-serif">
+<rect width="1200" height="1560" fill="#0d1117"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#e6edf3"/></marker></defs>
+<text x="40" y="52" font-size="30" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">The recovery pipeline</text>
+<text x="40" y="82" font-size="15" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">eight idempotent steps — every one standalone (--data / --work / --out), resumable after any failure</text>
+<rect x="120" y="110" width="720" height="118" rx="14" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
+<text x="140" y="142" font-size="20" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">01</text>
+<text x="198" y="142" font-size="17" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">snapshot_catalog</text>
+<text x="198" y="168" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">copy mcat + wfindex + previews out of Adobe's</text>
+<text x="198" y="190" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">purge-able cache — run this FIRST</text>
+<rect x="120" y="250" width="720" height="118" rx="14" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+<text x="140" y="282" font-size="20" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">02</text>
+<text x="198" y="282" font-size="17" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">build_recovery</text>
+<text x="198" y="308" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">originals copy · DNG proxies · edited JPEGs</text>
+<text x="198" y="330" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">manifest.csv · catalog backup</text>
+<line x1="480" y1="238" x2="480" y2="248" stroke="#e6edf3" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="120" y="390" width="720" height="118" rx="14" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="140" y="422" font-size="20" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">03</text>
+<text x="198" y="422" font-size="17" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">match_previews</text>
+<text x="198" y="448" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">strict perceptual matching of edited JPEGs</text>
+<text x="198" y="470" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">against RAW-embedded previews</text>
+<line x1="480" y1="378" x2="480" y2="388" stroke="#e6edf3" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="120" y="530" width="720" height="118" rx="14" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="140" y="562" font-size="20" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">04</text>
+<text x="198" y="562" font-size="17" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">match_previews_round2</text>
+<text x="198" y="588" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">crop-tolerant matching — a wrong name</text>
+<text x="198" y="610" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">is worse than no name</text>
+<line x1="480" y1="518" x2="480" y2="528" stroke="#e6edf3" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="120" y="670" width="720" height="118" rx="14" fill="#161b22" stroke="#7A8899" stroke-width="2"/>
+<text x="140" y="702" font-size="20" fill="#7A8899" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">05</text>
+<text x="198" y="702" font-size="17" fill="#7A8899" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">make_helper</text>
+<text x="198" y="728" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">match-helper.html contact sheet —</text>
+<text x="198" y="750" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">human confirms the top-3 candidates</text>
+<line x1="480" y1="658" x2="480" y2="668" stroke="#e6edf3" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="120" y="810" width="720" height="118" rx="14" fill="#161b22" stroke="#ffa657" stroke-width="2"/>
+<text x="140" y="842" font-size="20" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">06</text>
+<text x="198" y="842" font-size="17" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">extract_settings_xmp</text>
+<text x="198" y="868" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">the big one: every per-photo develop XMP</text>
+<text x="198" y="890" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">from settings\, placed next to its RAW</text>
+<text x="198" y="912" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">+ presets recovered with real names</text>
+<line x1="480" y1="798" x2="480" y2="808" stroke="#e6edf3" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="120" y="950" width="720" height="118" rx="14" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="140" y="982" font-size="20" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">07</text>
+<text x="198" y="982" font-size="17" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">install_acr_presets</text>
+<text x="198" y="1008" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">optional (dry-run default): presets into</text>
+<text x="198" y="1030" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">%APPDATA%\Adobe\CameraRaw\Settings</text>
+<line x1="480" y1="938" x2="480" y2="948" stroke="#e6edf3" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="120" y="1090" width="720" height="118" rx="14" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
+<text x="140" y="1122" font-size="20" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">08</text>
+<text x="198" y="1122" font-size="17" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">assemble_mask_rasters</text>
+<text x="198" y="1148" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">offline .acr equivalent: type-02 rasters</text>
+<text x="198" y="1170" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">attributed to photos, decoded to PNG</text>
+<text x="198" y="1192" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">(needs tifffile + imagecodecs)</text>
+<line x1="480" y1="1078" x2="480" y2="1088" stroke="#e6edf3" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="940" y="470" width="220" height="210" rx="14" fill="#161b22" stroke="#58a6ff" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="960" y="500" font-size="15" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">manifest.csv</text>
+<text x="960" y="526" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">per-photo inventory</text>
+<text x="960" y="548" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">written by 02</text>
+<text x="960" y="576" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">xmpSidecar column</text>
+<text x="960" y="596" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">patched by 06</text>
+<line x1="936" y1="560" x2="846" y2="560" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="5 4"/>
+<line x1="840" y1="560" x2="936" y2="560" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="5 4"/>
+<rect x="940" y="1180" width="220" height="160" rx="14" fill="#161b22" stroke="#d2a8ff" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="960" y="1210" font-size="15" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">auxiliary\ store</text>
+<text x="960" y="1236" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">4,504 type-02</text>
+<text x="960" y="1256" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">mask rasters</text>
+<text x="960" y="1284" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">purge aux rows give</text>
+<text x="960" y="1304" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">digest + assetId</text>
+<line x1="936" y1="1262" x2="846" y2="1258" stroke="#d2a8ff" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="5 4"/>
+<text x="40" y="1520" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">steps are safe to re-run: identical writes are skipped, never duplicated</text>
+</svg>

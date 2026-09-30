@@ -8,7 +8,9 @@ import os, subprocess, tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT  = os.path.join(ROOT, "docs", "assets")
-EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+EDGE = (r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        if os.path.exists(r"C:\Program Files\Google\Chrome\Application\chrome.exe")
+        else r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
 
 W, H = 1560, 1130
 BG, PANEL, EDGE_ = "#0d1117", "#161b22", "#30363d"
@@ -70,7 +72,7 @@ text(980, 142, "FILE STORES — plain files, content-addressed", 15, DIM, SANS, 
 
 stores = [
     ("settings\\", "<64-hex sha256> · no extension", "per-photo develop XMPs", ORANGE),
-    ("auxiliary\\", "<digest[:3]>\\<digest[3:]>", "renditions + zlib XMP payloads", PURPLE),
+    ("auxiliary\\", "<digest[:3]>\\<digest[3:]>", "mask rasters + zlib XMP payloads", PURPLE),
     ("originals\\", "<year>\\<capture-date>\\*.ARW", "the RAW files", BLUE),
     ("proxies\\", "2560\\<assetId[:3]>\\<assetId[3:]>", "2560 px DNG stand-ins (unedited)", BLUE),
     ("cr_settings\\", "<preset-docId>.xmp", "ACR presets", GREEN),
@@ -119,7 +121,8 @@ print("svg written:", SVG_PATH)
 
 with tempfile.TemporaryDirectory() as td:
     out = os.path.join(td, "shot.png")
-    subprocess.run([EDGE, "--headless=new", f"--screenshot={out}",
+    subprocess.run([EDGE, "--headless=new", "--user-data-dir=" + os.path.join(td, "prof"),
+                    f"--screenshot={out}",
                     f"--window-size={W},{H}", "--force-device-scale-factor=1",
                     "--default-background-color=00000000",
                     "file:///" + SVG_PATH.replace("\\", "/")],

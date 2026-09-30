@@ -89,7 +89,7 @@ flowchart LR
 
     ORIG["originals store<br/>RAW files"]
     SET["settings store<br/>develop XMP blobs"]
-    AUX["auxiliary store<br/>renditions + zlib XMP"]
+    AUX["auxiliary store<br/>mask rasters + zlib XMP"]
     PROX["proxies store<br/>DNG stand-ins"]
     CRS["cr_settings store<br/>preset .xmp files"]
 
@@ -120,7 +120,7 @@ Key-space gotchas (all three bite during joins):
 |---|---|---|---|
 | `original` | the RAW file | 1,998 | 1,646 |
 | `xmp_develop` | full develop settings | 3,457 | **2,123** |
-| `aux` | auxiliary renditions | 5,403 | 4,676 |
+| `aux` | mask rasters (the .acr payload) + zlib XMPs (gen-remove, redundant develop) | 5,403 | 4,676 |
 | `proxy` | DNG stand-in | 1,998 | 310 |
 
 (`hasLocalFile` is Adobe's own flag for "the blob is on this machine";
@@ -276,6 +276,11 @@ warning. That rule drives the whole naming strategy.
 
 ## 4. The recovery pipeline
 
+![The recovery pipeline](assets/pipeline.png)
+
+*(vector: [pipeline.svg](assets/pipeline.svg) — regenerate with
+`scripts/make_pipeline_image.py`; the interactive Mermaid version below)*
+
 ```mermaid
 flowchart TB
     S1["01_snapshot_catalog<br/>copy mcat + wfindex + previews<br/>out of the purge-able cache"]
@@ -284,13 +289,19 @@ flowchart TB
     S4["04_match_previews_round2<br/>crop-tolerant matching"]
     S5["05_make_helper<br/>contact sheet for the rest"]
     S6["06_extract_settings_xmp<br/>settings store → sidecars<br/>next to every RAW + presets"]
-    S1 --> S2 --> S3 --> S4 --> S5 --> S6
+    S7["07_install_acr_presets<br/>optional: presets into<br/>Adobe settings folders"]
+    S8["08_assemble_mask_rasters<br/>aux type-02 records → per-photo<br/>mask TIFFs + PNGs<br/>(the offline .acr equivalent)"]
+    S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7 --> S8
     S2 -.->|"manifest.csv"| S6
     S6 -.->|"xmpSidecar column patch"| M["manifest.csv"]
+    S8 -.->|"purge aux rows: digest + assetId"| A["auxiliary\ store"]
 ```
 
 Each step is idempotent and standalone (`--data / --work / --out`), so the
-pipeline can be resumed from any step after a failure.
+pipeline can be resumed from any step after a failure. Step 08 exists for
+the fully-offline path: a working Lightroom export delivers real `.acr`
+companions from the cloud (§6.8), but a locked-out user has only the local
+`auxiliary\` rasters — which this step attributes and decodes.
 
 ---
 
@@ -308,6 +319,7 @@ as-is:
 | `settings\`-derived sidecars | crs XMP, masks embedded inline (`MaskGroupBasedCorrections` verified in 120/120 sampled) | ✅ sidecar for ACR / Bridge / Classic | `originals\<year>\<date>\<RAW-name>.xmp` |
 | `_unlinked\` orphans | same complete ACR XMP format, photo link lost from the index | ✅ but must be renamed manually to the photo's base name | `xmp-sidecars\_unlinked\` |
 | `cr_settings\` presets | ACR preset schema (`crs:PresetType`, `crs:Cluster`) | ✅ copy into the settings folder — `07_install_acr_presets.py` automates it | `presets\` |
+| mask rasters (aux type-02) | JPEG-XL tiled TIFFs (`JPEGXL_DNG`, tag 52546) — the payload inside `.acr` | ✅ recovered offline by `08_assemble_mask_rasters.py` (viewable PNGs); Adobe apps get the real `.acr` only via cloud export | `mask-rasters\` |
 | `_aux` XMPs | `crs:RequestInfo/ResponseInfo` records of Adobe's Generative Remove service | ❌ the AI pixels live on Adobe's servers; these are provenance, not settings | alongside their photos |
 
 ```mermaid
@@ -318,9 +330,20 @@ flowchart LR
     AUX["_aux payloads"] -.->|"Generative Remove<br/>pixels are cloud-held"| X["not importable offline —<br/>kept as provenance"]
 ```
 
+**The `.acr` cannot be obtained offline — only synthesized.** The cache
+stores the *payload* (type-02 rasters in `auxiliary\`); the container is
+manufactured at export time and exists only in a cloud export. Step 08
+re-assembles the payload per photo (functional equivalent); the byte-exact
+`.acr` comes only from a working Lightroom "original + settings" export.
+Note also: `aux` zlib XMPs are 23 Generative Remove records *plus 8
+develop XMPs redundant with `settings\`* — the duplicate path that
+briefly misled the hunt.
+
 Settings-folder locations per Adobe's documentation:
 ACR and Lightroom share `%APPDATA%\Adobe\CameraRaw\Settings`; Lightroom
-Classic uses `%APPDATA%\Adobe\Lightroom\Settings`.
+Classic uses `%APPDATA%\Adobe\Lightroom\Settings`. The `.acr` mask
+raster story — export container vs offline recovery — has its own
+diagram in [§6.8](#68-the-acr-export-companion--mask-rasters-packaged).
 
 ---
 
@@ -581,6 +604,53 @@ base name is byte-identical to the photo's** — every suffix above exists to
 preserve information without breaking that rule for the *current* revision.
 
 ---
+
+### 6.8 The `.acr` export companion — mask rasters, packaged
+
+![The .acr companion — anatomy and both paths](assets/acr-flow.png)
+
+*(vector: [acr-flow.svg](assets/acr-flow.svg) — regenerate with
+`scripts/make_acr_flow_image.py`; read any `.acr` with
+`scripts/acr_reader.py <file> --png`)*
+
+Byte-level anatomy, every offset real (`DSC09053.acr`):
+
+![.acr data structure](assets/acr-structure.png)
+
+*(vector: [acr-structure.svg](assets/acr-structure.svg) — regenerate with
+`scripts/make_acr_structure_image.py`)*
+
+A later real-world export ("original + settings") revealed a third
+companion Adobe emits per photo: `<name>.acr`, present for 350 of 352
+photos — exactly the ones whose XMP contains masks (the two exceptions:
+one unedited, one masks-free). Structure, verified from a real file:
+
+```
+"ACR "  u32 ver=1  "ARW "  u32 4  u32 0
+<20-byte id>  ...directory of record offsets (u32@44 = 148 = first)...
+record: 16-byte header 02 00 00 00 01 00 00 00 … (== auxiliary\ type-02!)
+        + TIFF: single-channel 8-bit grayscale, tiled, ~1128×1920
+multiple records per file  ↔  multiple masks per photo
+```
+
+So `.acr` is Adobe Camera Raw's **mask-raster container**: the XMP carries
+the parametric edit (sliders, geometry, LumEq curves), while the computed
+mask *bitmaps* — the same rasters that live as type-02 records in the
+local `auxiliary\` store — travel in this file. The export packaging and
+the local cache use the identical record format, closing the loop on the
+version-doc mask-digest chain (§2). The 20-byte id is not sha1 of the RAW
+or the XMP (tested) — likely an internal content id for the mask set.
+Keep `.acr` beside the ARW + XMP with the same base name: Adobe apps
+re-assemble identical renders from the trio; third-party tools see only
+the XMP.
+
+Offline follow-up (step `08_assemble_mask_rasters.py`): the payload *is*
+recoverable from the local cache — `purgeCandidates`' aux rows carry the
+digest and the assetId directly. Of 4,504 type-02 rasters, 4,448 were
+attributed across 1,219 photos (56 orphan digests) and 100% decoded to
+viewable PNGs once the compression was identified as `JPEGXL_DNG`
+(tag 52546 — needs `tifffile` + `imagecodecs`; PIL alone refuses the
+file). The container itself remains export-only.
 
 ## 7. References
 

@@ -25,6 +25,11 @@ Steps:
                             (older revisions get a sha suffix; photos with
                             no recovered original stay in xmp-sidecars\;
                             also recovers presets)
+  07_install_acr_presets.py  optional: install recovered presets into
+                            Adobe's settings folders (dry-run by default)
+  08_assemble_mask_rasters.py  offline .acr equivalent: attribute the
+                            auxiliary type-02 mask rasters to photos and
+                            decode them to viewable PNGs
 
 Dependencies:  python -m pip install numpy pillow
 """
@@ -48,7 +53,8 @@ def main():
 
     steps = ["01_snapshot_catalog.py", "02_build_recovery.py",
              "03_match_previews.py", "04_match_previews_round2.py",
-             "05_make_helper.py", "06_extract_settings_xmp.py"]
+             "05_make_helper.py", "06_extract_settings_xmp.py",
+             "07_install_acr_presets.py", "08_assemble_mask_rasters.py"]
     for s in steps:
         print(f"\n===== {s} =====")
         cmd = [sys.executable, os.path.join(here, s)]

@@ -1,2 +1,5 @@
 numpy
 pillow
+# step 08 PNG decoding only — the pipeline runs without them
+tifffile
+imagecodecs

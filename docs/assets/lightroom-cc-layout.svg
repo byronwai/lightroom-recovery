@@ -50,7 +50,7 @@
 <text x="82" y="744" font-size="21" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">auxiliary\</text>
 <text x="82" y="774" font-size="16" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">4,734 files · 2,801 shards</text>
 <text x="82" y="802" font-size="14" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">&lt;digest[:3]&gt;\&lt;digest[3:]&gt;</text>
-<text x="82" y="830" font-size="14" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">TIFF renditions + 31 zlib XMPs</text>
+<text x="82" y="830" font-size="14" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">mask rasters (TIFF) + 31 zlib XMPs</text>
 <text x="82" y="852" font-size="14" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">(23 Generative Remove</text>
 <text x="82" y="874" font-size="14" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">· 8 redundant develop)</text>
 <rect x="78" y="860" width="442" height="28" rx="8" fill="#21262d" stroke="#d2a8ff" stroke-width="2"/>

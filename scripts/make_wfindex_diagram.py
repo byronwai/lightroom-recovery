@@ -9,7 +9,9 @@ import os, subprocess, tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT  = os.path.join(ROOT, "docs", "assets")
-EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+EDGE = (r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        if os.path.exists(r"C:\Program Files\Google\Chrome\Application\chrome.exe")
+        else r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
 
 W, H = 1560, 1030
 BG, PANEL, EDGE_ = "#0d1117", "#161b22", "#30363d"
@@ -49,7 +51,7 @@ def build(with_counts=True):
         ("assetPathsAndInfo", "docId (= assetId!) · fileName · originalRelativePath", "1,998", "where the RAW lives on disk"),
         ("versions", "docId · assetId — one row per edit", "1,459", "which photos are edited"),
         ("externalDevelopSettings", "docId · sha256", "3,457", "edit-blob references (same shas as settings\\)"),
-        ("purgeCandidates", "assetId · binaryType · contentIdOrSha256 · hasLocalFile · dateLastUpdated", "12,856", "THE master index: photo ↔ sha ↔ on-disk flag"),
+        ("purgeCandidates", "assetId · binaryType · contentIdOrSha256 · hasLocalFile · dateLastUpdated", "12,856", "THE master index: photo ↔ blob — XMPs and mask rasters"),
         ("localAuxTracker", "docId · digest", "10,461", "digest chain → auxiliary\\ payloads"),
         ("presetsAndProfiles", "docId · name", "235", "preset names for cr_settings\\"),
     ]
@@ -156,7 +158,7 @@ def build_simple():
         ("versions", "which photos are edited"),
         ("purgeCandidates", "photo ↔ sha ↔ on-disk flag — the master index"),
         ("externalDevelopSettings", "edit-blob references"),
-        ("localAuxTracker", "auxiliary payload digests"),
+        ("localAuxTracker", "mask-raster & aux digests"),
         ("presetsAndProfiles", "preset names"),
     ]
     y = 166
@@ -206,7 +208,8 @@ def render(svg_text, png_path):
         out = os.path.join(td, "shot.png")
         w = svg_text.split('width="', 1)[1].split('"', 1)[0]
         h = svg_text.split('height="', 1)[1].split('"', 1)[0]
-        subprocess.run([EDGE, "--headless=new", f"--screenshot={out}",
+        subprocess.run([EDGE, "--headless=new", "--user-data-dir=" + os.path.join(td, "prof"),
+                    f"--screenshot={out}",
                         f"--window-size={w},{h}", "--force-device-scale-factor=1",
                         "--default-background-color=00000000",
                         "file:///" + svg_path.replace("\\", "/")],

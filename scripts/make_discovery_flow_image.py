@@ -8,9 +8,11 @@ import os, subprocess, tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT  = os.path.join(ROOT, "docs", "assets")
-EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+EDGE = (r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        if os.path.exists(r"C:\Program Files\Google\Chrome\Application\chrome.exe")
+        else r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
 
-W, H = 1180, 1620
+W, H = 1180, 1760
 BG, PANEL, EDGE_ = "#0d1117", "#161b22", "#30363d"
 TXT, DIM = "#e6edf3", "#8b949e"
 BLUE, ORANGE, GREEN, PURPLE, RED, GRAY = "#58a6ff", "#ffa657", "#7ee787", "#d2a8ff", "#ff7b72", "#7A8899"
@@ -121,11 +123,18 @@ text(160, 1388, "purgeCandidates.assetId + assets.filename + assetPathsAndInfo.p
 text(160, 1414, "1,952 named sidecars · every edited photo covered · counts reconcile", 14.5, GREEN)
 text(160, 1438, "current revision by dateLastUpdatedInSeconds · wrap() adds the xpacket envelope", 13, DIM)
 
+# ---------- epilogue: the .acr sequel ----------
+arrow(CX, 1446, CX, 1486)
+box(90, 1492, 1000, 100, GREEN, fill="#0e1a10", sw=2)
+text(110, 1522, "epilogue — after access was restored, a real export", 14.5, GREEN, SANS, "bold")
+text(110, 1548, "\"original + settings\" emitted .acr companions — same type-02 records as auxiliary\:", 13.5, TXT, MONO)
+text(110, 1572, "the \"TIFF renditions\" finally had their name — mask rasters (§6.8, step 08)", 13.5, DIM)
+
 # ---------- lesson ----------
-box(90, 1490, 1000, 96, RED, dash="8 5", sw=1.6)
-text(110, 1520, "the lesson", 14.5, RED, SANS, "bold")
-text(110, 1546, "the index was right both times — the search was wrong", 15, TXT, MONO, "bold")
-text(110, 1572, "enumerate every folder before assigning semantics to its name · full story: walkthrough.md steps 3–6", 13, DIM)
+box(90, 1620, 1000, 96, RED, dash="8 5", sw=1.6)
+text(110, 1650, "the lesson", 14.5, RED, SANS, "bold")
+text(110, 1676, "the index was right both times — the search was wrong", 15, TXT, MONO, "bold")
+text(110, 1702, "enumerate every folder before assigning semantics to its name · full story: walkthrough.md steps 3–6", 13, DIM)
 
 S.append("</svg>")
 with open(SVG_PATH := os.path.join(OUT, "catalog-xmp-discovery.svg"), "w", encoding="utf-8") as f:
@@ -134,7 +143,8 @@ print("svg written:", SVG_PATH)
 
 with tempfile.TemporaryDirectory() as td:
     out = os.path.join(td, "shot.png")
-    subprocess.run([EDGE, "--headless=new", f"--screenshot={out}",
+    subprocess.run([EDGE, "--headless=new", "--user-data-dir=" + os.path.join(td, "prof"),
+                    f"--screenshot={out}",
                     f"--window-size={W},{H}", "--force-device-scale-factor=1",
                     "--default-background-color=00000000",
                     "file:///" + SVG_PATH.replace("\\", "/")],

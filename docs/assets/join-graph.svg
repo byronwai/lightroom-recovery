@@ -35,7 +35,7 @@
 <rect x="976" y="308" width="528" height="118" rx="14" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
 <text x="994" y="342" font-size="19" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">auxiliary\</text>
 <text x="994" y="370" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">&lt;digest[:3]&gt;\&lt;digest[3:]&gt;</text>
-<text x="994" y="398" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">renditions + zlib XMP payloads</text>
+<text x="994" y="398" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">mask rasters + zlib XMP payloads</text>
 <rect x="976" y="448" width="528" height="118" rx="14" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
 <text x="994" y="482" font-size="19" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">originals\</text>
 <text x="994" y="510" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">&lt;year&gt;\&lt;capture-date&gt;\*.ARW</text>

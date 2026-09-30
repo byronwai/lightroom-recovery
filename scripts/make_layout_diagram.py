@@ -11,7 +11,9 @@ import os, subprocess, tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT  = os.path.join(ROOT, "docs", "assets")
-EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+EDGE = (r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        if os.path.exists(r"C:\Program Files\Google\Chrome\Application\chrome.exe")
+        else r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
 
 W, H = 1560, 1060
 BG, PANEL, EDGE_ = "#0d1117", "#161b22", "#30363d"
@@ -113,11 +115,11 @@ def build(with_counts=True):
          ["edits baked into the pixels", "afa 320px · ama 640px",
           "baa 2048px = the keepers"], GREEN, None),
         ("auxiliary\\",
-         "4,734 files · 2,801 shards" if with_counts else "renditions + zlib XMP payloads",
+         "4,734 files · 2,801 shards" if with_counts else "mask rasters + zlib XMP payloads",
          "<digest[:3]>\\<digest[3:]>",
-         (["TIFF renditions + 31 zlib XMPs", "(23 Generative Remove",
+         (["mask rasters (TIFF) + 31 zlib XMPs", "(23 Generative Remove",
            "· 8 redundant develop)"] if with_counts else
-          ["TIFF renditions + zlib XMPs", "(incl. Generative Remove records,",
+          ["mask rasters (TIFF) + zlib XMPs", "(incl. Generative Remove records,",
            "redundant develop copies)"]), PURPLE, "key: digest · localAuxTracker"),
         ("proxies\\",
          "318 DNG stand-ins" if with_counts else "2560 px DNG stand-ins",
@@ -158,7 +160,8 @@ def render(svg_text, png_path):
         f.write(svg_text)
     with tempfile.TemporaryDirectory() as td:
         out = os.path.join(td, "shot.png")
-        subprocess.run([EDGE, "--headless=new", f"--screenshot={out}",
+        subprocess.run([EDGE, "--headless=new", "--user-data-dir=" + os.path.join(td, "prof"),
+                    f"--screenshot={out}",
                         f"--window-size={W},{H}", "--force-device-scale-factor=1",
                         "--default-background-color=00000000",
                         "file:///" + svg_path.replace("\\", "/")],

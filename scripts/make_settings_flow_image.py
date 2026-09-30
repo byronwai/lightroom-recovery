@@ -10,7 +10,9 @@ import os, subprocess, tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT  = os.path.join(ROOT, "docs", "assets")
-EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+EDGE = (r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        if os.path.exists(r"C:\Program Files\Google\Chrome\Application\chrome.exe")
+        else r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
 
 W, H = 1180, 1320
 BG, PANEL, EDGE_ = "#0d1117", "#161b22", "#30363d"
@@ -125,7 +127,8 @@ def render(svg_text, png_path):
         f.write(svg_text)
     with tempfile.TemporaryDirectory() as td:
         out = os.path.join(td, "shot.png")
-        subprocess.run([EDGE, "--headless=new", f"--screenshot={out}",
+        subprocess.run([EDGE, "--headless=new", "--user-data-dir=" + os.path.join(td, "prof"),
+                    f"--screenshot={out}",
                         f"--window-size={W},{H}", "--force-device-scale-factor=1",
                         "--default-background-color=00000000",
                         "file:///" + svg_path.replace("\\", "/")],

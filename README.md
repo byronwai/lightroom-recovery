@@ -21,6 +21,8 @@ bonus, a sha256-verified second copy of all 1,692 originals (64 GB).
 
 ```bat
 pip install numpy pillow
+# optional, for step 08's PNG decoding (rasters are JPEG-XL TIFFs):
+pip install tifffile imagecodecs
 python run_all.py --out D:\MyRecovery
 ```
 
@@ -92,6 +94,7 @@ diagrams: [docs/diagrams.md](docs/diagrams.md) · the join in one picture:
 | `05_make_helper.py` | Generates `match-helper.html` — a contact sheet to name the rest by eye |
 | `06_extract_settings_xmp.py` | The big one: every per-photo develop XMP from `settings\`, placed **next to its RAW** |
 | `07_install_acr_presets.py` | Optional: installs the recovered ACR presets into Adobe's settings folders |
+| `08_assemble_mask_rasters.py` | The offline `.acr` equivalent: attributes every mask raster (aux type-02) to its photo and decodes it to a viewable PNG |
 
 ## What you get
 
@@ -106,6 +109,8 @@ diagrams: [docs/diagrams.md](docs/diagrams.md) · the join in one picture:
 ├── xmp-sidecars\              XMPs for photos with no local original,
 │                              plus _unlinked\ orphaned revisions
 ├── presets\                   your Lightroom presets, real names restored
+├── mask-rasters\              per-photo mask rasters (the .acr payload):
+│                              grayscale selections as TIFF + viewable PNG
 ├── raw-defaults\              RawDefaults / FavoriteStyles
 ├── dng-proxies-2560\          small DNG stand-ins (unedited)
 ├── catalog-backup\            complete copy of the local library

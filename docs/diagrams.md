@@ -613,36 +613,56 @@ preserve information without breaking that rule for the *current* revision.
 `scripts/make_acr_flow_image.py`; read any `.acr` with
 `scripts/acr_reader.py <file> --png`)*
 
-Byte-level anatomy, every offset real (`DSC09053.acr`):
+Byte-level anatomy, every offset real (`DSC02091.acr`; layout confirmed on 76 exported files):
 
 ![.acr data structure](assets/acr-structure.png)
 
 *(vector: [acr-structure.svg](assets/acr-structure.svg) — regenerate with
 `scripts/make_acr_structure_image.py`)*
 
+What a real `.acr` decomposes into — every record decoded, labelled from
+the sibling XMP by md5 (`DSC02110.acr`: four AI masks and three Remove-tool
+RGB patches):
+
+![DSC02110.acr decomposed into its rasters](assets/acr-decomposed.png)
+
+*(regenerate with `scripts/make_acr_decomposed_image.py <file.acr>
+--no-photo`; without `--no-photo` it also outlines each mask on the
+photo's embedded JPEG, placed by the XMP's `Origin`)*
+
 A later real-world export ("original + settings") revealed a third
-companion Adobe emits per photo: `<name>.acr`, present for 350 of 352
-photos — exactly the ones whose XMP contains masks (the two exceptions:
-one unedited, one masks-free). Structure, verified from a real file:
+companion Adobe emits per photo: `<name>.acr`. It is written exactly when
+the edit contains AI masks (`crs:What="Mask/Image"`): 350 of 352 photos in
+the first export, and 83 of 83 sidecars checked in a second one. Gradient,
+radial, brush and range masks are pure parameters and never produce a
+raster. Structure, verified on 76 real files (300 records):
 
 ```
-"ACR "  u32 ver=1  "ARW "  u32 4  u32 0
-<20-byte id>  ...directory of record offsets (u32@44 = 148 = first)...
-record: 16-byte header 02 00 00 00 01 00 00 00 … (== auxiliary\ type-02!)
-        + TIFF: single-channel 8-bit grayscale, tiled, ~1128×1920
-multiple records per file  ↔  multiple masks per photo
+0x00  "ACR\0"  u32 version=1  "ARW\0"  u32 N (record count)  u32 0 (reserved)
+0x14  N × 32-byte entries:  md5[16] | u64 size | u64 offset
+20+32N  records, each 4-byte aligned (zero padding):
+        16-byte header 02 00 00 00 01 00 00 00 … (== auxiliary\ type-02!)
+        + TIFF: tiled JPEG-XL; 1-channel 8-bit masks, 3-channel 16-bit Remove patches
+multiple records per file  ↔  multiple AI masks / Remove patches per photo
 ```
 
 So `.acr` is Adobe Camera Raw's **mask-raster container**: the XMP carries
 the parametric edit (sliders, geometry, LumEq curves), while the computed
 mask *bitmaps* — the same rasters that live as type-02 records in the
-local `auxiliary\` store — travel in this file. The export packaging and
-the local cache use the identical record format, closing the loop on the
-version-doc mask-digest chain (§2). The 20-byte id is not sha1 of the RAW
-or the XMP (tested) — likely an internal content id for the mask set.
-Keep `.acr` beside the ARW + XMP with the same base name: Adobe apps
-re-assemble identical renders from the trio; third-party tools see only
-the XMP.
+local `auxiliary\` store — travel in this file. The binding is content
+addressing: each table entry's md5 is the md5 of the record (signature +
+TIFF), and that value appears in the XMP as `crs:MaskDigest` (AI masks) or
+`crs:pm_patch` / `crs:pm_patch_variation` (Remove-tool patches). The local
+cache names the identical record by the same md5 (4,504/4,504), and 106 of
+the 300 ACR records were found byte-identical in the cache. Table order
+does not follow the XMP (74 of 76 files differ), so readers must match by
+md5, not by position. Each raster is cropped to its mask's bounding box;
+the XMP's `Origin` and `FullMaskSize` place it on the canvas. (An earlier
+version of this section described a "20-byte id" at 0x14 and a "directory
+region": those were the first table entry's md5 + size, and the other
+entries.) Keep `.acr` beside the ARW + XMP with the same base name: Adobe
+apps re-assemble identical renders from the trio; third-party tools see
+only the XMP.
 
 Offline follow-up (step `08_assemble_mask_rasters.py`): the payload *is*
 recoverable from the local cache — `purgeCandidates`' aux rows carry the
@@ -650,7 +670,9 @@ digest and the assetId directly. Of 4,504 type-02 rasters, 4,448 were
 attributed across 1,219 photos (56 orphan digests) and 100% decoded to
 viewable PNGs once the compression was identified as `JPEGXL_DNG`
 (tag 52546 — needs `tifffile` + `imagecodecs`; PIL alone refuses the
-file). The container itself remains export-only.
+file). The container itself is only made at export time, but with the
+table decoded it can be rebuilt from cache records (whether Lightroom
+accepts a rebuilt one is untested).
 
 ## 7. References
 

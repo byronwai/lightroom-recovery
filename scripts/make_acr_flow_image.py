@@ -46,18 +46,18 @@ text(40, 82, "reverse-engineered (§6.8) · reader: scripts/acr_reader.py · cou
 
 # ---------- panel A: anatomy ----------
 box(40, 110, 1160, 560, ORANGE)
-text(60, 142, "ANATOMY — byte map (DSC09053.acr, 220,036 bytes, 4 records)", 15, ORANGE, SANS, "bold")
+text(60, 142, "ANATOMY — byte map (DSC02091.acr, 215,820 bytes, 4 records; same layout in 76 files)", 15, ORANGE, SANS, "bold")
 
 rows = [
     ("0x00", "41 43 52 00", 'magic "ACR\\0"', DIM),
     ("0x04", "01 00 00 00", "version = 1", DIM),
     ("0x08", "41 52 57 00", 'source-format tag "ARW\\0"', DIM),
-    ("0x14", "20 bytes", "id — NOT sha1 of RAW or XMP (tested; provenance unresolved)", RED),
-    ("0x30", "94 00 00 00", "offset to first record = 0x94", BLUE),
-    ("0x34", "…directory…", "record index region", DIM),
-    ("0x94", "record 0", "16-byte signature 02 00 00 00 01 00 00 00 + 8×00", TXT),
+    ("0x0C", "04 00 00 00", "N = record count · then u32 0 (reserved)", ORANGE),
+    ("0x14", "N × 32 B", "record table: md5[16] | u64 size | u64 offset", BLUE),
+    ("", "           ", "md5 = md5(record) = crs:MaskDigest / crs:pm_patch in the XMP", BLUE),
+    ("0x94", "record 0", "at 20 + 32×N · 16-byte signature 02 00 00 00 01 00 00 00 + 8×00", TXT),
     ("", "           ", "then a self-contained TIFF — JPEG-XL tiled mask raster", GREEN),
-    ("", "record 1…n", "same signature + TIFF; delimited by the NEXT signature or EOF", TXT),
+    ("", "record 1…n", "same signature + TIFF; 4-byte aligned, located via the table", TXT),
 ]
 y = 170
 for off, what, desc, col in rows:
@@ -66,7 +66,7 @@ for off, what, desc, col in rows:
     text(330, y, desc, 13.5, DIM)
     y += 30
 text(80, y + 6, "TIFFs: single-channel grayscale (some 3-channel 16-bit) · compression tag 52546 = JPEGXL_DNG", 13.5, DIM, MONO)
-text(80, y + 30, "→ PIL refuses them; decode with tifffile + imagecodecs · per-mask resolution varies (1128×1920 … 2880×1920)", 13.5, DIM)
+text(80, y + 30, "→ PIL refuses them; decode with tifffile + imagecodecs · each raster cropped to its mask, placed by XMP Origin", 13.5, DIM)
 
 # ---------- panel B: two paths ----------
 box(40, 700, 1160, 700, EDGE_)
@@ -84,7 +84,7 @@ text(90, 992, "the export trio", 15, GREEN, SANS, "bold")
 text(90, 1020, "DSCxxxxx.ARW   the pixels", 15, TXT, MONO)
 text(90, 1048, "DSCxxxxx.xmp   the recipe (bare, no envelope)", 15, TXT, MONO)
 text(90, 1076, "DSCxxxxx.acr   the mask molds — real container", 15, GREEN, MONO, "bold")
-text(90, 1106, "350 of 352 photos — exactly the masked ones", 13.5, DIM)
+text(90, 1106, "written iff the edit has AI masks (83/83 sidecars checked)", 13.5, DIM)
 arrow(340, 914, 340, 954, GREEN)
 
 # offline path (right)
@@ -101,11 +101,11 @@ arrow(910, 914, 910, 954, PURPLE)
 
 box(640, 1130, 540, 190, PURPLE, fill="#171021", sw=3)
 text(660, 1162, "functional equivalent", 15, PURPLE, SANS, "bold")
-text(660, 1190, "mask-rasters\\<date>_<RAW>_<n>.tif  (4,448 attributed", 14,5 if False else 14, TXT, MONO)
+text(660, 1190, "mask-rasters\\<date>_<RAW>_<n>.tif  (4,448 attributed", 14, TXT, MONO)
 text(660, 1216, "across 1,219 photos)", 13.5, DIM)
 text(660, 1246, "                     + decoded .png   (100%)", 14, TXT, MONO)
 text(660, 1276, "same records, different boxing —", 13.5, DIM)
-text(660, 1298, "the .acr container itself is export-only", 13.5, DIM)
+text(660, 1298, "only the .acr box is made at export time", 13.5, DIM)
 arrow(910, 1084, 910, 1124, PURPLE)
 
 # footer

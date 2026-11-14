@@ -1,6 +1,7 @@
 r"""Anatomy of a .acr file — byte-map block diagram (SVG + PNG).
 
-All offsets/sizes are real, from DSC09053.acr (220,036 bytes, 4 records).
+All offsets/sizes are real, from DSC02091.acr (215,820 bytes, 4 records);
+the layout was confirmed on 76 exported files.
 Writes docs/assets/acr-structure.svg + .png (Chrome/Edge headless).
 Run:  python scripts/make_acr_structure_image.py
 """
@@ -34,7 +35,7 @@ def text(x, y, s, size=14, fill=TXT, font=SANS, weight="normal", anchor="start")
              f'font-family="{font}" font-weight="{weight}" text-anchor="{anchor}">{esc(s)}</text>')
 
 text(40, 50, "Anatomy of a .acr file — the mask-raster container", 28, TXT, SANS, "bold")
-text(40, 80, "DSC09053.acr · 220,036 bytes · 4 records · every offset real", 15, DIM, MONO)
+text(40, 80, "DSC02091.acr · 215,820 bytes · 4 records · every offset real · layout confirmed on 76 files", 15, DIM, MONO)
 
 # ================= left: linear map =================
 LX, LW = 60, 470
@@ -43,12 +44,13 @@ text(LX, 138, "LINEAR MAP", 14, DIM, SANS, "bold")
 
 # proportional mini-strip
 SX, SW_, SY, SH = LX + LW + 6, 14, 160, 880
-segs = [(0, 0x94, PURPLE, "hdr"), (0x94, 0x17430, GREEN, "r0"),
-        (0x17430, 0x21B04, GREEN, "r1"), (0x21B04, 0x264D0, GREEN, "r2"),
-        (0x264D0, 0x35B04, GREEN, "r3")]
+EOF_ = 0x34B0C
+segs = [(0, 0x94, PURPLE, "hdr+table"), (0x94, 0xD76A, GREEN, "r0"),
+        (0xD76C, 0x1AFD4, GREEN, "r1"), (0x1AFD4, 0x251C0, GREEN, "r2"),
+        (0x251C0, EOF_, GREEN, "r3")]
 for a, b, c, _ in segs:
-    y0 = SY + SH * a / 0x35B04
-    y1 = SY + SH * b / 0x35B04
+    y0 = SY + SH * a / EOF_
+    y1 = SY + SH * b / EOF_
     S.append(f'<rect x="{SX}" y="{y0:.1f}" width="{SW_}" height="{max(2, y1-y0):.1f}" fill="{c}"/>')
 text(SX + 22, SY + 8, "to", 11, DIM)
 text(SX + 22, SY + 22, "scale", 11, DIM)
@@ -63,29 +65,31 @@ def block(label, sub, off, size, color, h=90):
     text(LX + LW - 14, y + 52, size, 12, DIM, MONO, "normal", "end")
     y += h + 14
 
-block("header", 'magic · version · fmt · id · dir', 0, "148 B", PURPLE, 64)
-block("record 0", "16 B sig + TIFF  1128x1920", 0x94, "95,116 B", GREEN, 78)
-block("record 1", "16 B sig + TIFF  1597x1122", 0x17430, "42,692 B", GREEN, 78)
-block("record 2", "16 B sig + TIFF  1323x1920", 0x21B04, "18,876 B", GREEN, 78)
-block("record 3", "16 B sig + TIFF  2880x1920", 0x264D0, "63,140 B", GREEN, 78)
-text(LX, y + 24, "EOF  0x35B04", 13.5, DIM, MONO, "bold")
-text(LX, y + 48, "no length fields anywhere —", 12.5, DIM)
-text(LX, y + 68, "each record ends where the next", 12.5, DIM)
-text(LX, y + 88, "signature begins (or EOF)", 12.5, DIM)
+block("header", "magic · version · fmt · N=4 · reserved", 0, "20 B", PURPLE, 64)
+block("record table", "4 x 32 B: md5 | u64 size | u64 offset", 0x14, "128 B", ORANGE, 64)
+block("record 0", "16 B sig + TIFF  1972x1920", 0x94, "54,998 B", GREEN, 78)
+text(LX + 16, y - 2, "+ 2 B zero padding (records are 4-byte aligned)", 11.5, DIM, MONO); y += 12
+block("record 1", "16 B sig + TIFF  2880x1920", 0xD76C, "55,400 B", GREEN, 78)
+block("record 2", "16 B sig + TIFF  2117x1742", 0x1AFD4, "41,452 B", GREEN, 78)
+block("record 3", "16 B sig + TIFF  1449x1743", 0x251C0, "63,820 B", GREEN, 78)
+text(LX, y + 24, "EOF  0x34B0C", 13.5, DIM, MONO, "bold")
+text(LX, y + 48, "first record at 20 + 32 x N (0x74 / 0x94 / 0xF4", 12.5, DIM)
+text(LX, y + 68, "for 3 / 4 / 7 records) · each table md5 equals", 12.5, DIM)
+text(LX, y + 88, "crs:MaskDigest or crs:pm_patch in the XMP", 12.5, DIM)
 
 # ================= right top: header zoom =================
 HX, HW = 640, 620
 box(HX, 110, HW, 330, PURPLE)
-text(HX + 20, 140, "HEADER ZOOM  (0x00–0x93)", 14, PURPLE, SANS, "bold")
+text(HX + 20, 140, "HEADER + RECORD TABLE  (0x00–0x93)", 14, PURPLE, SANS, "bold")
 hdr = [
     ("0x00", "4 B", 'magic "ACR\\0"', TXT),
     ("0x04", "4 B", "u32 version = 1", DIM),
     ("0x08", "4 B", 'source-format tag "ARW\\0"', TXT),
-    ("0x0C", "8 B", "u32 4 · u32 0 — unknown flags", DIM),
-    ("0x14", "20 B", "id — NOT sha1(ARW), NOT sha1(XMP): tested", RED),
-    ("0x2C", "4 B", "u32 0", DIM),
-    ("0x30", "4 B", "first-record offset = 0x94", BLUE),
-    ("0x34", "96 B", "directory region — entries unmapped", GRAY),
+    ("0x0C", "4 B", "u32 N = 4 — record count", ORANGE),
+    ("0x10", "4 B", "u32 0 — reserved", DIM),
+    ("0x14", "32 B", "entry 0: md5[16] | u64 size | u64 offset = 0x94", BLUE),
+    ("0x34", "32 B", "entry 1: md5 6D815A60… | 55,400 | 0xD76C", BLUE),
+    ("0x54", "64 B", "entries 2–3 · md5 = md5(signature + TIFF)", BLUE),
 ]
 yy = 166
 for off, w_, desc, col in hdr:
@@ -103,25 +107,25 @@ text(HX + 20, 556, "+0x10  TIFF \u2014 same layout as the auxiliary\\ type-02 re
 text(HX + 20, 588, "IFD0 (12 entries):", 13.5, GREEN, MONO, "bold")
 ifd = [
     ("0x00FE NewSubfileType = 0", DIM),
-    ("0x0100 ImageWidth = 1128   0x0101 ImageLength = 1920", DIM),
+    ("0x0100 ImageWidth = 1972   0x0101 ImageLength = 1920", DIM),
     ("0x0102 BitsPerSample = 8   0x0115 SamplesPerPixel = 1", DIM),
     ("0x0103 Compression = 52546 = JPEGXL_DNG", ORANGE),
     ("0x0106 Photometric = 1 (BlackIsZero) — a mask, not a picture", DIM),
-    ("0x0142 TileWidth = 1128   0x0143 TileLength = 1920 (one tile)", DIM),
+    ("0x0142 TileWidth = 1972   0x0143 TileLength = 1920 (one tile)", DIM),
     ("0x0144 TileOffsets → JPEG-XL tile data   0x0145 TileByteCounts", TXT),
 ]
 yy = 614
 for line, col in ifd:
     text(HX + 36, yy, line, 12.5, col, MONO)
     yy += 26
-text(HX + 20, yy + 6, "some records: 3-channel 16-bit — per-mask resolution varies", 12, DIM)
+text(HX + 20, yy + 6, "cropped to the mask (XMP Origin places it) · Remove patches: 3-ch 16-bit", 12, DIM)
 
 # ================= right bottom: how to read =================
 box(HX, 900, HW, 210, GRAY, dash="6 4", sw=1.6)
 text(HX + 20, 930, "HOW TO WALK IT", 14, GRAY, SANS, "bold")
-text(HX + 20, 958, "1. verify magic ACR\\0 · read first-record offset @0x30", 13, DIM, MONO)
-text(HX + 20, 986, "2. at each record: check 16-byte signature, then II*\\0", 13, DIM, MONO)
-text(HX + 20, 1014, "3. record ends at the NEXT signature (scan for it) or EOF", 13, DIM, MONO)
+text(HX + 20, 958, "1. verify magic ACR\\0 · read N @0x0C", 13, DIM, MONO)
+text(HX + 20, 986, "2. read N x 32-byte entries @0x14: md5, size, offset", 13, DIM, MONO)
+text(HX + 20, 1014, "3. record = data[offset:offset+size]; md5 must match", 13, DIM, MONO)
 text(HX + 20, 1042, "4. each TIFF is standalone — strip 16 bytes, save it", 13, DIM, MONO)
 text(HX + 20, 1070, "5. decode tiles: pip install tifffile imagecodecs (JXL)", 13, DIM, MONO)
 text(HX + 20, 1098, "automated: scripts/acr_reader.py <file.acr> --png", 13.5, TXT, MONO, "bold")

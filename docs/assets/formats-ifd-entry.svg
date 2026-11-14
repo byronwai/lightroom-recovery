@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="520" viewBox="0 0 1240 520" font-family="'Segoe UI', sans-serif">
+<rect width="1240" height="520" fill="#0d1117"/>
+<defs><marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#e6edf3"/></marker><marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ffa657"/></marker><marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7ee787"/></marker><marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d2a8ff"/></marker><marker id="ad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8b949e"/></marker><marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#58a6ff"/></marker></defs>
+<text x="40" y="50" font-size="26" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">A TIFF directory entry: 12 bytes</text>
+<text x="40" y="80" font-size="14.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">every IFD is a count followed by these; the last field is the whole pointer-chase trick</text>
+<rect x="150" y="150" width="156" height="70" rx="6" fill="#1b2230" stroke="#58a6ff" stroke-width="2"/>
+<text x="228.0" y="193" font-size="18" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">tag</text>
+<text x="228.0" y="254" font-size="14" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="middle">what this is</text>
+<text x="228.0" y="276" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle">0x0100 = width</text>
+<text x="154" y="138" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+0</text>
+<rect x="306" y="150" width="156" height="70" rx="6" fill="#1b2230" stroke="#d2a8ff" stroke-width="2"/>
+<text x="384.0" y="193" font-size="18" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">type</text>
+<text x="384.0" y="254" font-size="14" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="middle">byte, short, long…</text>
+<text x="384.0" y="276" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle">3 = SHORT</text>
+<text x="310" y="138" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+2</text>
+<rect x="462" y="150" width="312" height="70" rx="6" fill="#1b2230" stroke="#7ee787" stroke-width="2"/>
+<text x="618.0" y="193" font-size="18" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">count</text>
+<text x="618.0" y="254" font-size="14" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="middle">how many values</text>
+<text x="618.0" y="276" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle">1</text>
+<text x="466" y="138" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+4</text>
+<rect x="774" y="150" width="312" height="70" rx="6" fill="#2a1d10" stroke="#ffa657" stroke-width="2.5"/>
+<text x="930.0" y="193" font-size="18" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">value / offset</text>
+<text x="930.0" y="254" font-size="14" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="middle">the value, if it fits</text>
+<text x="930.0" y="276" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle">else: where it is</text>
+<text x="778" y="138" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+8</text>
+<line x1="150" y1="220" x2="150" y2="228" stroke="#30363d" stroke-width="2"/>
+<line x1="228" y1="220" x2="228" y2="228" stroke="#30363d" stroke-width="2"/>
+<line x1="306" y1="220" x2="306" y2="228" stroke="#30363d" stroke-width="2"/>
+<line x1="384" y1="220" x2="384" y2="228" stroke="#30363d" stroke-width="2"/>
+<line x1="462" y1="220" x2="462" y2="228" stroke="#30363d" stroke-width="2"/>
+<line x1="540" y1="220" x2="540" y2="228" stroke="#30363d" stroke-width="2"/>
+<line x1="618" y1="220" x2="618" y2="228" stroke="#30363d" stroke-width="2"/>
+<line x1="696" y1="220" x2="696" y2="228" stroke="#30363d" stroke-width="2"/>
+<line x1="774" y1="220" x2="774" y2="228" stroke="#30363d" stroke-width="2"/>
+<line x1="852" y1="220" x2="852" y2="228" stroke="#30363d" stroke-width="2"/>
+<line x1="930" y1="220" x2="930" y2="228" stroke="#30363d" stroke-width="2"/>
+<line x1="1008" y1="220" x2="1008" y2="228" stroke="#30363d" stroke-width="2"/>
+<line x1="1086" y1="220" x2="1086" y2="228" stroke="#30363d" stroke-width="2"/>
+<line x1="870" y1="290" x2="330" y2="360" stroke="#ffa657" stroke-width="2" marker-end="url(#ao)"/>
+<line x1="990" y1="290" x2="900" y2="360" stroke="#ffa657" stroke-width="2" marker-end="url(#ao)"/>
+<rect x="130" y="364" width="400" height="110" rx="12" fill="#161b22" stroke="#ffa657" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="150" y="398" font-size="16" fill="#ffa657" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">fits in 4 bytes: stored inline</text>
+<text x="150" y="426" font-size="14" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">ImageWidth = 6000 → done, no jump</text>
+<text x="150" y="452" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">(SHORT, LONG, a few bytes of ASCII)</text>
+<rect x="700" y="364" width="460" height="110" rx="12" fill="#161b22" stroke="#ffa657" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="720" y="398" font-size="16" fill="#ffa657" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">bigger: the field is an offset</text>
+<text x="720" y="426" font-size="14" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">StripOffsets[100] → jump to 0x1EA000</text>
+<text x="720" y="452" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">a sub-IFD, a JPEG, the sensor strip…</text>
+</svg>

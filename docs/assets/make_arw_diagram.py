@@ -4,12 +4,16 @@
 All offsets are real, parsed from DSC00001.ARW (38,268,928 bytes, LE TIFF):
 header 0x0000, IFD0 0x0008 (20 entries), ExifIFD 0x11CC (45), MakerNotes
 0x1472 (38,252 B), IFD1 0x0AABC, thumbnail JPEG 0x0ABCE (8,130 B),
+IFD2 0x21BEE (16 entries, reached via IFD1's next-IFD),
 SubIFD 0x21D22 (40 entries, StripOffsets -> 0x1EA000, 36,259,568 B),
-embedded preview JPEG 0x300A2 (177,176 B), EOF 0x247F000.
+preview JPEG 0x300A2 (177,176 B, from IFD0's 0x0201),
+full-size JPEG 0x5C000 (7008x4672, 1,629,784 B, from IFD2's 0x0201),
+EOF 0x247F000.
+Writes arw-structure.svg + .png (Chrome/Edge headless).
 """
-import os
+import os, subprocess, tempfile, shutil
 
-W, H = 1240, 820
+W, H = 1240, 940
 
 C = {  # palette (matches the repo's scoreboard chart)
     "ifd0":  "#2E9BD6", "exif": "#8E6FC8", "maker": "#7A8899",
@@ -81,16 +85,22 @@ off_label(OX, y + 22, "0x1472")
 block(LX, y, LW, 44, C["maker"], "Sony MakerNotes", "38,252 B of Sony-private tags"); blocks["maker"] = (y, 44); y += 52
 
 off_label(OX, y + 22, "0x0AABC")
-block(LX, y, LW, 40, C["ifd1"], "IFD1 — thumbnail directory", "14 entries"); blocks["ifd1"] = (y, 40); y += 48
+block(LX, y, LW, 40, C["ifd1"], "IFD1 — thumbnail directory", "14 entries · next-IFD → 0x21BEE"); blocks["ifd1"] = (y, 40); y += 48
 
 off_label(OX, y + 20, "0x0ABCE")
 block(LX, y, LW, 36, C["thumb"], "thumbnail JPEG", "8,130 B"); blocks["thumb"] = (y, 36); y += 44
+
+off_label(OX, y + 22, "0x21BEE")
+block(LX, y, LW, 40, C["ifd1"], "IFD2 — full-size preview directory", "16 entries"); blocks["ifd2"] = (y, 40); y += 48
 
 off_label(OX, y + 28, "0x21D22")
 block(LX, y, LW, 56, C["sub"], "SubIFD", "40 entries — holds THE PHOTO", True); blocks["sub"] = (y, 56); y += 64
 
 off_label(OX, y + 22, "0x300A2")
-block(LX, y, LW, 44, C["jpeg"], "embedded preview JPEG", "full-size, unedited · 177,176 B"); blocks["jpeg"] = (y, 44); y += 52
+block(LX, y, LW, 44, C["jpeg"], "preview JPEG", "177,176 B · what IFD0's 0x0201 points at"); blocks["jpeg"] = (y, 44); y += 52
+
+off_label(OX, y + 22, "0x5C000")
+block(LX, y, LW, 44, C["jpeg"], "full-size JPEG", "7008×4672, unedited · 1,629,784 B"); blocks["full"] = (y, 44); y += 52
 
 svg.append(f'<text x="{LX+LW//2}" y="{y+20}" font-size="12" fill="{C["dim"]}" '
            f'text-anchor="middle" font-family="{MONO}">⋮  — 38 MB of file, not to scale —  ⋮</text>')
@@ -136,14 +146,20 @@ r1 = card(RX, 286, RW, 96, C["exif"], "ExifIFD — nested one level deeper", [
     "0x927C  MakerNotes  → 0x1472   (38,252 B, Sony-private)",
 ])
 
-r2 = card(RX, 404, RW, 140, C["sub"], "SubIFD — where the actual photo lives", [
+rc = card(RX, 404, RW, 116, C["ifd1"], "IFD1 → IFD2 — the next-IFD chain", [
+    "IFD1  next-IFD                 → 0x21BEE  (IFD2)",
+    "IFD2  0x0201  JPEGInterchange  → 0x5C000  (len 1,629,784)",
+    "image 7008 × 4672 — the full frame, unedited",
+])
+
+r2 = card(RX, 544, RW, 140, C["sub"], "SubIFD — where the actual photo lives", [
     "0x0111  StripOffsets          → 0x1EA000",
     "0x0117  StripByteCounts       = 36,259,568",
     "image 7168 × 5120 · compression = 7 (JPEG-coded)",
     "→ the RAW editors decode; previews are for humans",
 ])
 
-ty = 578
+ty = 712
 svg.append(f'<g filter="url(#sh)"><rect x="{RX}" y="{ty}" width="{RW}" height="196" rx="8" fill="white" stroke="#D6DEE7"/></g>')
 svg.append(f'<text x="{RX+14}" y="{ty+26}" font-size="13.5" font-weight="700" fill="{C["text"]}">Three things this picture says</text>')
 tips = [
@@ -151,8 +167,8 @@ tips = [
      "Addressing is offset pointers and IFD chains, not a linear chunk stream like PNG."),
     ("The sensor data hides one IFD deeper than you expect.",
      "IFD0 is mostly metadata; StripOffsets inside the SubIFD is the 34.6 MB payload."),
-    ("Every ARW ships a full-size unedited JPEG of itself at 0x0201.",
-     "That embedded preview is what the recovery matcher correlates edited JPEGs against."),
+    ("Every ARW ships a full-size unedited JPEG of itself, but not at IFD0's 0x0201.",
+     "IFD0 points at a 177 KB preview; the 7008×4672 frame hangs off IFD2, two next-IFD hops on."),
 ]
 yy = ty + 52
 for bold, sub in tips:
@@ -175,6 +191,8 @@ arrow(RX, r0[1], "ifd1",  "ifd1", dash=True)
 arrow(RX, r0[2], "jpeg",  "jpeg")
 arrow(RX, r0[3], "sub",   "sub")
 arrow(RX, r1[0], "maker", "maker")
+arrow(RX, rc[0], "ifd2",  "ifd1", dash=True)
+arrow(RX, rc[1], "full",  "jpeg")
 arrow(RX, r2[0], "strip", "strip")
 
 svg.append(f'<text x="{RX}" y="{ty-10}" font-size="11" fill="{C["dim"]}">offsets in monospace are byte offsets into the file · arrow colour = destination block</text>')
@@ -183,3 +201,14 @@ svg.append("</svg>")
 out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "arw-structure.svg")
 open(out, "w", encoding="utf-8").write("\n".join(svg))
 print("svg written:", out)
+
+BROWSER = (r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+           if os.path.exists(r"C:\Program Files\Google\Chrome\Application\chrome.exe")
+           else r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
+with tempfile.TemporaryDirectory() as td:
+    shot = os.path.join(td, "shot.png")
+    subprocess.run([BROWSER, "--headless=new", f"--user-data-dir={td}", f"--screenshot={shot}",
+                    f"--window-size={W},{H}", "--force-device-scale-factor=1",
+                    "file:///" + out.replace("\\", "/")], check=True, capture_output=True, timeout=120)
+    shutil.copy(shot, out[:-4] + ".png")
+print("png written:", out[:-4] + ".png")

@@ -1,16 +1,15 @@
-r"""Diagrams for the "Four files and a photo" post, as SVG + PNG.
+r"""Diagrams for the "Three files and a photo" post, as SVG + PNG.
 
 Writes docs/assets/formats-*.svg + .png (Chrome/Edge headless):
-  formats-hero            one photo -> ARW / XMP / ACR, and DNG
   formats-ifd-entry       the 12-byte TIFF IFD entry
   formats-xmp-envelopes   one XMP payload, four envelopes
   formats-acr-presence    when the export writes an .acr
   formats-mask-binding    XMP MaskDigest -> ACR record -> placed raster
   formats-lifecycle       cache -> export -> trio -> re-import
 
-Run:  python scripts/make_format_post_diagrams.py [--acr DSC02091.acr]
-      --acr embeds that file's record 0, decoded, in the binding diagram
-      (needs tifffile + imagecodecs; otherwise a placeholder is drawn)
+Run:  python scripts/make_format_post_diagrams.py --acr <dir>/DSC03049.acr
+      the binding diagram is read from that .acr and its sibling .xmp
+      (needs tifffile + imagecodecs)
 """
 import os, sys, io, struct, base64, subprocess, tempfile, shutil
 
@@ -77,35 +76,6 @@ def title(g, t, sub):
     g.text(40, 50, t, 26, TXT, SANS, "bold")
     g.text(40, 80, sub, 14.5, DIM)
 
-# ---------------------------------------------------------------- hero
-def hero():
-    g = Svg(1240, 560)
-    title(g, "One photo, four formats", "pixels, decisions, computed results, and the container that can hold them")
-    g.box(40, 260, 210, 100, GRAY)
-    g.text(145, 302, "one edited", 17, TXT, SANS, "bold", "middle")
-    g.text(145, 326, "photo", 17, TXT, SANS, "bold", "middle")
-    rows = [("ARW", "the pixels", "TIFF/EP · written by the camera", BLUE, 120),
-            ("XMP", "the decisions", "RDF/XML · how to compute each edit", PURPLE, 260),
-            ("ACR", "the computed result", "AI-mask rasters · undocumented", ORANGE, 400)]
-    for name, role, sub, col, y in rows:
-        g.box(370, y, 340, 100, col, sw=3 if name == "ACR" else 2)
-        g.text(392, y + 36, name, 22, col, MONO, "bold")
-        g.text(470, y + 36, role, 17, TXT, SANS, "bold")
-        g.text(392, y + 70, sub, 14, DIM)
-        g.path(f"M 250 310 C 310 310, 310 {y + 50}, 366 {y + 50}", DIM, "d")
-    g.box(880, 180, 320, 240, GREEN)
-    g.text(1040, 228, "DNG", 24, GREEN, MONO, "bold", "middle")
-    g.text(1040, 258, "the container", 17, TXT, SANS, "bold", "middle")
-    g.text(1040, 300, "Adobe's open RAW format", 14, DIM, SANS, "normal", "middle")
-    g.text(1040, 324, "can hold the pixels and", 14, DIM, SANS, "normal", "middle")
-    g.text(1040, 348, "embed the XMP: no sidecar", 14, DIM, SANS, "normal", "middle")
-    g.line(710, 170, 876, 250, GREEN, "g")
-    g.line(710, 310, 876, 310, GREEN, "g")
-    g.line(710, 450, 876, 370, ORANGE, "o", "8 6")
-    g.text(800, 452, "can it carry", 14, ORANGE, SANS, "bold", "middle")
-    g.text(800, 472, "the rasters? open", 14, ORANGE, SANS, "bold", "middle")
-    g.save("formats-hero")
-
 # ---------------------------------------------------------------- IFD entry
 def ifd_entry():
     g = Svg(1240, 520)
@@ -129,11 +99,11 @@ def ifd_entry():
     g.line(vx + 60, Y + 140, 900, 360, ORANGE, "o")
     g.box(130, 364, 400, 110, ORANGE, dash="6 4", sw=1.6)
     g.text(150, 398, "fits in 4 bytes: stored inline", 16, ORANGE, SANS, "bold")
-    g.text(150, 426, "ImageWidth = 6000 → done, no jump", 14, TXT, MONO)
+    g.text(150, 426, "ImageWidth = 7168 → done, no jump", 14, TXT, MONO)
     g.text(150, 452, "(SHORT, LONG, a few bytes of ASCII)", 13, DIM)
     g.box(700, 364, 460, 110, ORANGE, dash="6 4", sw=1.6)
     g.text(720, 398, "bigger: the field is an offset", 16, ORANGE, SANS, "bold")
-    g.text(720, 426, "StripOffsets[100] → jump to 0x1EA000", 14, TXT, MONO)
+    g.text(720, 426, "StripOffsets → jump to 0x3D0000", 14, TXT, MONO)
     g.text(720, 452, "a sub-IFD, a JPEG, the sensor strip…", 13, DIM)
     g.save("formats-ifd-entry")
 
@@ -177,10 +147,10 @@ def envelopes():
 # ---------------------------------------------------------------- presence
 def presence():
     g = Svg(1240, 460)
-    title(g, "When does the export write an .acr?", "83 export sidecars checked; the rule held for every one")
+    title(g, "When does the export write an .acr?", "84 export sidecars checked; the rule held for every one")
     g.box(40, 200, 220, 90, GRAY)
     g.text(150, 238, "export", 17, TXT, SANS, "bold", "middle")
-    g.text(150, 264, "83 sidecars", 15, DIM, MONO, "normal", "middle")
+    g.text(150, 264, "84 sidecars", 15, DIM, MONO, "normal", "middle")
     cx, cy = 470, 245
     g.raw(f'<polygon points="{cx},{cy-100} {cx+170},{cy} {cx},{cy+100} {cx-170},{cy}" fill="{PANEL}" stroke="{ORANGE}" stroke-width="2.5"/>')
     g.text(cx, cy - 8, "XMP has an", 16, TXT, SANS, "bold", "middle")
@@ -189,8 +159,8 @@ def presence():
     g.line(260, 245, cx - 174, 245, DIM, "d")
     g.box(800, 120, 400, 110, GREEN, fill="#0e1a10", sw=3)
     g.text(820, 156, "ARW + XMP + ACR", 18, GREEN, MONO, "bold")
-    g.text(820, 184, "76 of 76", 15, TXT)
-    g.text(820, 208, "Remove-tool patches ride along (2 files)", 13.5, DIM)
+    g.text(820, 184, "77 of 77", 15, TXT)
+    g.text(820, 208, "Remove and Generative Remove patches ride along (3 files)", 13.5, DIM)
     g.box(800, 270, 400, 110, GRAY)
     g.text(820, 306, "ARW + XMP", 18, TXT, MONO, "bold")
     g.text(820, 334, "7 of 7", 15, TXT)
@@ -204,61 +174,67 @@ def presence():
     g.save("formats-acr-presence")
 
 # ---------------------------------------------------------------- binding
-def decode_record0(acr):
-    try:
-        import numpy as np, tifffile
-        from PIL import Image
-    except ImportError:
-        return None
-    d = open(acr, "rb").read()
-    size, off = struct.unpack("<QQ", d[36:52])
-    a = tifffile.imread(io.BytesIO(d[off + 16:off + size]))
-    im = Image.fromarray(np.asarray(a, dtype=np.uint8))
-    im.thumbnail((400, 400))
+def binding(acr, mask_name="Sky"):
+    """XMP MaskDigest -> ACR table entry -> record -> raster placed at Origin, read from real files."""
+    import re, numpy as np, tifffile
+    from PIL import Image
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from acr_reader import read_table, classify
+    xmp = open(os.path.splitext(acr)[0] + ".xmp", "rb").read().decode("utf-8", "replace")
+    el = next(e.group(0) for e in re.finditer(r'<[^<>]*crs:What="Mask/Image"[^<>]*>', xmp)
+              if re.search(r'crs:MaskName="%s' % mask_name, e.group(0)))
+    at = dict(re.findall(r'crs:(\w+)="([^"]*)"', el))
+    md5 = at["MaskDigest"].upper()
+    data = open(acr, "rb").read()
+    entries = read_table(data)[3]
+    idx = next(i for i, e in enumerate(entries) if e[0] == md5)
+    _, size, off = entries[idx]
+    _, tif, _ = classify(data[off:off + size])
+    arr = tifffile.imread(io.BytesIO(tif))
+    rh_, rw_ = arr.shape[:2]
+    im = Image.fromarray(np.asarray(arr, dtype=np.uint8)); im.thumbnail((400, 400))
     buf = io.BytesIO(); im.save(buf, "PNG")
-    return base64.b64encode(buf.getvalue()).decode()
+    b64 = base64.b64encode(buf.getvalue()).decode()
+    ox, oy = map(int, at["Origin"].split(","))
+    fw, fh = map(int, at["FullMaskSize"].split(","))
+    name = os.path.basename(os.path.splitext(acr)[0])
+    short = f"{md5[:16]}…{md5[-4:]}"
 
-def binding(acr=None):
     g = Svg(1440, 600)
-    title(g, "How a raster finds its mask: by MD5", "DSC02091 record 0 (a Sky mask), followed from the XMP into the .acr and back onto the canvas")
-    # XMP column
+    title(g, "How a raster finds its mask: by MD5",
+          f"{name} record {idx} (a {mask_name} mask), followed from the XMP into the .acr and back onto the canvas")
     g.box(40, 120, 420, 300, PURPLE)
     g.text(60, 152, "XMP  (the decisions)", 15, PURPLE, SANS, "bold")
-    lines = [('<rdf:li crs:What="Mask/Image"', TXT), ('  crs:MaskName="Sky"', DIM), ('  crs:MaskSubType="2"', DIM),
-             ('  crs:MaskDigest=', ORANGE), ('    "1E15D6454497FF82…90E0"', ORANGE),
-             ('  crs:FullMaskSize="2880,1920"', BLUE), ('  crs:Origin="908,0" />', BLUE)]
+    lines = [('<rdf:li crs:What="Mask/Image"', TXT), (f'  crs:MaskName="{at.get("MaskName", "")}"', DIM),
+             (f'  crs:MaskSubType="{at.get("MaskSubType", "")}"', DIM),
+             ('  crs:MaskDigest=', ORANGE), (f'    "{short}"', ORANGE),
+             (f'  crs:FullMaskSize="{at["FullMaskSize"]}"', BLUE), (f'  crs:Origin="{at["Origin"]}" />', BLUE)]
     for i, (s, c) in enumerate(lines):
         g.text(60, 190 + i * 30, s, 14.5, c, MONO, "bold" if c != DIM else "normal")
-    # ACR column
     g.box(540, 120, 400, 140, ORANGE)
-    g.text(560, 152, "ACR record table, entry 0", 15, ORANGE, SANS, "bold")
-    g.text(560, 186, "md5    1E15D6454497FF82…90E0", 14.5, ORANGE, MONO, "bold")
-    g.text(560, 214, "size   54,998", 14.5, TXT, MONO)
-    g.text(560, 242, "offset 0x94", 14.5, TXT, MONO)
+    g.text(560, 152, f"ACR record table, entry {idx}", 15, ORANGE, SANS, "bold")
+    g.text(560, 186, f"md5    {short}", 14.5, ORANGE, MONO, "bold")
+    g.text(560, 214, f"size   {size:,}", 14.5, TXT, MONO)
+    g.text(560, 242, f"offset 0x{off:X}", 14.5, TXT, MONO)
     g.box(540, 290, 400, 130, GREEN)
-    g.text(560, 322, "record 0 @ 0x94", 15, GREEN, SANS, "bold")
+    g.text(560, 322, f"record {idx} @ 0x{off:X}", 15, GREEN, SANS, "bold")
     g.text(560, 354, "02 00 00 00 01 00 00 00 00×8", 14, TXT, MONO)
-    g.text(560, 382, "TIFF 1972x1920, 1 ch, JPEG-XL", 14, TXT, MONO)
+    g.text(560, 382, f"TIFF {rw_}x{rh_}, 1 ch, JPEG-XL", 14, TXT, MONO)
     g.text(560, 406, "md5(signature + TIFF) = entry md5", 13, DIM)
     g.line(462, 296, 536, 186, ORANGE, "o")
     g.text(500, 296, "same", 13, ORANGE, SANS, "bold", "middle")
     g.text(500, 314, "value", 13, ORANGE, SANS, "bold", "middle")
     g.line(740, 260, 740, 286, TXT, "t")
-    # canvas column
     CX, CY, S = 1020, 150, 1 / 8.0
-    g.text(CX, 140, "FullMaskSize canvas 2880x1920 (1/8 scale)", 13, BLUE)
-    g.box(CX, CY, 2880 * S, 1920 * S, BLUE, fill="#0b1520", rx=2, dash="5 4", sw=1.5)
-    rx, ry, rw, rh = CX + 908 * S, CY, 1972 * S, 1920 * S
-    b64 = decode_record0(acr) if acr else None
-    if b64:
-        g.raw(f'<image x="{rx}" y="{ry}" width="{rw}" height="{rh}" preserveAspectRatio="none" href="data:image/png;base64,{b64}"/>')
-    else:
-        g.box(rx, ry, rw, rh, GREEN, fill="#1d2a1f", rx=0)
+    g.text(CX, 140, f"FullMaskSize canvas {fw}x{fh} (1/8 scale, sensor orientation)", 13, BLUE)
+    g.box(CX, CY, fw * S, fh * S, BLUE, fill="#0b1520", rx=2, dash="5 4", sw=1.5)
+    rx, ry, rw, rh = CX + ox * S, CY + oy * S, rw_ * S, rh_ * S
+    g.raw(f'<image x="{rx}" y="{ry}" width="{rw}" height="{rh}" preserveAspectRatio="none" href="data:image/png;base64,{b64}"/>')
     g.box(rx, ry, rw, rh, GREEN, fill="none", rx=0, sw=2)
-    g.text(rx + 6, ry + rh + 22, "raster 1972x1920 at Origin (908, 0)", 13, GREEN, MONO)
-    g.line(944, 355, CX + 60, CY + 150, GREEN, "g")
-    g.text(40, 470, "Every one of the 300 records in 76 files matched an XMP reference, and every reference matched a record.", 14.5, TXT)
-    g.text(40, 498, "Table order differs from XMP order in 74 of 76 files, so position means nothing; the MD5 is the link.", 14.5, DIM)
+    g.text(CX, CY + fh * S + 22, f"raster {rw_}x{rh_} at Origin ({ox}, {oy})", 13, GREEN, MONO)
+    g.line(944, 355, rx + 30, CY + 150, GREEN, "g")
+    g.text(40, 470, "Every one of the 311 records in 77 files matched an XMP reference, and every reference matched a record.", 14.5, TXT)
+    g.text(40, 498, "The table is sorted by MD5, not by XMP order (77 of 77 files), so position means nothing; the MD5 is the link.", 14.5, DIM)
     g.text(40, 526, "The local cache stores the same record as auxiliary\\<md5>, byte for byte.", 14.5, DIM)
     g.save("formats-mask-binding")
 
@@ -306,5 +282,5 @@ def lifecycle():
     g.save("formats-lifecycle")
 
 if __name__ == "__main__":
-    acr = sys.argv[sys.argv.index("--acr") + 1] if "--acr" in sys.argv else None
-    hero(); ifd_entry(); envelopes(); presence(); binding(acr); lifecycle()
+    acr = sys.argv[sys.argv.index("--acr") + 1]
+    ifd_entry(); envelopes(); presence(); binding(acr); lifecycle()

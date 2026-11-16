@@ -1,96 +1,99 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1320" height="1180" viewBox="0 0 1320 1180" font-family="'Segoe UI', sans-serif">
 <rect width="1320" height="1180" fill="#0d1117"/>
 <text x="40" y="50" font-size="28" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">Anatomy of a .acr file — the mask-raster container</text>
-<text x="40" y="80" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">DSC02091.acr · 215,820 bytes · 4 records · every offset real · layout confirmed on 76 files</text>
-<rect x="46" y="110" width="498" height="1000" rx="10" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+<text x="40" y="80" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">DSC02091.acr · 215,820 bytes · 4 records · every offset read from the file</text>
+<rect x="46" y="110" width="498" height="1030" rx="10" fill="#161b22" stroke="#30363d" stroke-width="2"/>
 <text x="60" y="138" font-size="14" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">LINEAR MAP</text>
-<rect x="536" y="160.0" width="14" height="2.0" fill="#d2a8ff"/>
-<rect x="536" y="160.6" width="14" height="224.3" fill="#7ee787"/>
-<rect x="536" y="384.9" width="14" height="225.9" fill="#7ee787"/>
-<rect x="536" y="610.8" width="14" height="169.0" fill="#7ee787"/>
-<rect x="536" y="779.8" width="14" height="260.2" fill="#7ee787"/>
+<rect x="536" y="160.0" width="14" height="1.5" fill="#d2a8ff"/>
+<rect x="536" y="160.6" width="14" height="216.6" fill="#7ee787"/>
+<rect x="536" y="377.2" width="14" height="218.2" fill="#7ee787"/>
+<rect x="536" y="595.4" width="14" height="163.3" fill="#7ee787"/>
+<rect x="536" y="758.6" width="14" height="251.4" fill="#7ee787"/>
 <text x="558" y="168" font-size="11" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">to</text>
 <text x="558" y="182" font-size="11" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">scale</text>
-<rect x="60" y="160" width="470" height="64" rx="10" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
+<rect x="60" y="160" width="470" height="56" rx="10" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
 <text x="76" y="188" font-size="15.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">header</text>
 <text x="76" y="212" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">magic · version · fmt · N=4 · reserved</text>
 <text x="516" y="188" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x0</text>
 <text x="516" y="212" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">20 B</text>
-<rect x="60" y="238" width="470" height="64" rx="10" fill="#161b22" stroke="#ffa657" stroke-width="2"/>
-<text x="76" y="266" font-size="15.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record table</text>
-<text x="76" y="290" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">4 x 32 B: md5 | u64 size | u64 offset</text>
-<text x="516" y="266" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x14</text>
-<text x="516" y="290" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">128 B</text>
-<rect x="60" y="316" width="470" height="78" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
-<text x="76" y="344" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 0</text>
-<text x="76" y="368" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">16 B sig + TIFF  1972x1920</text>
-<text x="516" y="344" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x94</text>
-<text x="516" y="368" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">54,998 B</text>
-<text x="76" y="406" font-size="11.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+ 2 B zero padding (records are 4-byte aligned)</text>
-<rect x="60" y="420" width="470" height="78" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
-<text x="76" y="448" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 1</text>
-<text x="76" y="472" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">16 B sig + TIFF  2880x1920</text>
-<text x="516" y="448" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0xD76C</text>
-<text x="516" y="472" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">55,400 B</text>
-<rect x="60" y="512" width="470" height="78" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
-<text x="76" y="540" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 2</text>
-<text x="76" y="564" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">16 B sig + TIFF  2117x1742</text>
-<text x="516" y="540" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x1AFD4</text>
-<text x="516" y="564" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">41,452 B</text>
-<rect x="60" y="604" width="470" height="78" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
-<text x="76" y="632" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 3</text>
-<text x="76" y="656" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">16 B sig + TIFF  1449x1743</text>
-<text x="516" y="632" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x251C0</text>
-<text x="516" y="656" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">63,820 B</text>
-<text x="60" y="720" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">EOF  0x34B0C</text>
-<text x="60" y="744" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">first record at 20 + 32 x N (0x74 / 0x94 / 0xF4</text>
-<text x="60" y="764" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">for 3 / 4 / 7 records) · each table md5 equals</text>
-<text x="60" y="784" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">crs:MaskDigest or crs:pm_patch in the XMP</text>
-<rect x="640" y="110" width="620" height="330" rx="10" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
+<rect x="60" y="224" width="470" height="56" rx="10" fill="#161b22" stroke="#ffa657" stroke-width="2"/>
+<text x="76" y="252" font-size="15.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record table</text>
+<text x="76" y="276" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">4 x 32 B: md5 | u64 size | u64 offset</text>
+<text x="516" y="252" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x14</text>
+<text x="516" y="276" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">128 B</text>
+<rect x="60" y="288" width="470" height="64" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="76" y="316" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 0</text>
+<text x="76" y="340" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">1972x1920 · 1-ch mask</text>
+<text x="516" y="316" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x94</text>
+<text x="516" y="340" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">54,998 B</text>
+<text x="76" y="366" font-size="11" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+ 2 B zero padding</text>
+<rect x="60" y="374" width="470" height="64" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="76" y="402" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 1</text>
+<text x="76" y="426" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">2880x1920 · 1-ch mask</text>
+<text x="516" y="402" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0xD76C</text>
+<text x="516" y="426" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">55,400 B</text>
+<rect x="60" y="446" width="470" height="64" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="76" y="474" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 2</text>
+<text x="76" y="498" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">2117x1742 · 1-ch mask</text>
+<text x="516" y="474" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x1AFD4</text>
+<text x="516" y="498" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">41,452 B</text>
+<rect x="60" y="518" width="470" height="64" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="76" y="546" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 3</text>
+<text x="76" y="570" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">1449x1743 · 1-ch mask</text>
+<text x="516" y="546" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x251C0</text>
+<text x="516" y="570" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">63,820 B</text>
+<text x="60" y="612" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">EOF  0x34B0C</text>
+<text x="60" y="636" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">first record at 20 + 32 x N = 0x94 · green: 1-ch mask,</text>
+<text x="60" y="656" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">blue: 3-ch RGB patch, orange: zlib XMP record</text>
+<rect x="640" y="110" width="620" height="360" rx="10" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
 <text x="660" y="140" font-size="14" fill="#d2a8ff" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">HEADER + RECORD TABLE  (0x00–0x93)</text>
 <text x="660" y="166" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x00</text>
 <text x="716" y="166" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">4 B</text>
-<text x="768" y="166" font-size="13" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">magic "ACR\0"</text>
+<text x="776" y="166" font-size="13" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">magic "ACR\0"</text>
 <text x="660" y="196" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x04</text>
 <text x="716" y="196" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">4 B</text>
-<text x="768" y="196" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">u32 version = 1</text>
+<text x="776" y="196" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">u32 version = 1</text>
 <text x="660" y="226" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x08</text>
 <text x="716" y="226" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">4 B</text>
-<text x="768" y="226" font-size="13" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">source-format tag "ARW\0"</text>
+<text x="776" y="226" font-size="13" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">source-format tag "ARW\0"</text>
 <text x="660" y="256" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x0C</text>
 <text x="716" y="256" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">4 B</text>
-<text x="768" y="256" font-size="13" fill="#ffa657" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">u32 N = 4 — record count</text>
+<text x="776" y="256" font-size="13" fill="#ffa657" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">u32 N = 4 — record count</text>
 <text x="660" y="286" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x10</text>
 <text x="716" y="286" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">4 B</text>
-<text x="768" y="286" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">u32 0 — reserved</text>
+<text x="776" y="286" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">u32 0 — reserved</text>
 <text x="660" y="316" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x14</text>
 <text x="716" y="316" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">32 B</text>
-<text x="768" y="316" font-size="13" fill="#58a6ff" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">entry 0: md5[16] | u64 size | u64 offset = 0x94</text>
+<text x="776" y="316" font-size="13" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">entry 0: 1E15D645… | 54,998 | 0x94</text>
 <text x="660" y="346" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x34</text>
 <text x="716" y="346" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">32 B</text>
-<text x="768" y="346" font-size="13" fill="#58a6ff" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">entry 1: md5 6D815A60… | 55,400 | 0xD76C</text>
+<text x="776" y="346" font-size="13" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">entry 1: 6D815A60… | 55,400 | 0xD76C</text>
 <text x="660" y="376" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x54</text>
-<text x="716" y="376" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">64 B</text>
-<text x="768" y="376" font-size="13" fill="#58a6ff" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">entries 2–3 · md5 = md5(signature + TIFF)</text>
-<rect x="640" y="470" width="620" height="400" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
-<text x="660" y="500" font-size="14" fill="#7ee787" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">RECORD ZOOM  (record 0 @ 0x94)</text>
-<text x="660" y="528" font-size="13" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+0x00  16 B signature:  02 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00</text>
-<text x="660" y="556" font-size="13" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+0x10  TIFF — same layout as the auxiliary\ type-02 records</text>
-<text x="660" y="588" font-size="13.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">IFD0 (12 entries):</text>
-<text x="676" y="614" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x00FE NewSubfileType = 0</text>
-<text x="676" y="640" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0100 ImageWidth = 1972   0x0101 ImageLength = 1920</text>
-<text x="676" y="666" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0102 BitsPerSample = 8   0x0115 SamplesPerPixel = 1</text>
-<text x="676" y="692" font-size="12.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0103 Compression = 52546 = JPEGXL_DNG</text>
-<text x="676" y="718" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0106 Photometric = 1 (BlackIsZero) — a mask, not a picture</text>
-<text x="676" y="744" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0142 TileWidth = 1972   0x0143 TileLength = 1920 (one tile)</text>
-<text x="676" y="770" font-size="12.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0144 TileOffsets → JPEG-XL tile data   0x0145 TileByteCounts</text>
-<text x="660" y="802" font-size="12" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">cropped to the mask (XMP Origin places it) · Remove patches: 3-ch 16-bit</text>
-<rect x="640" y="900" width="620" height="210" rx="10" fill="#161b22" stroke="#7A8899" stroke-width="1.6" stroke-dasharray="6 4"/>
-<text x="660" y="930" font-size="14" fill="#7A8899" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">HOW TO WALK IT</text>
-<text x="660" y="958" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">1. verify magic ACR\0 · read N @0x0C</text>
-<text x="660" y="986" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">2. read N x 32-byte entries @0x14: md5, size, offset</text>
-<text x="660" y="1014" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">3. record = data[offset:offset+size]; md5 must match</text>
-<text x="660" y="1042" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">4. each TIFF is standalone — strip 16 bytes, save it</text>
-<text x="660" y="1070" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">5. decode tiles: pip install tifffile imagecodecs (JXL)</text>
-<text x="660" y="1098" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">automated: scripts/acr_reader.py &lt;file.acr&gt; --png</text>
+<text x="716" y="376" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">32 B</text>
+<text x="776" y="376" font-size="13" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">entry 2: D60E28EC… | 41,452 | 0x1AFD4</text>
+<text x="660" y="406" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x74</text>
+<text x="716" y="406" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">32 B</text>
+<text x="776" y="406" font-size="13" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">entries 3–3</text>
+<text x="660" y="440" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">md5 = md5(signature + TIFF), or md5(inflated bytes) for a zlib record</text>
+<rect x="640" y="500" width="620" height="380" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="660" y="530" font-size="14" fill="#7ee787" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">RECORD ZOOM  (record 0 @ 0x94)</text>
+<text x="660" y="558" font-size="13" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+0x00  16 B signature:  02 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00</text>
+<text x="660" y="586" font-size="13" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+0x10  TIFF — same layout as the auxiliary\ type-02 records</text>
+<text x="660" y="618" font-size="13.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">IFD0 (12 entries):</text>
+<text x="676" y="644" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0100 ImageWidth = 1972   0x0101 ImageLength = 1920</text>
+<text x="676" y="670" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0102 BitsPerSample = 8   0x0115 SamplesPerPixel = 1</text>
+<text x="676" y="696" font-size="12.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0103 Compression = 52546 = JPEGXL_DNG</text>
+<text x="676" y="722" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0106 Photometric = 1 (BlackIsZero) — a mask, not a picture</text>
+<text x="676" y="748" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0142 TileWidth = 1972   0x0143 TileLength = 1920 (one tile)</text>
+<text x="676" y="774" font-size="12.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0144 TileOffsets → JPEG-XL tile data   0x0145 TileByteCounts</text>
+<text x="660" y="810" font-size="12" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">cropped to the mask (XMP Origin places it) · Remove patches: 3-ch 16-bit</text>
+<rect x="640" y="910" width="620" height="230" rx="10" fill="#161b22" stroke="#7A8899" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="660" y="940" font-size="14" fill="#7A8899" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">HOW TO WALK IT</text>
+<text x="660" y="968" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">1. verify magic ACR\0 · read N @0x0C</text>
+<text x="660" y="994" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">2. read N x 32-byte entries @0x14: md5, size, offset</text>
+<text x="660" y="1020" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">3. record = data[offset:offset+size]</text>
+<text x="660" y="1046" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">4. 02 00 00 00 01 …: strip 16 bytes, it is a TIFF</text>
+<text x="660" y="1072" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">5. u32 len + 78 9c: inflate, it is an XMP packet</text>
+<text x="660" y="1098" font-size="13" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">6. decode tiles: pip install tifffile imagecodecs (JXL)</text>
+<text x="660" y="1128" font-size="13.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">automated: scripts/acr_reader.py &lt;file.acr&gt; --png</text>
 </svg>

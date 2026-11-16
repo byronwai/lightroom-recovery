@@ -40,10 +40,10 @@
 <line x1="990" y1="290" x2="900" y2="360" stroke="#ffa657" stroke-width="2" marker-end="url(#ao)"/>
 <rect x="130" y="364" width="400" height="110" rx="12" fill="#161b22" stroke="#ffa657" stroke-width="1.6" stroke-dasharray="6 4"/>
 <text x="150" y="398" font-size="16" fill="#ffa657" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">fits in 4 bytes: stored inline</text>
-<text x="150" y="426" font-size="14" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">ImageWidth = 6000 → done, no jump</text>
+<text x="150" y="426" font-size="14" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">ImageWidth = 7168 → done, no jump</text>
 <text x="150" y="452" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">(SHORT, LONG, a few bytes of ASCII)</text>
 <rect x="700" y="364" width="460" height="110" rx="12" fill="#161b22" stroke="#ffa657" stroke-width="1.6" stroke-dasharray="6 4"/>
 <text x="720" y="398" font-size="16" fill="#ffa657" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">bigger: the field is an offset</text>
-<text x="720" y="426" font-size="14" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">StripOffsets[100] → jump to 0x1EA000</text>
+<text x="720" y="426" font-size="14" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">StripOffsets → jump to 0x3D0000</text>
 <text x="720" y="452" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">a sub-IFD, a JPEG, the sensor strip…</text>
 </svg>

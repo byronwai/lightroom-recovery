@@ -22,16 +22,16 @@
 <text x="778" y="314" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">settings — no extension,</text>
 <text x="778" y="336" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">no envelope</text>
 <line x1="662" y1="213" x2="756" y2="213" stroke="#ffa657" stroke-width="2" marker-end="url(#arr)"/>
-<text x="709" y="160" font-size="14" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">contentIdOrSha256  IS  the file name</text>
+<text x="1140" y="160" font-size="14" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">contentIdOrSha256  IS  the file name</text>
 <rect x="40" y="500" width="1100" height="120" rx="14" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
 <text x="60" y="532" font-size="16" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">revisions</text>
 <text x="60" y="558" font-size="15" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">one assetId can own several shas  →  sort by dateLastUpdatedInSeconds</text>
-<text x="60" y="586" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">newest → DSC02091.xmp          older → DSC02091_1045a0.xmp (_sha6 suffix)</text>
+<text x="60" y="586" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">newest → DSC03049.xmp          older → DSC03049_&lt;sha6&gt;.xmp (_sha6 suffix)</text>
 <line x1="778" y1="380" x2="778" y2="496" stroke="#e6edf3" stroke-width="2" marker-end="url(#arr)"/>
 <line x1="370" y1="446" x2="370" y2="496" stroke="#e6edf3" stroke-width="2" marker-end="url(#arr)"/>
 <rect x="40" y="690" width="520" height="110" rx="14" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
 <text x="60" y="722" font-size="15" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">from assets</text>
-<text x="60" y="748" font-size="15" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">filename → sidecar stem (DSC02091)</text>
+<text x="60" y="748" font-size="15" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">filename → sidecar stem (DSC03049)</text>
 <text x="60" y="774" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">byte-identical base name required</text>
 <rect x="620" y="690" width="520" height="110" rx="14" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
 <text x="640" y="722" font-size="15" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">from assetPathsAndInfo</text>
@@ -46,7 +46,7 @@
 <line x1="880" y1="804" x2="750" y2="866" stroke="#e6edf3" stroke-width="2" marker-end="url(#arr)"/>
 <rect x="160" y="1030" width="860" height="150" rx="14" fill="#1f1608" stroke="#ffa657" stroke-width="3"/>
 <text x="180" y="1064" font-size="17" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">originals\2025\2024-11-16\</text>
-<text x="180" y="1096" font-size="21" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">DSC02091.ARW   +   DSC02091.xmp</text>
+<text x="180" y="1096" font-size="21" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">DSC03049.ARW   +   DSC03049.xmp</text>
 <text x="180" y="1128" font-size="14" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">every edited photo is recovered this way</text>
 <line x1="590" y1="964" x2="590" y2="1026" stroke="#ffa657" stroke-width="2" marker-end="url(#arr)"/>
 <text x="700" y="1002" font-size="14" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">place beside the RAW</text>

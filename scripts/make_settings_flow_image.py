@@ -76,20 +76,21 @@ def build(with_counts=True):
     text(778, 314, "settings — no extension,", 13.5, DIM)
     text(778, 336, "no envelope", 13.5, DIM)
 
-    arrow(662, 213, 756, 213, "contentIdOrSha256  IS  the file name", 709, 160, ORANGE)
+    arrow(662, 213, 756, 213, color=ORANGE)
+    text(1140, 160, "contentIdOrSha256  IS  the file name", 14, ORANGE, MONO, "bold", "end")
 
     # ---- row 2: revision selection ----
     box(40, 500, 1100, 120, BLUE)
     text(60, 532, "revisions", 16, BLUE, MONO, "bold")
     text(60, 558, "one assetId can own several shas  →  sort by dateLastUpdatedInSeconds", 15, TXT)
-    text(60, 586, "newest → DSC02091.xmp          older → DSC02091_1045a0.xmp (_sha6 suffix)", 15, DIM, MONO)
+    text(60, 586, "newest → DSC03049.xmp          older → DSC03049_<sha6>.xmp (_sha6 suffix)", 15, DIM, MONO)
     arrow(778, 380, 778, 496)
     arrow(370, 446, 370, 496)
 
     # ---- row 3: naming inputs ----
     box(40, 690, 520, 110, BLUE)
     text(60, 722, "from assets", 15, BLUE, MONO, "bold")
-    text(60, 748, "filename → sidecar stem (DSC02091)", 15, TXT)
+    text(60, 748, "filename → sidecar stem (DSC03049)", 15, TXT)
     text(60, 774, "byte-identical base name required", 13.5, DIM)
 
     box(620, 690, 520, 110, GREEN)
@@ -108,7 +109,7 @@ def build(with_counts=True):
 
     box(160, 1030, 860, 150, ORANGE, fill="#1f1608", sw=3)
     text(180, 1064, "originals\\2025\\2024-11-16\\", 17, ORANGE, MONO, "bold")
-    text(180, 1096, "DSC02091.ARW   +   DSC02091.xmp", 21, TXT, MONO, "bold")
+    text(180, 1096, "DSC03049.ARW   +   DSC03049.xmp", 21, TXT, MONO, "bold")
     text(180, 1128, "1,952 photos recovered this way — every edited photo included"
           if with_counts else "every edited photo is recovered this way", 14, DIM)
     arrow(590, 964, 590, 1026, "place beside the RAW", 700, 1002, ORANGE)

@@ -60,12 +60,12 @@
 <text x="960" y="596" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">patched by 06</text>
 <line x1="936" y1="560" x2="846" y2="560" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="5 4"/>
 <line x1="840" y1="560" x2="936" y2="560" stroke="#58a6ff" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="5 4"/>
-<rect x="940" y="1180" width="220" height="160" rx="14" fill="#161b22" stroke="#d2a8ff" stroke-width="1.6" stroke-dasharray="6 4"/>
-<text x="960" y="1210" font-size="15" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">auxiliary\ store</text>
-<text x="960" y="1236" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">4,504 type-02</text>
-<text x="960" y="1256" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">mask rasters</text>
-<text x="960" y="1284" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">purge aux rows give</text>
-<text x="960" y="1304" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">digest + assetId</text>
-<line x1="936" y1="1262" x2="846" y2="1258" stroke="#d2a8ff" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="5 4"/>
+<rect x="940" y="1070" width="220" height="160" rx="14" fill="#161b22" stroke="#d2a8ff" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="960" y="1100" font-size="15" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">auxiliary\ store</text>
+<text x="960" y="1126" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">4,504 type-02</text>
+<text x="960" y="1146" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">mask rasters</text>
+<text x="960" y="1174" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">purge aux rows give</text>
+<text x="960" y="1194" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">digest + assetId</text>
+<line x1="936" y1="1149" x2="846" y2="1149" stroke="#d2a8ff" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="5 4"/>
 <text x="40" y="1520" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">steps are safe to re-run: identical writes are skipped, never duplicated</text>
 </svg>

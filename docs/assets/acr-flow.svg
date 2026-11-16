@@ -4,7 +4,7 @@
 <text x="40" y="52" font-size="28" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">The .acr companion — anatomy and both paths</text>
 <text x="40" y="82" font-size="14.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">reverse-engineered (§6.8) · reader: scripts/acr_reader.py · counts from the real export</text>
 <rect x="40" y="110" width="1160" height="560" rx="14" fill="#161b22" stroke="#ffa657" stroke-width="2"/>
-<text x="60" y="142" font-size="15" fill="#ffa657" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">ANATOMY — byte map (DSC02091.acr, 215,820 bytes, 4 records; same layout in 76 files)</text>
+<text x="60" y="142" font-size="15" fill="#ffa657" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">ANATOMY — byte map (DSC03049.acr, 2,533,768 bytes, 11 records; same layout in 77 files)</text>
 <text x="80" y="170" font-size="14.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x00</text>
 <text x="150" y="170" font-size="14.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">41 43 52 00</text>
 <text x="330" y="170" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">magic "ACR\0"</text>
@@ -15,23 +15,23 @@
 <text x="150" y="230" font-size="14.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">41 52 57 00</text>
 <text x="330" y="230" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">source-format tag "ARW\0"</text>
 <text x="80" y="260" font-size="14.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x0C</text>
-<text x="150" y="260" font-size="14.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">04 00 00 00</text>
-<text x="330" y="260" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">N = record count · then u32 0 (reserved)</text>
+<text x="150" y="260" font-size="14.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0b 00 00 00</text>
+<text x="330" y="260" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">N = 11 records · then u32 0 (reserved)</text>
 <text x="80" y="290" font-size="14.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x14</text>
-<text x="150" y="290" font-size="14.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">N × 32 B</text>
-<text x="330" y="290" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">record table: md5[16] | u64 size | u64 offset</text>
+<text x="150" y="290" font-size="14.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">11 × 32 B</text>
+<text x="330" y="290" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">record table, sorted by md5: md5[16] | u64 size | u64 offset</text>
 <text x="80" y="320" font-size="14.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start"></text>
 <text x="150" y="320" font-size="14.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">           </text>
-<text x="330" y="320" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">md5 = md5(record) = crs:MaskDigest / crs:pm_patch in the XMP</text>
-<text x="80" y="350" font-size="14.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x94</text>
+<text x="330" y="320" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">md5 = crs:MaskDigest / crs:pm_patch* / crs:IngestInfo in the XMP</text>
+<text x="80" y="350" font-size="14.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x174</text>
 <text x="150" y="350" font-size="14.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 0</text>
-<text x="330" y="350" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">at 20 + 32×N · 16-byte signature 02 00 00 00 01 00 00 00 + 8×00</text>
+<text x="330" y="350" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">at 20 + 32×N; records 4-byte aligned, located via the table</text>
 <text x="80" y="380" font-size="14.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start"></text>
-<text x="150" y="380" font-size="14.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">           </text>
-<text x="330" y="380" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">then a self-contained TIFF — JPEG-XL tiled mask raster</text>
+<text x="150" y="380" font-size="14.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">10 raster</text>
+<text x="330" y="380" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">16-byte signature 02 00 00 00 01 00 00 00 + 8×00, then a JPEG-XL TIFF</text>
 <text x="80" y="410" font-size="14.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start"></text>
-<text x="150" y="410" font-size="14.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 1…n</text>
-<text x="330" y="410" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">same signature + TIFF; 4-byte aligned, located via the table</text>
+<text x="150" y="410" font-size="14.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">1 zlib</text>
+<text x="330" y="410" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">u32 inflated length + zlib: a 12-byte frame + XMP packet (the receipt)</text>
 <text x="80" y="446" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">TIFFs: single-channel grayscale (some 3-channel 16-bit) · compression tag 52546 = JPEGXL_DNG</text>
 <text x="80" y="470" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">→ PIL refuses them; decode with tifffile + imagecodecs · each raster cropped to its mask, placed by XMP Origin</text>
 <rect x="40" y="700" width="1160" height="700" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2"/>
@@ -46,7 +46,7 @@
 <text x="90" y="1020" font-size="15" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">DSCxxxxx.ARW   the pixels</text>
 <text x="90" y="1048" font-size="15" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">DSCxxxxx.xmp   the recipe (bare, no envelope)</text>
 <text x="90" y="1076" font-size="15" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">DSCxxxxx.acr   the mask molds — real container</text>
-<text x="90" y="1106" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">written iff the edit has AI masks (83/83 sidecars checked)</text>
+<text x="90" y="1106" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">written iff the edit has AI masks (84/84 sidecars checked)</text>
 <line x1="340" y1="914" x2="340" y2="954" stroke="#7ee787" stroke-width="2" marker-end="url(#arr)"/>
 <rect x="640" y="760" width="540" height="150" rx="14" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
 <text x="660" y="792" font-size="16" fill="#d2a8ff" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">offline path (lockout)</text>

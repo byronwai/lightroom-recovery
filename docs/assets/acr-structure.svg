@@ -1,52 +1,96 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="1180" viewBox="0 0 1320 1180" font-family="'Segoe UI', sans-serif">
-<rect width="1320" height="1180" fill="#0d1117"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="1303" viewBox="0 0 1320 1303" font-family="'Segoe UI', sans-serif">
+<rect width="1320" height="1303" fill="#0d1117"/>
 <text x="40" y="50" font-size="28" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">Anatomy of a .acr file — the mask-raster container</text>
-<text x="40" y="80" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">DSC02091.acr · 215,820 bytes · 4 records · every offset read from the file</text>
-<rect x="46" y="110" width="498" height="1030" rx="10" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+<text x="40" y="80" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">DSC03049.acr · 2,533,768 bytes · 11 records · every offset read from the file</text>
+<rect x="46" y="110" width="498" height="1153" rx="10" fill="#161b22" stroke="#30363d" stroke-width="2"/>
 <text x="60" y="138" font-size="14" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">LINEAR MAP</text>
 <rect x="536" y="160.0" width="14" height="1.5" fill="#d2a8ff"/>
-<rect x="536" y="160.6" width="14" height="216.6" fill="#7ee787"/>
-<rect x="536" y="377.2" width="14" height="218.2" fill="#7ee787"/>
-<rect x="536" y="595.4" width="14" height="163.3" fill="#7ee787"/>
-<rect x="536" y="758.6" width="14" height="251.4" fill="#7ee787"/>
+<rect x="536" y="160.1" width="14" height="217.2" fill="#58a6ff"/>
+<rect x="536" y="377.3" width="14" height="57.0" fill="#7ee787"/>
+<rect x="536" y="434.3" width="14" height="71.3" fill="#7ee787"/>
+<rect x="536" y="505.6" width="14" height="206.4" fill="#58a6ff"/>
+<rect x="536" y="711.9" width="14" height="1.5" fill="#ffa657"/>
+<rect x="536" y="712.0" width="14" height="7.3" fill="#7ee787"/>
+<rect x="536" y="719.4" width="14" height="215.2" fill="#58a6ff"/>
+<rect x="536" y="934.6" width="14" height="3.5" fill="#7ee787"/>
+<rect x="536" y="938.1" width="14" height="52.9" fill="#7ee787"/>
+<rect x="536" y="991.0" width="14" height="76.3" fill="#7ee787"/>
+<rect x="536" y="1067.2" width="14" height="65.8" fill="#7ee787"/>
 <text x="558" y="168" font-size="11" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">to</text>
 <text x="558" y="182" font-size="11" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">scale</text>
 <rect x="60" y="160" width="470" height="56" rx="10" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
 <text x="76" y="188" font-size="15.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">header</text>
-<text x="76" y="212" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">magic · version · fmt · N=4 · reserved</text>
+<text x="76" y="212" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">magic · version · fmt · N=11 · reserved</text>
 <text x="516" y="188" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x0</text>
 <text x="516" y="212" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">20 B</text>
 <rect x="60" y="224" width="470" height="56" rx="10" fill="#161b22" stroke="#ffa657" stroke-width="2"/>
 <text x="76" y="252" font-size="15.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record table</text>
-<text x="76" y="276" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">4 x 32 B: md5 | u64 size | u64 offset</text>
+<text x="76" y="276" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">11 x 32 B: md5 | u64 size | u64 offset</text>
 <text x="516" y="252" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x14</text>
-<text x="516" y="276" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">128 B</text>
-<rect x="60" y="288" width="470" height="64" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
-<text x="76" y="316" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 0</text>
-<text x="76" y="340" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">1972x1920 · 1-ch mask</text>
-<text x="516" y="316" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x94</text>
-<text x="516" y="340" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">54,998 B</text>
-<text x="76" y="366" font-size="11" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+ 2 B zero padding</text>
-<rect x="60" y="374" width="470" height="64" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
-<text x="76" y="402" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 1</text>
-<text x="76" y="426" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">2880x1920 · 1-ch mask</text>
-<text x="516" y="402" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0xD76C</text>
-<text x="516" y="426" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">55,400 B</text>
-<rect x="60" y="446" width="470" height="64" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
-<text x="76" y="474" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 2</text>
-<text x="76" y="498" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">2117x1742 · 1-ch mask</text>
-<text x="516" y="474" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x1AFD4</text>
-<text x="516" y="498" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">41,452 B</text>
-<rect x="60" y="518" width="470" height="64" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
-<text x="76" y="546" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 3</text>
-<text x="76" y="570" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">1449x1743 · 1-ch mask</text>
-<text x="516" y="546" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x251C0</text>
-<text x="516" y="570" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">63,820 B</text>
-<text x="60" y="612" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">EOF  0x34B0C</text>
-<text x="60" y="636" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">first record at 20 + 32 x N = 0x94 · green: 1-ch mask,</text>
-<text x="60" y="656" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">blue: 3-ch RGB patch, orange: zlib XMP record</text>
+<text x="516" y="276" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">352 B</text>
+<rect x="60" y="288" width="470" height="57" rx="10" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+<text x="76" y="316" font-size="15.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 0</text>
+<text x="76" y="340" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">2115x599 · 3-ch RGB patch</text>
+<text x="516" y="316" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x174</text>
+<text x="516" y="340" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">565,532 B</text>
+<rect x="60" y="353" width="470" height="57" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="76" y="381" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 1</text>
+<text x="76" y="405" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">1313x1920 · 1-ch mask</text>
+<text x="516" y="381" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x8A290</text>
+<text x="516" y="405" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">148,316 B</text>
+<rect x="60" y="418" width="470" height="57" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="76" y="446" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 2</text>
+<text x="76" y="470" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">1742x1920 · 1-ch mask</text>
+<text x="516" y="446" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0xAE5EC</text>
+<text x="516" y="470" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">185,666 B</text>
+<text x="76" y="489" font-size="11" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+ 2 B zero padding</text>
+<rect x="60" y="497" width="470" height="57" rx="10" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+<text x="76" y="525" font-size="15.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 3</text>
+<text x="76" y="549" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">2115x599 · 3-ch RGB patch</text>
+<text x="516" y="525" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0xDBB30</text>
+<text x="516" y="549" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">537,356 B</text>
+<rect x="60" y="562" width="470" height="57" rx="10" fill="#161b22" stroke="#ffa657" stroke-width="2"/>
+<text x="76" y="590" font-size="15.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 4</text>
+<text x="76" y="614" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">zlib → 460 B XMP packet</text>
+<text x="516" y="590" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x15EE3C</text>
+<text x="516" y="614" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">318 B</text>
+<text x="76" y="633" font-size="11" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+ 2 B zero padding</text>
+<rect x="60" y="641" width="470" height="57" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="76" y="669" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 5</text>
+<text x="76" y="693" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">2115x599 · 1-ch mask</text>
+<text x="516" y="669" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x15EF7C</text>
+<text x="516" y="693" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">19,060 B</text>
+<rect x="60" y="706" width="470" height="57" rx="10" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+<text x="76" y="734" font-size="15.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 6</text>
+<text x="76" y="758" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">2115x599 · 3-ch RGB patch</text>
+<text x="516" y="734" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x1639F0</text>
+<text x="516" y="758" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">560,486 B</text>
+<text x="76" y="777" font-size="11" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+ 2 B zero padding</text>
+<rect x="60" y="785" width="470" height="57" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="76" y="813" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 7</text>
+<text x="76" y="837" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">852x229 · 1-ch mask</text>
+<text x="516" y="813" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x1EC758</text>
+<text x="516" y="837" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">9,132 B</text>
+<rect x="60" y="850" width="470" height="57" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="76" y="878" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 8</text>
+<text x="76" y="902" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">2470x1920 · 1-ch mask</text>
+<text x="516" y="878" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x1EEB04</text>
+<text x="516" y="902" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">137,656 B</text>
+<rect x="60" y="915" width="470" height="57" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="76" y="943" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 9</text>
+<text x="76" y="967" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">2880x1920 · 1-ch mask</text>
+<text x="516" y="943" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x2104BC</text>
+<text x="516" y="967" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">198,584 B</text>
+<rect x="60" y="980" width="470" height="57" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
+<text x="76" y="1008" font-size="15.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">record 10</text>
+<text x="76" y="1032" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">1935x1920 · 1-ch mask</text>
+<text x="516" y="1008" font-size="13" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="end">@0x240C74</text>
+<text x="516" y="1032" font-size="12" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end">171,284 B</text>
+<text x="60" y="1067" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">EOF  0x26A988</text>
+<text x="60" y="1091" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">first record at 20 + 32 x N = 0x174 · green: 1-ch mask,</text>
+<text x="60" y="1111" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">blue: 3-ch RGB patch, orange: zlib XMP record</text>
 <rect x="640" y="110" width="620" height="360" rx="10" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
-<text x="660" y="140" font-size="14" fill="#d2a8ff" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">HEADER + RECORD TABLE  (0x00–0x93)</text>
+<text x="660" y="140" font-size="14" fill="#d2a8ff" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">HEADER + RECORD TABLE  (0x00–0x173)</text>
 <text x="660" y="166" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x00</text>
 <text x="716" y="166" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">4 B</text>
 <text x="776" y="166" font-size="13" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">magic "ACR\0"</text>
@@ -58,33 +102,33 @@
 <text x="776" y="226" font-size="13" fill="#e6edf3" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">source-format tag "ARW\0"</text>
 <text x="660" y="256" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x0C</text>
 <text x="716" y="256" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">4 B</text>
-<text x="776" y="256" font-size="13" fill="#ffa657" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">u32 N = 4 — record count</text>
+<text x="776" y="256" font-size="13" fill="#ffa657" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">u32 N = 11 — record count</text>
 <text x="660" y="286" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x10</text>
 <text x="716" y="286" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">4 B</text>
 <text x="776" y="286" font-size="13" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">u32 0 — reserved</text>
 <text x="660" y="316" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x14</text>
 <text x="716" y="316" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">32 B</text>
-<text x="776" y="316" font-size="13" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">entry 0: 1E15D645… | 54,998 | 0x94</text>
+<text x="776" y="316" font-size="13" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">entry 0: 0CC037BC… | 565,532 | 0x174</text>
 <text x="660" y="346" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x34</text>
 <text x="716" y="346" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">32 B</text>
-<text x="776" y="346" font-size="13" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">entry 1: 6D815A60… | 55,400 | 0xD76C</text>
+<text x="776" y="346" font-size="13" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">entry 1: 329726F2… | 148,316 | 0x8A290</text>
 <text x="660" y="376" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x54</text>
 <text x="716" y="376" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">32 B</text>
-<text x="776" y="376" font-size="13" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">entry 2: D60E28EC… | 41,452 | 0x1AFD4</text>
+<text x="776" y="376" font-size="13" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">entry 2: 4359D3CF… | 185,666 | 0xAE5EC</text>
 <text x="660" y="406" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">0x74</text>
-<text x="716" y="406" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">32 B</text>
-<text x="776" y="406" font-size="13" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">entries 3–3</text>
+<text x="716" y="406" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">256 B</text>
+<text x="776" y="406" font-size="13" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">entries 3–10</text>
 <text x="660" y="440" font-size="12.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">md5 = md5(signature + TIFF), or md5(inflated bytes) for a zlib record</text>
 <rect x="640" y="500" width="620" height="380" rx="10" fill="#161b22" stroke="#7ee787" stroke-width="2"/>
-<text x="660" y="530" font-size="14" fill="#7ee787" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">RECORD ZOOM  (record 0 @ 0x94)</text>
+<text x="660" y="530" font-size="14" fill="#7ee787" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">RECORD ZOOM  (record 1 @ 0x8A290)</text>
 <text x="660" y="558" font-size="13" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+0x00  16 B signature:  02 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00</text>
 <text x="660" y="586" font-size="13" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">+0x10  TIFF — same layout as the auxiliary\ type-02 records</text>
 <text x="660" y="618" font-size="13.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start">IFD0 (12 entries):</text>
-<text x="676" y="644" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0100 ImageWidth = 1972   0x0101 ImageLength = 1920</text>
+<text x="676" y="644" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0100 ImageWidth = 1313   0x0101 ImageLength = 1920</text>
 <text x="676" y="670" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0102 BitsPerSample = 8   0x0115 SamplesPerPixel = 1</text>
 <text x="676" y="696" font-size="12.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0103 Compression = 52546 = JPEGXL_DNG</text>
 <text x="676" y="722" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0106 Photometric = 1 (BlackIsZero) — a mask, not a picture</text>
-<text x="676" y="748" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0142 TileWidth = 1972   0x0143 TileLength = 1920 (one tile)</text>
+<text x="676" y="748" font-size="12.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0142 TileWidth = 1313   0x0143 TileLength = 1920 (one tile)</text>
 <text x="676" y="774" font-size="12.5" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">0x0144 TileOffsets → JPEG-XL tile data   0x0145 TileByteCounts</text>
 <text x="660" y="810" font-size="12" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">cropped to the mask (XMP Origin places it) · Remove patches: 3-ch 16-bit</text>
 <rect x="640" y="910" width="620" height="230" rx="10" fill="#161b22" stroke="#7A8899" stroke-width="1.6" stroke-dasharray="6 4"/>

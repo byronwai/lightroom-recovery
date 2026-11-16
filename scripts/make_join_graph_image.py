@@ -4,7 +4,7 @@ Writes docs/assets/join-graph.svg + .png (headless Edge).
 Complements the Mermaid version in diagrams.md section 2.
 Run:  python scripts/make_join_graph_image.py
 """
-import os, subprocess, tempfile
+import os, sys, subprocess, tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT  = os.path.join(ROOT, "docs", "assets")
@@ -100,12 +100,52 @@ joins = [
     ("presetsAndProfiles", "cr_settings\\",
      "docId = filename", "", GREEN, 880),
 ]
-for src, dst, k1, k2, col, ly in joins:
+X1, X2 = 588, 972
+for src, dst, k1, k2, col, _ in joins:            # all lines first, so every chip paints over them
+    line(X1, centers[src], X2, scenters[dst], col)
+segs = [(centers[s], scenters[d]) for s, d, *_ in joins]
+def crossings(r, own):
+    """How many OTHER join lines pass through chip rectangle r."""
+    n = 0
+    for k, (a, b) in enumerate(segs):
+        if k == own:
+            continue
+        for i in range(41):
+            x, y = X1 + (X2 - X1) * i / 40, a + (b - a) * i / 40
+            if r[0] - 4 <= x <= r[2] + 4 and r[1] - 4 <= y <= r[3] + 4:
+                n += 1
+                break
+    return n
+placed = []
+for k, (src, dst, k1, k2, col, _) in enumerate(joins):   # each key sits ON its own line, in an opaque chip
     y1, y2 = centers[src], scenters[dst]
-    line(588, y1, 972, y2, col)
-    text(780, ly, k1, 13.5, col, MONO, "bold", "middle")
+    cw = max(len(k1) * 8.0, len(k2) * 7.4) + 24
+    ch = 46 if k2 else 28
+    best = None
+    for lo, hi, gap in ((612, 948, 10), (604, 956, 4)):    # strict margins first, then relaxed
+        for i in range(5, 96):
+            f = i / 100
+            cx, cy = X1 + (X2 - X1) * f, y1 + (y2 - y1) * f
+            r = (cx - cw / 2, cy - ch / 2, cx + cw / 2, cy + ch / 2)
+            if r[0] < lo or r[2] > hi:                      # keep clear of both panels
+                continue
+            if any(not (r[2] + gap < q[0] or q[2] + gap < r[0] or r[3] + gap < q[1] or q[3] + gap < r[1])
+                   for q in placed):
+                continue
+            score = (crossings(r, k), abs(f - 0.5))
+            if best is None or score < best[0]:
+                best = (score, cx, cy, r)
+        if best:
+            break
+    if best is None:
+        sys.exit(f"no room for the '{k1}' label")
+    _, cx, cy, r = best
+    placed.append(r)
+    S.append(f'<rect x="{r[0]:.1f}" y="{r[1]:.1f}" width="{cw:.1f}" height="{ch}" rx="7" '
+             f'fill="#0d1117" fill-opacity="1" stroke="{col}" stroke-width="1.5"/>')
+    text(f"{cx:.1f}", f"{r[1] + 19:.1f}", k1, 13.5, col, MONO, "bold", "middle")
     if k2:
-        text(780, ly + 20, k2, 12.5, col, MONO, "normal", "middle")
+        text(f"{cx:.1f}", f"{r[1] + 38:.1f}", k2, 12.5, col, MONO, "normal", "middle")
 
 # ---------- footer: key-space gotchas ----------
 box(40, 996, 1480, 100, RED, dash="8 5", sw=1.6)

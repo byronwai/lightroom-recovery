@@ -159,7 +159,7 @@ flowchart TB
     A -->|"filename → stem<br/>(byte-identical base name)"| REV
     API -->|"originals\\&lt;year&gt;\\&lt;date&gt;\\"| REV
     REV --> W["wrap(): add &lt;?xpacket?&gt; envelope"]
-    W --> OUT["DSC02091.ARW  +  DSC02091.xmp<br/>sidecar beside its RAW<br/>1,952 photos recovered this way"]
+    W --> OUT["DSC03049.ARW  +  DSC03049.xmp<br/>sidecar beside its RAW<br/>1,952 photos recovered this way"]
     EXT["externalDevelopSettings.docId→sha256<br/>versions.docId→assetId · localAuxTracker.digest"] -.->|"fallback joins<br/>(same sha space / aux chain)"| SET
 ```
 
@@ -261,7 +261,7 @@ flowchart TB
     C --> D{"sha256 file present in<br/>settings store?"}
     D -->|"yes — 2,123 of them"| E["sort revisions by update time<br/>newest = current, older = suffix"]
     E --> F["wrap: xpacket envelope<br/>around x:xmpmeta payload"]
-    F --> G["place next to the RAW<br/>originals/year/date/DSC02091.xmp<br/>(byte-identical base name)"]
+    F --> G["place next to the RAW<br/>originals/year/date/DSC03049.xmp<br/>(byte-identical base name)"]
     B -->|"no row"| H{"auxiliary zlib XMP?<br/>localAuxTracker digest chain"}
     H -->|"31 files"| F
     D -->|"no"| H
@@ -367,26 +367,27 @@ pointing at data anywhere else in the file.
 
 ![ARW structure](assets/arw-structure.png)
 
-*(vector source: `assets/arw-structure.svg` · regenerate either with
-`assets/make_arw_diagram.py`; render the PNG via headless Chromium against
-the SVG — e.g. `msedge --headless=new --user-data-dir=<tmp> --screenshot=...`)*
+*(vector source: `assets/arw-structure.svg` · regenerate with
+`python docs/assets/make_arw_diagram.py <file.ARW>`, which reads every offset
+from the file and writes both the SVG and the PNG)*
 
-The diagram's offsets are real, parsed from `DSC00001.ARW` (38.3 MB —
-regenerate it with `assets/make_arw_diagram.py`):
+The diagram's offsets are real, parsed from `DSC03049.ARW` (45.6 MB):
 
 ```
-00000000  49 49 2a 00 08 00 00 00 14 00 fe 00 04 00 01 00  II*.............
-          ^magic  ^IFD0@8  ^20 entries ^tag 0x00FE (NewSubfileType)
-00000008  14 00 fe 00 04 00 01 00 00 00 01 00 00 00 03 01  ............a...
+00000000  49 49 2a 00 08 00 00 00 13 00 fe 00 04 00 01 00  II*.............
+          ^magic      ^IFD0@8     ^19 entries ^tag 0x00FE (NewSubfileType)
+00000010  00 00 01 00 00 00 03 01 03 00 01 00 00 00 06 00  ................
 ```
 
-- `II*\0` — little-endian TIFF, IFD0 at offset 8 with 20 entries
-- IFD0 entry `0x8769` → ExifIFD at `0x11cc` (which nests Sony's MakerNotes
-  `0x927C`); entry `0x014A` → **SubIFDs** at `0x21d22` — Sony keeps the actual
-  raw sensor strip in a SubIFD, not in IFD0
-- entry `0x0201` (JPEGInterchangeFormat) → `0x300a2`: a **full-size JPEG
-  preview is embedded in the file** (144 `FFD8FF` starts in total; the
-  matcher keeps the largest `FFD8FF…FFD9` span)
+- `II*\0` — little-endian TIFF, IFD0 at offset 8 with 19 entries
+- IFD0 entry `0x8769` → ExifIFD at `0x11c0` (which nests Sony's MakerNotes
+  `0x927C` at `0x1466`, 38,252 B); entry `0x014A` → **SubIFDs** at `0x21d22` —
+  Sony keeps the actual raw sensor strip (7168×5120, 41.6 MB at `0x3d0000`) in
+  a SubIFD, not in IFD0
+- entry `0x0201` (JPEGInterchangeFormat) → `0x300a2`: a 245 KB **preview**, not
+  the frame. The **full-size** 7008×4672 JPEG (3.6 MB at `0x6c000`) hangs off
+  **IFD2**, reached through IFD1's next-IFD pointer. 144 `FFD8FF` starts in
+  total; the matcher keeps the largest `FFD8FF…FFD9` span, which is IFD2's frame
 
 The embedded preview is the load-bearing fact for recovery: every ARW carries
 its own visual record of the *unedited* photo inside it, which is what
@@ -444,40 +445,43 @@ stand-ins, keyed directly by assetId — no matching needed, pure rename.
 ![XMP internal structure](assets/xmp-structure.png)
 
 *(vector source: `assets/xmp-structure.svg` · regenerate with
-`scripts/make_xmp_structure_image.py` — every offset and value above is
-real, measured from `DSC08974.xmp`, 24,340 bytes: 178 scalar attributes,
-50 `rdf:Seq` arrays, 11 nested Descriptions incl. a mask group "Water")*
+`scripts/make_xmp_structure_image.py <file.xmp>` — every offset and value above
+is measured from `DSC03049.xmp`, 36,775 bytes: 129 `crs:` scalar attributes,
+28 `rdf:Seq` arrays, 16 nested Descriptions in 8 mask groups and a Generative
+Remove)*
 
 One edit is one flat bag of `crs:*` attributes in a namespaced XML tree —
 there is no binary container to parse. The full skeleton, with the real
 byte offsets from that file:
 
 ```
-     0   <?xpacket begin="<BOM>" id="W5M0MpCehiHzreSzNTczkc9d"?>  ← envelope (fixed GUID id)
-    54   <x:xmpmeta x:xmptk="Adobe XMP Core 7.0-c000 …">          ← wrapper + toolkit identity
-   164     <rdf:RDF>                                              ← RDF graph root
-   232       <rdf:Description rdf:about="" xmlns:crs="…/camera-raw-settings/1.0/">
+     0   <x:xmpmeta x:xmptk="Adobe XMP Core 7.0-c000 …">          ← wrapper + toolkit identity
+                                                                    (no <?xpacket?>: a bare export sidecar)
+   110     <rdf:RDF>                                              ← RDF graph root
+   178       <rdf:Description rdf:about="" xmlns:crs="…/camera-raw-settings/1.0/">
                │
                ├─ scalars: flat attributes — the sliders
                │    crs:ProcessVersion="15.4"  crs:WhiteBalance="Custom"
-               │    crs:Temperature="5200"  crs:Tint="+13"  crs:Vibrance="+15"
-               │    crs:Exposure2012="0.00"  crs:Saturation="+5"  … (178 here)
+               │    crs:Temperature="3300"  crs:Tint="+5"  crs:Vibrance="+15"
+               │    crs:Exposure2012="-0.50"  crs:Saturation="+5"  … (129 here)
                │
                ├─ arrays: child elements, values in rdf containers
-               │  4098   <crs:ToneCurvePV2012>            curves = Seq of "x, y" points
-               │           <rdf:Seq><rdf:li>0, 0</rdf:li><rdf:li>255, 255</rdf:li></rdf:Seq>
+               │  7467   <crs:ToneCurvePV2012>            curves = Seq of "x, y" points
+               │           <rdf:Seq><rdf:li>0, 0</rdf:li><rdf:li>62, 48</rdf:li>…<rdf:li>255, 255</rdf:li></rdf:Seq>
+               │
+               ├─ what Generative Remove erases
+               │  9055   <crs:RemoveAreas>                AI object mask + brush, by MaskDigest
                │
                └─ structs: nested Descriptions inside a Seq
-               │  5085   <crs:MaskGroupBasedCorrections>   one li per mask group
-               │           <rdf:li><rdf:Description crs:What="Correction"
-               │             crs:CorrectionName="Water"  crs:CorrectionActive="true"
-               │             crs:CorrectionSyncID="178CE3C8FA3715C7…">
-               │             <crs:CorrectionMasks> … brush/radial/linear/AI geometry
-               │                                + LumEq range curves … </rdf:Description></rdf:li>
-               │         <crs:RangeMaskMapInfo> … </crs:RangeMaskMapInfo>
-               │
- 24297   </rdf:RDF></x:xmpmeta>
- 24321   <?xpacket end="w"?>                          ← "w" = in-place rewrite allowed (tail padding)
+                 16252   <crs:MaskGroupBasedCorrections>   one li per mask group (8 here)
+                           <rdf:li><rdf:Description crs:What="Correction"
+                             crs:CorrectionName="Mask 1"  crs:CorrectionActive="true"
+                             crs:CorrectionSyncID="7340952010ECF344…">
+                             <crs:CorrectionMasks> … brush/radial/linear/AI geometry
+                                                + LumEq range curves … </rdf:Description></rdf:li>
+                         <crs:RangeMaskMapInfo> … </crs:RangeMaskMapInfo>
+ 36751   </rdf:RDF>
+ 36762   </x:xmpmeta>
 ```
 
 Encoding rules the tree implies:
@@ -487,15 +491,18 @@ Encoding rules the tree implies:
   **alternative → `rdf:Alt`** (e.g. localized `dc:title`).
 - **A mask is a full nested `rdf:Description`** — masks are edits-within-
   the-edit, each carrying its own name, sync id, geometry, and even its
-  own curves (`LumEq`). That is why one sidecar can reach 24 KB while a
-  slider-only edit is ~1.7 KB.
+  own curves (`LumEq`). That is why DSC03049's sidecar reaches 36 KB; across
+  the 2,648 develop blobs in the cache the smallest is 4.9 KB and the
+  largest 117 KB.
 - **`crs:CorrectionSyncID`** is how Adobe links a mask across the sync
   ecosystem — the same id family the recovery chases in the catalog.
 
 The `settings\` store keeps these **bare**: the blob on disk starts directly
 with `<x:xmpmeta` and carries **no `<?xpacket?>` envelope** (verified — every
-sampled blob). That is why step 06's `wrap()` adds the envelope before
-writing a sidecar: Camera Raw expects a packet.
+sampled blob). Lightroom's own "original + settings" export writes them bare
+too: all 84 export sidecars checked, DSC03049.xmp included, start at
+`<x:xmpmeta`. Step 06's `wrap()` still adds the envelope when it writes a
+sidecar, for XMP readers outside Adobe that expect a packet.
 
 ### 6.5 The aux container — one box, three record types
 
@@ -529,7 +536,7 @@ flowchart TB
     P --> E2["envelope 2 · auxiliary zlib<br/>uint32 len + 78 9C, framed"]
     E1 -->|"purgeCandidates.contentIdOrSha256 = filename<br/>newest dateLastUpdatedInSeconds wins"| M["merge · 06_extract_settings_xmp"]
     E2 -->|"localAuxTracker digest<br/>inflate + strip 12-byte frame"| M
-    M --> S["envelope 3 · sidecar on disk<br/>&lt;?xpacket?&gt;-wrapped, DSC02091.xmp<br/>beside DSC02091.ARW (byte-identical base name)"]
+    M --> S["envelope 3 · sidecar on disk<br/>&lt;?xpacket?&gt;-wrapped, DSC03049.xmp<br/>beside DSC03049.ARW (byte-identical base name)"]
 ```
 
 Rules that make the merge correct rather than just possible:
@@ -573,15 +580,15 @@ Data\<guid>\
 ```
 <out>\
 ├── originals\<year>\<date>\                1,785 XMPs beside their RAWs
-│   ├── DSC02091.ARW
-│   ├── DSC02091.xmp                        1,639 current edits (byte-identical base name)
-│   ├── DSC02091_1045a0.xmp                 124 older revisions (sha6 suffix)
-│   ├── DSC02091_1117ef_1.xmp                 4 collision-renamed revisions (distinct content)
-│   └── DSC02091_aux.xmp                     18 Generative Remove records
+│   ├── DSC03049.ARW
+│   ├── DSC03049.xmp                        1,639 current edits (byte-identical base name)
+│   ├── DSC03049_<sha6>.xmp                 124 older revisions (sha6 suffix)
+│   ├── DSC03049_<sha6>_1.xmp                 4 collision-renamed revisions (distinct content)
+│   └── DSC03049_aux.xmp                     18 Generative Remove records
 ├── xmp-sidecars\                           336 XMPs for photos with no local RAW
-│   ├── 2025-04-03_DSC01127.xmp             313 current edits (date prefix = disambiguator)
-│   ├── 2025-04-03_DSC01127_<sha6>.xmp       22 orphan revisions
-│   └── 2025-04-03_DSC01127_aux.xmp            1 Generative Remove record
+│   ├── 2026-09-25_DSC03049.xmp             313 current edits (date prefix = disambiguator)
+│   ├── 2026-09-25_DSC03049_<sha6>.xmp       22 orphan revisions
+│   └── 2026-09-25_DSC03049_aux.xmp            1 Generative Remove record
 ├── xmp-sidecars\_unlinked\                 1,308 orphans no table can link
 │   ├── <sha256>.xmp                        1,303 develop revisions
 │   └── <digest>.xmp                            5 Generative Remove records
@@ -610,39 +617,43 @@ preserve information without breaking that rule for the *current* revision.
 ![The .acr companion — anatomy and both paths](assets/acr-flow.png)
 
 *(vector: [acr-flow.svg](assets/acr-flow.svg) — regenerate with
-`scripts/make_acr_flow_image.py`; read any `.acr` with
+`scripts/make_acr_flow_image.py <file.acr>`; read any `.acr` with
 `scripts/acr_reader.py <file> --png`)*
 
-Byte-level anatomy, every offset real (`DSC02091.acr`; layout confirmed on 76 exported files):
+Byte-level anatomy, every offset real (`DSC03049.acr`; layout confirmed on 77 exported files):
 
 ![.acr data structure](assets/acr-structure.png)
 
 *(vector: [acr-structure.svg](assets/acr-structure.svg) — regenerate with
-`scripts/make_acr_structure_image.py`)*
+`scripts/make_acr_structure_image.py <file.acr>`)*
 
 What a real `.acr` decomposes into — every record decoded, labelled from
-the sibling XMP by md5 (`DSC02110.acr`: four AI masks and three Remove-tool
-RGB patches):
+the sibling XMP by md5, then placed back on the photo (`DSC03049.acr`: six
+AI masks, the three Generative Remove candidates, their fill mask and a
+zlib-packed receipt):
 
-![DSC02110.acr decomposed into its rasters](assets/acr-decomposed.png)
+![DSC03049.acr decomposed into its records](assets/acr-decomposed.png)
 
-*(regenerate with `scripts/make_acr_decomposed_image.py <file.acr>
---no-photo`; without `--no-photo` it also outlines each mask on the
-photo's embedded JPEG, placed by the XMP's `Origin`)*
+*(regenerate with `scripts/make_acr_decomposed_image.py <file.acr>`; add
+`--no-photo` to skip the composite, which outlines each mask on the photo's
+embedded JPEG at the XMP's `Origin`. Masks are stored in sensor orientation,
+so the composite is built unrotated and turned for display at the end)*
 
 A later real-world export ("original + settings") revealed a third
 companion Adobe emits per photo: `<name>.acr`. It is written exactly when
 the edit contains AI masks (`crs:What="Mask/Image"`): 350 of 352 photos in
-the first export, and 83 of 83 sidecars checked in a second one. Gradient,
+the first export, and 84 of 84 sidecars checked in two later ones. Gradient,
 radial, brush and range masks are pure parameters and never produce a
-raster. Structure, verified on 76 real files (300 records):
+raster. Structure, verified on 77 real files (311 records):
 
 ```
 0x00  "ACR\0"  u32 version=1  "ARW\0"  u32 N (record count)  u32 0 (reserved)
-0x14  N × 32-byte entries:  md5[16] | u64 size | u64 offset
-20+32N  records, each 4-byte aligned (zero padding):
-        16-byte header 02 00 00 00 01 00 00 00 … (== auxiliary\ type-02!)
-        + TIFF: tiled JPEG-XL; 1-channel 8-bit masks, 3-channel 16-bit Remove patches
+0x14  N × 32-byte entries, sorted by md5:  md5[16] | u64 size | u64 offset
+20+32N  records, each 4-byte aligned (zero padding), two kinds:
+        raster: 16-byte header 02 00 00 00 01 00 00 00 … (== auxiliary\ type-02!)
+                + TIFF: tiled JPEG-XL; 1-channel 8-bit masks, 3-channel 16-bit patches
+        zlib:   u32 inflated length + zlib stream → 12-byte frame + XMP packet
+                (the Generative Remove receipt; its md5 is over the inflated bytes)
 multiple records per file  ↔  multiple AI masks / Remove patches per photo
 ```
 
@@ -652,12 +663,15 @@ mask *bitmaps* — the same rasters that live as type-02 records in the
 local `auxiliary\` store — travel in this file. The binding is content
 addressing: each table entry's md5 is the md5 of the record (signature +
 TIFF), and that value appears in the XMP as `crs:MaskDigest` (AI masks) or
-`crs:pm_patch` / `crs:pm_patch_variation` (Remove-tool patches). The local
-cache names the identical record by the same md5 (4,504/4,504), and 106 of
-the 300 ACR records were found byte-identical in the cache. Table order
-does not follow the XMP (74 of 76 files differ), so readers must match by
-md5, not by position. Each raster is cropped to its mask's bounding box;
-the XMP's `Origin` and `FullMaskSize` place it on the canvas. (An earlier
+`crs:pm_patch` / `crs:pm_patch_variation` / `crs:pm_patch_mask` (Remove and
+Generative Remove fills) or `crs:IngestInfo` (the Generative Remove
+receipt). The local cache names the identical record by the same md5
+(4,504/4,504), and 106 of the first 300 ACR records were found
+byte-identical in the cache. The table is sorted by md5 (77 of 77 files),
+not by XMP order, so readers must match by md5, not by position. Each
+raster is cropped to its mask's bounding box; the XMP's `Origin` and
+`FullMaskSize` place it on a canvas in sensor orientation, before any
+`tiff:Orientation` rotation. (An earlier
 version of this section described a "20-byte id" at 0x14 and a "directory
 region": those were the first table entry's md5 + size, and the other
 entries.) Keep `.acr` beside the ARW + XMP with the same base name: Adobe

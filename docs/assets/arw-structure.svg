@@ -41,7 +41,7 @@
 <line x1="1160" y1="0" x2="1160" y2="940" stroke="#EDF1F5" stroke-width="1"/>
 <line x1="1200" y1="0" x2="1200" y2="940" stroke="#EDF1F5" stroke-width="1"/>
 <text x="42" y="46" font-size="24" font-weight="700" fill="#1F2733">Sony ARW — a TIFF with the sensor data in a SubIFD</text>
-<text x="42" y="68" font-size="13" fill="#6B7686">DSC00001.ARW · 38,268,928 bytes (0x247F000) · little-endian TIFF</text>
+<text x="42" y="68" font-size="13" fill="#6B7686">DSC03049.ARW · 45,604,864 bytes (0x2B7E000) · little-endian TIFF</text>
 <text x="560" y="68" font-size="13" fill="#6B7686">every offset below is read from the real file</text>
 <line x1="42" y1="84" x2="1198" y2="84" stroke="#E3E9EF" stroke-width="1.5"/>
 <text x="124" y="130" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x0000</text>
@@ -51,23 +51,23 @@
 <text x="124" y="178" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x0008</text>
 <g filter="url(#sh)"><rect x="132" y="156" width="300" height="50" rx="7" fill="#2E9BD6" fill-opacity="0.10" stroke="#2E9BD6" stroke-opacity="0.35"/><rect x="132" y="156" width="5" height="50" rx="2.5" fill="#2E9BD6"/></g>
 <text x="148" y="178" font-size="14" font-weight="600" fill="#1F2733">IFD0 — the directory</text>
-<text x="148" y="196" font-size="11.5" fill="#6B7686">20 entries · next-IFD → 0xAABC</text>
-<text x="124" y="236" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x11CC</text>
+<text x="148" y="196" font-size="11.5" fill="#6B7686">19 entries · next-IFD → 0xAA72</text>
+<text x="124" y="236" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x11C0</text>
 <g filter="url(#sh)"><rect x="132" y="214" width="300" height="44" rx="7" fill="#8E6FC8" fill-opacity="0.10" stroke="#8E6FC8" stroke-opacity="0.35"/><rect x="132" y="214" width="5" height="44" rx="2.5" fill="#8E6FC8"/></g>
 <text x="148" y="233" font-size="14" font-weight="600" fill="#1F2733">ExifIFD</text>
 <text x="148" y="251" font-size="11.5" fill="#6B7686">45 standard Exif tags</text>
-<text x="124" y="288" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x1472</text>
+<text x="124" y="288" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x1466</text>
 <g filter="url(#sh)"><rect x="132" y="266" width="300" height="44" rx="7" fill="#7A8899" fill-opacity="0.10" stroke="#7A8899" stroke-opacity="0.35"/><rect x="132" y="266" width="5" height="44" rx="2.5" fill="#7A8899"/></g>
 <text x="148" y="285" font-size="14" font-weight="600" fill="#1F2733">Sony MakerNotes</text>
 <text x="148" y="303" font-size="11.5" fill="#6B7686">38,252 B of Sony-private tags</text>
-<text x="124" y="340" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0xAABC</text>
+<text x="124" y="340" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0xAA72</text>
 <g filter="url(#sh)"><rect x="132" y="318" width="300" height="40" rx="7" fill="#7A8899" fill-opacity="0.10" stroke="#7A8899" stroke-opacity="0.35"/><rect x="132" y="318" width="5" height="40" rx="2.5" fill="#7A8899"/></g>
 <text x="148" y="335" font-size="14" font-weight="600" fill="#1F2733">IFD1 — thumbnail directory</text>
 <text x="148" y="353" font-size="11.5" fill="#6B7686">14 entries · next-IFD → 0x21BEE</text>
-<text x="124" y="386" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0xABCE</text>
+<text x="124" y="386" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0xAB84</text>
 <g filter="url(#sh)"><rect x="132" y="366" width="300" height="36" rx="7" fill="#F2A93B" fill-opacity="0.10" stroke="#F2A93B" stroke-opacity="0.35"/><rect x="132" y="366" width="5" height="36" rx="2.5" fill="#F2A93B"/></g>
 <text x="148" y="381" font-size="14" font-weight="600" fill="#1F2733">thumbnail JPEG</text>
-<text x="148" y="399" font-size="11.5" fill="#6B7686">8,130 B</text>
+<text x="148" y="399" font-size="11.5" fill="#6B7686">9,522 B</text>
 <text x="124" y="432" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x21BEE</text>
 <g filter="url(#sh)"><rect x="132" y="410" width="300" height="40" rx="7" fill="#7A8899" fill-opacity="0.10" stroke="#7A8899" stroke-opacity="0.35"/><rect x="132" y="410" width="5" height="40" rx="2.5" fill="#7A8899"/></g>
 <text x="148" y="427" font-size="14" font-weight="600" fill="#1F2733">IFD2 — full-size preview directory</text>
@@ -79,38 +79,38 @@
 <text x="124" y="544" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x300A2</text>
 <g filter="url(#sh)"><rect x="132" y="522" width="300" height="44" rx="7" fill="#F2A93B" fill-opacity="0.10" stroke="#F2A93B" stroke-opacity="0.35"/><rect x="132" y="522" width="5" height="44" rx="2.5" fill="#F2A93B"/></g>
 <text x="148" y="541" font-size="14" font-weight="600" fill="#1F2733">preview JPEG</text>
-<text x="148" y="559" font-size="11.5" fill="#6B7686">177,176 B · what IFD0's 0x0201 points at</text>
-<text x="124" y="596" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x5C000</text>
+<text x="148" y="559" font-size="11.5" fill="#6B7686">245,129 B · what IFD0's 0x0201 points at</text>
+<text x="124" y="596" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x6C000</text>
 <g filter="url(#sh)"><rect x="132" y="574" width="300" height="44" rx="7" fill="#F2A93B" fill-opacity="0.10" stroke="#F2A93B" stroke-opacity="0.35"/><rect x="132" y="574" width="5" height="44" rx="2.5" fill="#F2A93B"/></g>
 <text x="148" y="593" font-size="14" font-weight="600" fill="#1F2733">full-size JPEG</text>
-<text x="148" y="611" font-size="11.5" fill="#6B7686">7008×4672, unedited · 1,629,784 B</text>
-<text x="282" y="646" font-size="12" fill="#6B7686" text-anchor="middle" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">⋮  — 38.3 MB of file, not to scale —  ⋮</text>
-<text x="124" y="700" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x1EA000</text>
+<text x="148" y="611" font-size="11.5" fill="#6B7686">7008×4672, unedited · 3,551,610 B</text>
+<text x="282" y="646" font-size="12" fill="#6B7686" text-anchor="middle" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">⋮  — 45.6 MB of file, not to scale —  ⋮</text>
+<text x="124" y="700" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x3D0000</text>
 <g filter="url(#sh)"><rect x="132" y="660" width="300" height="84" rx="7" fill="#5ABF8A" fill-opacity="0.10" stroke="#5ABF8A" stroke-opacity="0.35"/><rect x="132" y="660" width="5" height="84" rx="2.5" fill="#5ABF8A"/></g>
 <text x="148" y="699" font-size="17" font-weight="700" fill="#1F2733">RAW sensor strip</text>
-<text x="148" y="717" font-size="11.5" fill="#6B7686">36,259,568 B — 94.7% of the file</text>
+<text x="148" y="717" font-size="11.5" fill="#6B7686">41,606,400 B — 91.2% of the file</text>
 <text x="148" y="734" font-size="11.5" fill="#6B7686">7168×5120 · compression 7 (JPEG-coded)</text>
-<text x="124" y="770" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x247F000</text>
+<text x="124" y="770" font-size="11" font-family="Consolas, 'Cascadia Mono', Menlo, monospace" fill="#6B7686" text-anchor="end">0x2B7E000</text>
 <text x="148" y="770" font-size="12" fill="#6B7686" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">EOF</text>
 <text x="132" y="804" font-size="11" fill="#6B7686" font-weight="600">THE FILE — blocks ordered by byte offset</text>
 <g filter="url(#sh)"><rect x="560" y="108" width="640" height="152" rx="8" fill="white" stroke="#2E9BD6" stroke-opacity="0.55"/><rect x="560" y="108" width="640" height="26" rx="8" fill="#2E9BD6" fill-opacity="0.12"/><rect x="560" y="126" width="640" height="8" fill="white"/></g>
 <text x="574" y="126" font-size="13" font-weight="700" fill="#2E9BD6">IFD0 — the 12-byte entries that point at everything</text>
-<text x="574" y="152" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">0x8769  ExifIFD                → 0x11CC</text>
-<text x="574" y="173" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">next-IFD  (thumbnail chain)    → 0xAABC</text>
-<text x="574" y="194" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">0x0201  JPEGInterchangeFormat  → 0x300A2   (len 0x0202 = 177,176)</text>
+<text x="574" y="152" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">0x8769  ExifIFD                → 0x11C0</text>
+<text x="574" y="173" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">next-IFD  (thumbnail chain)    → 0xAA72</text>
+<text x="574" y="194" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">0x0201  JPEGInterchangeFormat  → 0x300A2   (len 0x0202 = 245,129)</text>
 <text x="574" y="215" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">0x014A  SubIFDs                → 0x21D22</text>
 <g filter="url(#sh)"><rect x="560" y="286" width="640" height="96" rx="8" fill="white" stroke="#8E6FC8" stroke-opacity="0.55"/><rect x="560" y="286" width="640" height="26" rx="8" fill="#8E6FC8" fill-opacity="0.12"/><rect x="560" y="304" width="640" height="8" fill="white"/></g>
 <text x="574" y="304" font-size="13" font-weight="700" fill="#8E6FC8">ExifIFD — nested one level deeper</text>
-<text x="574" y="330" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">0x927C  MakerNotes  → 0x1472   (38,252 B, Sony-private)</text>
+<text x="574" y="330" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">0x927C  MakerNotes  → 0x1466   (38,252 B, Sony-private)</text>
 <g filter="url(#sh)"><rect x="560" y="404" width="640" height="116" rx="8" fill="white" stroke="#7A8899" stroke-opacity="0.55"/><rect x="560" y="404" width="640" height="26" rx="8" fill="#7A8899" fill-opacity="0.12"/><rect x="560" y="422" width="640" height="8" fill="white"/></g>
 <text x="574" y="422" font-size="13" font-weight="700" fill="#7A8899">IFD1 → IFD2 — the next-IFD chain</text>
 <text x="574" y="448" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">IFD1  next-IFD                 → 0x21BEE  (IFD2)</text>
-<text x="574" y="469" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">IFD2  0x0201  JPEGInterchange  → 0x5C000  (len 1,629,784)</text>
+<text x="574" y="469" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">IFD2  0x0201  JPEGInterchange  → 0x6C000  (len 3,551,610)</text>
 <text x="574" y="490" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">image 7008 × 4672 — the full frame, unedited</text>
 <g filter="url(#sh)"><rect x="560" y="544" width="640" height="140" rx="8" fill="white" stroke="#E8555A" stroke-opacity="0.55"/><rect x="560" y="544" width="640" height="26" rx="8" fill="#E8555A" fill-opacity="0.12"/><rect x="560" y="562" width="640" height="8" fill="white"/></g>
 <text x="574" y="562" font-size="13" font-weight="700" fill="#E8555A">SubIFD — where the actual photo lives</text>
-<text x="574" y="588" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">0x0111  StripOffsets          → 0x1EA000</text>
-<text x="574" y="609" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">0x0117  StripByteCounts       = 36,259,568</text>
+<text x="574" y="588" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">0x0111  StripOffsets          → 0x3D0000</text>
+<text x="574" y="609" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">0x0117  StripByteCounts       = 41,606,400</text>
 <text x="574" y="630" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">image 7168 × 5120 · compression = 7 (JPEG-coded)</text>
 <text x="574" y="651" font-size="12.5" fill="#1F2733" font-family="Consolas, 'Cascadia Mono', Menlo, monospace">→ the RAW editors decode; previews are for humans</text>
 <g filter="url(#sh)"><rect x="560" y="712" width="640" height="196" rx="8" fill="white" stroke="#D6DEE7"/></g>
@@ -120,10 +120,10 @@
 <text x="592" y="781" font-size="11.5" fill="#6B7686">Addressing is offset pointers and IFD chains, not a linear chunk stream like PNG.</text>
 <circle cx="580" cy="806" r="3.5" fill="#2E9BD6"/>
 <text x="592" y="810" font-size="12.5" font-weight="600" fill="#1F2733">The sensor data hides one IFD deeper than you expect.</text>
-<text x="592" y="827" font-size="11.5" fill="#6B7686">IFD0 is mostly metadata; StripOffsets inside the SubIFD is the 36.3 MB payload.</text>
+<text x="592" y="827" font-size="11.5" fill="#6B7686">IFD0 is mostly metadata; StripOffsets inside the SubIFD is the 41.6 MB payload.</text>
 <circle cx="580" cy="852" r="3.5" fill="#2E9BD6"/>
 <text x="592" y="856" font-size="12.5" font-weight="600" fill="#1F2733">Every ARW ships a full-size unedited JPEG of itself, but not at IFD0's 0x0201.</text>
-<text x="592" y="873" font-size="11.5" fill="#6B7686">IFD0 points at a 177 KB preview; the 7008×4672 frame hangs off IFD2, two next-IFD hops on.</text>
+<text x="592" y="873" font-size="11.5" fill="#6B7686">IFD0 points at a 245 KB preview; the 7008×4672 frame hangs off IFD2, two next-IFD hops on.</text>
 <path d="M 556 148 C 496.0 148, 496.0 236, 442 236" fill="none" stroke="#8E6FC8" stroke-width="1.8" stroke-dasharray="" marker-end="url(#arr-exif)" opacity="0.9"/>
 <path d="M 556 169 C 496.0 169, 496.0 338, 442 338" fill="none" stroke="#7A8899" stroke-width="1.8" stroke-dasharray="6 3" marker-end="url(#arr-ifd1)" opacity="0.9"/>
 <path d="M 556 190 C 496.0 190, 496.0 544, 442 544" fill="none" stroke="#F2A93B" stroke-width="1.8" stroke-dasharray="" marker-end="url(#arr-jpeg)" opacity="0.9"/>

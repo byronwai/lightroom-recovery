@@ -1,9 +1,21 @@
 r"""The .acr companion: anatomy + export/offline paths, as SVG + PNG.
 
+The anatomy panel is read from the .acr you pass.
 Writes docs/assets/acr-flow.svg + .png (Chrome/Edge headless).
-Run:  python scripts/make_acr_flow_image.py
+Run:  python scripts/make_acr_flow_image.py <file.acr>
 """
-import os, subprocess, tempfile
+import os, sys, subprocess, tempfile
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from acr_reader import read_table, classify  # noqa: E402
+
+if len(sys.argv) < 2:
+    sys.exit("usage: make_acr_flow_image.py <file.acr>")
+ACR = sys.argv[1]
+DATA = open(ACR, "rb").read()
+_, FMT, RESERVED, ENTRIES = read_table(DATA)
+N = len(ENTRIES)
+KINDS = [classify(DATA[o:o + s])[0] for _, s, o in ENTRIES]
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT  = os.path.join(ROOT, "docs", "assets")
@@ -46,18 +58,20 @@ text(40, 82, "reverse-engineered (§6.8) · reader: scripts/acr_reader.py · cou
 
 # ---------- panel A: anatomy ----------
 box(40, 110, 1160, 560, ORANGE)
-text(60, 142, "ANATOMY — byte map (DSC02091.acr, 215,820 bytes, 4 records; same layout in 76 files)", 15, ORANGE, SANS, "bold")
-
+name = os.path.basename(ACR)
+text(60, 142, f"ANATOMY — byte map ({name}, {len(DATA):,} bytes, {N} records; same layout in 77 files)", 15, ORANGE, SANS, "bold")
+hx = lambda a, b: " ".join(f"{x:02x}" for x in DATA[a:b])
+n_raster, n_zlib = KINDS.count("raster"), KINDS.count("zlib")
 rows = [
-    ("0x00", "41 43 52 00", 'magic "ACR\\0"', DIM),
-    ("0x04", "01 00 00 00", "version = 1", DIM),
-    ("0x08", "41 52 57 00", 'source-format tag "ARW\\0"', DIM),
-    ("0x0C", "04 00 00 00", "N = record count · then u32 0 (reserved)", ORANGE),
-    ("0x14", "N × 32 B", "record table: md5[16] | u64 size | u64 offset", BLUE),
-    ("", "           ", "md5 = md5(record) = crs:MaskDigest / crs:pm_patch in the XMP", BLUE),
-    ("0x94", "record 0", "at 20 + 32×N · 16-byte signature 02 00 00 00 01 00 00 00 + 8×00", TXT),
-    ("", "           ", "then a self-contained TIFF — JPEG-XL tiled mask raster", GREEN),
-    ("", "record 1…n", "same signature + TIFF; 4-byte aligned, located via the table", TXT),
+    ("0x00", hx(0, 4), 'magic "ACR\\0"', DIM),
+    ("0x04", hx(4, 8), "version = 1", DIM),
+    ("0x08", hx(8, 12), f'source-format tag "{FMT}\\0"', DIM),
+    ("0x0C", hx(12, 16), f"N = {N} records · then u32 {RESERVED} (reserved)", ORANGE),
+    ("0x14", f"{N} × 32 B", "record table, sorted by md5: md5[16] | u64 size | u64 offset", BLUE),
+    ("", "           ", "md5 = crs:MaskDigest / crs:pm_patch* / crs:IngestInfo in the XMP", BLUE),
+    (f"0x{20 + 32 * N:X}", "record 0", "at 20 + 32×N; records 4-byte aligned, located via the table", TXT),
+    ("", f"{n_raster} raster", "16-byte signature 02 00 00 00 01 00 00 00 + 8×00, then a JPEG-XL TIFF", GREEN),
+    ("", f"{n_zlib} zlib", "u32 inflated length + zlib: a 12-byte frame + XMP packet (the receipt)", ORANGE),
 ]
 y = 170
 for off, what, desc, col in rows:
@@ -84,7 +98,7 @@ text(90, 992, "the export trio", 15, GREEN, SANS, "bold")
 text(90, 1020, "DSCxxxxx.ARW   the pixels", 15, TXT, MONO)
 text(90, 1048, "DSCxxxxx.xmp   the recipe (bare, no envelope)", 15, TXT, MONO)
 text(90, 1076, "DSCxxxxx.acr   the mask molds — real container", 15, GREEN, MONO, "bold")
-text(90, 1106, "written iff the edit has AI masks (83/83 sidecars checked)", 13.5, DIM)
+text(90, 1106, "written iff the edit has AI masks (84/84 sidecars checked)", 13.5, DIM)
 arrow(340, 914, 340, 954, GREEN)
 
 # offline path (right)

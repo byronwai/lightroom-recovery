@@ -5,11 +5,11 @@ Every offset is read from the file: IFD0 and its next-IFD chain (IFD1 with
 the thumbnail, IFD2 with the full-size JPEG), ExifIFD and Sony MakerNotes,
 the preview JPEG at IFD0's 0x0201, and the sensor strip in the SubIFD.
 
-Run:  python docs/assets/make_arw_diagram.py [<file.ARW>] [--out <stem>]
-      default file: DSC00001.ARW from the local Lightroom cache;
+Run:  python docs/assets/make_arw_diagram.py <file.ARW> [--out <stem>]
+      the docs' figure is made from DSC03049.ARW;
       default output: docs/assets/arw-structure.svg/.png
 """
-import os, sys, glob, struct, subprocess, tempfile, shutil
+import os, sys, struct, subprocess, tempfile, shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -46,15 +46,11 @@ def measure(path):
         strip_w=ts[0x0100][2], strip_h=ts[0x0101][2], strip_comp=ts[0x0103][2],
         prev_off=t0[0x0201][2], prev_len=t0[0x0202][2])
 
-def default_arw():
-    root = os.path.join(os.environ.get("LOCALAPPDATA", ""), "Adobe", "Lightroom CC", "Data")
-    hits = glob.glob(os.path.join(root, "*", "originals", "*", "*", "DSC00001.ARW"))
-    if not hits:
-        sys.exit("pass an ARW path (DSC00001.ARW not found in the Lightroom cache)")
-    return hits[0]
 
 args = [a for a in sys.argv[1:] if not a.startswith("--")]
-V = measure(args[0] if args else default_arw())
+if not args:
+    sys.exit("usage: make_arw_diagram.py <file.ARW> [--out <stem>]")
+V = measure(args[0])
 OUT = (sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv
        else os.path.join(HERE, "arw-structure"))
 hx = lambda v: f"0x{v:X}"

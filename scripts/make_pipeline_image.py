@@ -87,13 +87,13 @@ text(960, 596, "patched by 06", 13, DIM)
 arrow(936, 560, 846, 560, BLUE, dash="5 4")
 arrow(X + Wb, 560, 936, 560, BLUE, dash="5 4")
 
-box(940, 1180, 220, 160, PURPLE, dash="6 4", sw=1.6)
-text(960, 1210, "auxiliary\\ store", 15, PURPLE, MONO, "bold")
-text(960, 1236, "4,504 type-02", 13, DIM)
-text(960, 1256, "mask rasters", 13, DIM)
-text(960, 1284, "purge aux rows give", 13, DIM)
-text(960, 1304, "digest + assetId", 13, DIM)
-arrow(936, 1262, 846, 1258, PURPLE, dash="5 4")
+box(940, 1070, 220, 160, PURPLE, dash="6 4", sw=1.6)       # level with step 08, which reads it
+text(960, 1100, "auxiliary\\ store", 15, PURPLE, MONO, "bold")
+text(960, 1126, "4,504 type-02", 13, DIM)
+text(960, 1146, "mask rasters", 13, DIM)
+text(960, 1174, "purge aux rows give", 13, DIM)
+text(960, 1194, "digest + assetId", 13, DIM)
+arrow(936, 1149, 846, 1149, PURPLE, dash="5 4")
 
 text(40, 1520, "steps are safe to re-run: identical writes are skipped, never duplicated", 13.5, DIM, MONO)
 

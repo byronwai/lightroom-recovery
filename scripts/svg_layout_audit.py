@@ -77,7 +77,13 @@ JS = r"""
     }
     const arrow = !!s.getAttribute('marker-end');
     const hits = new Set();
-    for (const t of texts) for (const p of pts.slice(2, -2)) if (inside(p.x, p.y, t.b, 1)) { hits.add(t.s); break; }
+    // a stroke is hidden under a text if an opaque panel holding that text is painted after the stroke
+    const occluded = t => panels.some(p => inside((t.b.l + t.b.r) / 2, (t.b.t + t.b.b) / 2, p.b) &&
+        (s.compareDocumentPosition(p.e) & Node.DOCUMENT_POSITION_FOLLOWING) &&
+        !['none', 'transparent'].includes(p.e.getAttribute('fill') || '') &&
+        parseFloat(getComputedStyle(p.e).fillOpacity) > 0.9);
+    for (const t of texts) for (const p of pts.slice(2, -2))
+      if (inside(p.x, p.y, t.b, 1)) { if (!occluded(t)) hits.add(t.s); break; }
     for (const h of hits) out.push({kind: 'crossing', text: h, stroke: arrow ? 'arrow' : 'line'});
     if (arrow) {
       const end = pts[pts.length - 1];

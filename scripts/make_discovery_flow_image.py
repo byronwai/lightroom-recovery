@@ -39,8 +39,8 @@ def text(x, y, s, size=15, fill=TXT, font=SANS, weight="normal", anchor="start")
 def arrow(x1, y1, x2, y2, label=None, lx=None, ly=None, color=TXT):
     S.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{color}" '
              f'stroke-width="2" marker-end="url(#arr)"/>')
-    if label:
-        text(lx, ly, label, 13.5, color, MONO, "bold", "middle")
+    if label:                                   # left-aligned just right of the arrow, never across it
+        text(x1 + 16, ly, label, 13.5, color, MONO, "bold", "start")
 
 CX = 590
 def centered(y, s, size=15, fill=TXT, font=SANS, weight="normal"):
@@ -54,7 +54,10 @@ text(40, 82, "reconstruction of the actual investigation · dead ends included �
 box(190, 110, 800, 84, GRAY)
 centered(144, "~630 photos edited (versions table)", 17, TXT, SANS, "bold")
 centered(172, "but every develop setting is invisible — where do the edits physically live?", 14, DIM)
-arrow(CX, 198, CX, 240, "the obvious candidates first", CX + 150, 226)
+S.append(f'<line x1="{CX}" y1="198" x2="{CX}" y2="222" stroke="{TXT}" stroke-width="2"/>')   # stem, then fork
+arrow(CX, 222, 320, 243)
+arrow(CX, 222, 860, 243)
+text(CX + 16, 214, "the obvious candidates first", 13.5, TXT, MONO, "bold", "start")
 
 # ---------- dead ends ----------
 box(90, 246, 460, 92, RED, dash="7 5", sw=1.6)
@@ -127,7 +130,7 @@ text(160, 1438, "current revision by dateLastUpdatedInSeconds · wrap() adds the
 arrow(CX, 1446, CX, 1486)
 box(90, 1492, 1000, 100, GREEN, fill="#0e1a10", sw=2)
 text(110, 1522, "epilogue — after access was restored, a real export", 14.5, GREEN, SANS, "bold")
-text(110, 1548, "\"original + settings\" emitted .acr companions — same type-02 records as auxiliary\:", 13.5, TXT, MONO)
+text(110, 1548, "\"original + settings\" emitted .acr companions — same type-02 records as auxiliary\\:", 13.5, TXT, MONO)
 text(110, 1572, "the \"TIFF renditions\" finally had their name — mask rasters (§6.8, step 08)", 13.5, DIM)
 
 # ---------- lesson ----------

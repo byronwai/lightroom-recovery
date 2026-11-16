@@ -49,16 +49,21 @@
 <text x="994" y="790" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">&lt;preset-docId&gt;.xmp</text>
 <text x="994" y="818" font-size="13.5" fill="#8b949e" font-family="'Segoe UI', sans-serif" font-weight="normal" text-anchor="start">ACR presets</text>
 <line x1="588" y1="522" x2="972" y2="227" stroke="#ffa657" stroke-width="1.8" marker-end="url(#arr)"/>
-<text x="780" y="300" font-size="13.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">binaryType='xmp_develop'</text>
-<text x="780" y="320" font-size="12.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle">contentIdOrSha256 = filename</text>
 <line x1="588" y1="734" x2="972" y2="367" stroke="#d2a8ff" stroke-width="1.8" marker-end="url(#arr)"/>
-<text x="780" y="445" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">digest = folder + name</text>
 <line x1="588" y1="628" x2="972" y2="507" stroke="#58a6ff" stroke-width="1.8" marker-end="url(#arr)"/>
-<text x="780" y="590" font-size="13.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">originalRelativePath</text>
 <line x1="588" y1="204" x2="972" y2="647" stroke="#58a6ff" stroke-width="1.8" marker-end="url(#arr)"/>
-<text x="780" y="735" font-size="13.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">assetId = folder + name</text>
 <line x1="588" y1="840" x2="972" y2="787" stroke="#7ee787" stroke-width="1.8" marker-end="url(#arr)"/>
-<text x="780" y="880" font-size="13.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">docId = filename</text>
+<rect x="664.4" y="351.5" width="231.2" height="46" rx="7" fill="#0d1117" fill-opacity="1" stroke="#ffa657" stroke-width="1.5"/>
+<text x="780.0" y="370.5" font-size="13.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">binaryType='xmp_develop'</text>
+<text x="780.0" y="389.5" font-size="12.5" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle">contentIdOrSha256 = filename</text>
+<rect x="672.3" y="543.8" width="200.0" height="28" rx="7" fill="#0d1117" fill-opacity="1" stroke="#d2a8ff" stroke-width="1.5"/>
+<text x="772.3" y="562.8" font-size="13.5" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">digest = folder + name</text>
+<rect x="615.0" y="576.5" width="184.0" height="28" rx="7" fill="#0d1117" fill-opacity="1" stroke="#58a6ff" stroke-width="1.5"/>
+<text x="707.0" y="595.5" font-size="13.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">originalRelativePath</text>
+<rect x="676.0" y="411.5" width="208.0" height="28" rx="7" fill="#0d1117" fill-opacity="1" stroke="#58a6ff" stroke-width="1.5"/>
+<text x="780.0" y="430.5" font-size="13.5" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">assetId = folder + name</text>
+<rect x="704.0" y="799.5" width="152.0" height="28" rx="7" fill="#0d1117" fill-opacity="1" stroke="#7ee787" stroke-width="1.5"/>
+<text x="780.0" y="818.5" font-size="13.5" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle">docId = filename</text>
 <rect x="40" y="996" width="1480" height="100" rx="14" fill="#161b22" stroke="#ff7b72" stroke-width="1.6" stroke-dasharray="8 5"/>
 <text x="60" y="1026" font-size="14" fill="#ff7b72" font-family="'Segoe UI', sans-serif" font-weight="bold" text-anchor="start">KEY-SPACE GOTCHAS — where silent join failures live</text>
 <text x="60" y="1052" font-size="13.5" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start">assets.docId = INTEGER row id (a third, unrelated space)  ·  assetPathsAndInfo.docId actually holds assetIds</text>

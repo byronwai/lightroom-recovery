@@ -4,8 +4,8 @@ Left: the file top to bottom (header, record table, every record, padding).
 Right: the header and table entries zoomed, the first raster record's TIFF
 tags, and how to walk the format.
 
-Run:  python scripts/make_acr_structure_image.py [<file.acr>] [--out <stem>]
-      default: DSC02091.acr from W:\2026\0920\New folder, written to
+Run:  python scripts/make_acr_structure_image.py <file.acr> [--out <stem>]
+      the docs' figure is made from DSC03049.acr; default output
       docs/assets/acr-structure.svg/.png (Chrome/Edge headless)
 """
 import os, sys, struct, subprocess, tempfile, shutil
@@ -24,7 +24,9 @@ MONO = "Consolas, 'Cascadia Mono', monospace"
 SANS = "'Segoe UI', sans-serif"
 
 args = [a for a in sys.argv[1:] if not a.startswith("--")]
-PATH = args[0] if args else r"W:\2026\0920\New folder\DSC02091.acr"
+if not args:
+    sys.exit("usage: make_acr_structure_image.py <file.acr> [--out <stem>]")
+PATH = args[0]
 OUT = (sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv
        else os.path.join(ROOT, "docs", "assets", "acr-structure"))
 data = open(PATH, "rb").read()

@@ -7,8 +7,9 @@ no raster. Everything is read from the files; nothing is typed in by hand.
 
 Needs: pip install tifffile imagecodecs numpy pillow  (and Chrome or Edge)
 Run:   python scripts/make_shader_pipeline.py <dir>/<NAME>
-       expects <NAME>.ARW (optional), <NAME>-Original.JPG, <NAME>.xmp,
-       <NAME>.acr and <NAME>.jpg (the final export)
+       expects <NAME>-Original.JPG, <NAME>.xmp, <NAME>.acr and <NAME>.jpg (the
+       final export); optional <NAME>-pass0.jpg, a Lightroom export with masks
+       and Remove switched off, becomes pass 0
 Writes docs/assets/shader-pipeline.svg + .png (or --out <stem>)
 """
 import os, re, sys, io, base64, struct, subprocess, tempfile, shutil
@@ -31,6 +32,7 @@ BG, TXT, DIM = "#0b0f15", "#e6edf3", "#8b949e"
 BLUE, ORANGE, GREEN, PURPLE, PINK, CYAN = "#58a6ff", "#ffa657", "#7ee787", "#d2a8ff", "#f778ba", "#79c0ff"
 MONO, SANS = "Consolas, 'Cascadia Mono', monospace", "'Segoe UI', sans-serif"
 TEX_W, TEX_H = 600, 900          # plane texture size (display orientation, 2:3)
+LABEL_CHARS = 60                 # label column: x 1225 to the output card at 1777, 14.5px mono
 
 def esc(s): return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
@@ -40,9 +42,23 @@ def b64(img, fmt="PNG"):
     return f"data:image/{fmt.lower()};base64," + base64.b64encode(buf.getvalue()).decode()
 
 def fmt(v):
+    """Slider value as Lightroom shows it: integers stay integers, fractions get two decimals."""
     f = float(v)
-    s = f"{f:+.2f}" if abs(f) < 10 else f"{f:+.0f}"
+    s = f"{int(round(f)):+d}" if "." not in str(v) or abs(f) >= 10 else f"{f:+.2f}"
     return s.replace("-", "−")
+
+def wrap(line, width):
+    """Break a label at its ' · ' separators so it fits the label column."""
+    out, cur = [], ""
+    for part in line.split(" · "):
+        cand = part if not cur else cur + " · " + part
+        if len(cand) <= width or not cur:
+            cur = cand
+        else:
+            out.append(cur + " ·")
+            cur = "  " + part     # non-breaking: SVG collapses leading spaces
+    out.append(cur)
+    return out
 
 # ------------------------------------------------------------------ inputs
 def load(stem):
@@ -71,6 +87,8 @@ def groups(desc):
             md = m if m.get(C + "What") else m.find("rdf:Description", NS)
             if md is not None and md.get(C + "What"):
                 masks.append({k[len(C):]: v for k, v in md.attrib.items() if k.startswith(C)})
+        if float(adj.get("LocalToningSaturation", 0)) == 0:      # a tint hue with no saturation does nothing
+            adj.pop("LocalToningHue", None)
         out.append((d.get(C + "CorrectionName"), adj, masks))
     return out
 
@@ -156,17 +174,40 @@ def main():
 
     original = ImageOps.exif_transpose(Image.open(stem + "-Original.JPG")).convert("RGB")
     final = ImageOps.exif_transpose(Image.open(stem + ".jpg")).convert("RGB")
-    photo_disp = original.resize((TEX_W, TEX_H), Image.LANCZOS)
+    photo_disp = original.resize((TEX_W, TEX_H), Image.LANCZOS)     # uncropped: the masks' frame
+    pass0 = stem + "-pass0.jpg"
+    have_pass0 = os.path.exists(pass0)
+    base_disp = (ImageOps.exif_transpose(Image.open(pass0)).convert("RGB").resize((TEX_W, TEX_H), Image.LANCZOS)
+                 if have_pass0 else photo_disp)
 
     # ---- planes, bottom to top
     planes = []
     gl = lambda k: desc.get(C + k)
-    planes.append(dict(kind="photo", tex=photo_disp, color=CYAN, title="pass 0 · decode + global settings",
-                       src="XMP · crs:* globals",
-                       lines=[f"{gl('CameraProfile')} · WB {gl('Temperature')}K / {gl('Tint')}",
-                              f"Exposure2012 {fmt(gl('Exposure2012'))} · Contrast2012 {fmt(gl('Contrast2012'))}",
-                              f"Highlights {fmt(gl('Highlights2012'))} · Shadows {fmt(gl('Shadows2012'))}"
-                              f" · Vibrance {fmt(gl('Vibrance'))} · Saturation {fmt(gl('Saturation'))}"]))
+    def nz(keys):
+        return [(k, gl(k)) for k in keys if gl(k) not in (None, "0", "+0", "0.000000")]
+    hsl = {}
+    for kind, word in (("Hue", "hue"), ("Saturation", "sat"), ("Luminance", "lum")):
+        vals = nz([f"{kind}Adjustment{c}" for c in ("Red", "Orange", "Yellow", "Green", "Aqua", "Blue", "Purple", "Magenta")])
+        if vals:
+            hsl[word] = " ".join(f"{k[len(kind) + 10]}{fmt(v)}" for k, v in vals)
+    tone = nz(["SplitToningShadowHue", "SplitToningShadowSaturation", "SplitToningHighlightHue",
+               "SplitToningHighlightSaturation", "ColorGradeMidtoneHue", "ColorGradeMidtoneSat"])
+    crop_w = (float(gl("CropRight") or 1) - float(gl("CropLeft") or 0)) * 100
+    lines0 = [f"{gl('CameraProfile')} · PV {gl('ProcessVersion')} · WB {gl('Temperature')}K / {gl('Tint')}",
+              f"Exposure {fmt(gl('Exposure2012'))} · Contrast {fmt(gl('Contrast2012'))}"
+              f" · Highlights {fmt(gl('Highlights2012'))} · Shadows {fmt(gl('Shadows2012'))}",
+              f"Vibrance {fmt(gl('Vibrance'))} · Saturation {fmt(gl('Saturation'))}"
+              f" · crop {crop_w:.1f}% · straighten {float(gl('CropAngle') or 0):.2f}°"]
+    lines0 += [f"HSL {w}: {v}" for w, v in hsl.items()]
+    if tone:
+        sh = dict(tone)
+        lines0.append(f"split tone: shadows hue {sh.get('SplitToningShadowHue', '0')}"
+                      f" sat {sh.get('SplitToningShadowSaturation', '0')} · blending {gl('ColorGradeBlending')}")
+    planes.append(dict(kind="photo", tex=base_disp, color=CYAN,
+                       title="pass 0 · global settings" + (" (Lightroom render)" if have_pass0 else ""),
+                       src=("rendered by Lightroom with masks and Remove off" if have_pass0
+                            else "XMP globals · shown: camera JPEG stand-in"),
+                       lines=lines0))
     if sp:
         sel = mask_canvas([{"MaskDigest": d, "Origin": re.search(
             r'crs:MaskDigest="%s"[^>]*?crs:Origin="([^"]+)"|crs:Origin="([^"]+)"[^>]*?crs:MaskDigest="%s"' % (d, d),
@@ -209,7 +250,9 @@ def main():
             proc.append((gname, adj, masks))
     short = {"LocalExposure2012": "Exposure", "LocalContrast2012": "Contrast", "LocalHighlights2012": "Highlights",
              "LocalShadows2012": "Shadows", "LocalGlow": "Glow", "LocalClarity2012": "Clarity",
-             "LocalSaturation": "Saturation", "LocalTexture": "Texture", "LocalDehaze": "Dehaze"}
+             "LocalSaturation": "Saturation", "LocalTexture": "Texture", "LocalDehaze": "Dehaze",
+             "LocalTemperature": "Temp", "LocalTint": "Tint", "LocalToningHue": "tint hue",
+             "LocalToningSaturation": "tint sat"}
     adjtxt = lambda a: " · ".join(f"{short.get(k, k)} {fmt(v)}" for k, v in a.items())
     for k, ag in enumerate(ai_groups):
         col = palette[k % len(palette)]
@@ -320,7 +363,8 @@ def main():
         s.add(f'<circle cx="{lx - 14}" cy="{ly - 6:.1f}" r="4" fill="{p["color"]}"/>')
         s.text(lx, ly - 28, p["title"], 19, p["color"], SANS, "bold")
         s.text(lx, ly - 4, p["src"], 14, DIM, MONO)
-        for j, t in enumerate(p["lines"]):
+        wrapped = [w for line in p["lines"] for w in wrap(line, LABEL_CHARS)]
+        for j, t in enumerate(wrapped):
             s.text(lx, ly + 20 + j * 21, t, 14.5, TXT, MONO)
 
     # flow arrows
@@ -329,7 +373,8 @@ def main():
     top = Ybot - (n - 1) * gap
     s.add(f'<path d="M {X0 + A * U:.0f} {top + B * U - 10:.0f} C 1150 {top - 200:.0f}, 1660 200, 1772 300" fill="none" '
           f'stroke="{ORANGE}" stroke-width="3" marker-end="url(#ar)" filter="url(#glow)"/>')
-    s.text(1500, 300, "composite → crop → straighten → encode", 15, ORANGE, MONO, "bold", "middle")
+    s.text(1500, 300, "composite passes → encode" if have_pass0 else "composite → crop → straighten → encode",
+           15, ORANGE, MONO, "bold", "middle")
 
     # legend
     ly = H - 70

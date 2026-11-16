@@ -53,7 +53,7 @@ def label(a, kind, gen=False):
     ref = a.get("_ref", "")
     gen = gen or a.get("fill_method") == "firefly"
     if ref == "IngestInfo":
-        return "Generative Remove receipt", "crs:IngestInfo · request/response XMP"
+        return "Generative Remove receipt", "crs:IngestInfo · receipt XMP"
     if ref == "pm_patch":
         return ("Generative Remove: chosen" if gen else "Remove patch"), "crs:pm_patch · RGB pixels"
     if ref == "pm_patch_variation":

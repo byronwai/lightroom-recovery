@@ -15,7 +15,7 @@ EDGE = (r"C:\Program Files\Google\Chrome\Application\chrome.exe"
         if os.path.exists(r"C:\Program Files\Google\Chrome\Application\chrome.exe")
         else r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
 
-W, H = 1560, 1060
+W, H = 1560, 1120
 BG, PANEL, EDGE_ = "#0d1117", "#161b22", "#30363d"
 TXT, DIM = "#e6edf3", "#8b949e"
 BLUE, ORANGE, GREEN, RED, PURPLE = "#58a6ff", "#ffa657", "#7ee787", "#ff7b72", "#d2a8ff"
@@ -38,11 +38,11 @@ def build(with_counts=True):
         S.append(f'<text x="{x}" y="{y}" font-size="{size}" fill="{fill}" '
                  f'font-family="{font}" font-weight="{weight}" text-anchor="{anchor}">{esc(s)}</text>')
 
-    def arrow(x1, y1, x2, y2, color=DIM, label=None, lx=None, ly=None, dash="4 4"):
+    def arrow(x1, y1, x2, y2, color=DIM, label=None, lx=None, ly=None, dash="4 4", anchor="middle"):
         S.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{color}" '
                  f'stroke-width="1.6" stroke-dasharray="{dash}" marker-end="url(#arr)"/>')
-        if label:
-            text(lx, ly, label, 13, color, MONO, "normal", "middle")
+        for k, ln in enumerate(label or []):        # label beside the arrow, never on it
+            text(lx, ly + k * 18, ln, 13, color, MONO, "normal", anchor)
 
     S.append(f'''<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
      markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -82,7 +82,7 @@ def build(with_counts=True):
     WFX, WFY = 810, 280
 
     # ---------- panel B: content stores ----------
-    box(40, 440, 1480, 470, EDGE_)
+    box(40, 440, 1480, 530, EDGE_)
     text(60, 472, "CONTENT STORES  (plain files, content-addressed)", 14, DIM, SANS, "bold")
 
     def store(x, y, w, h, title, count, scheme, desc, color, key=None):
@@ -96,8 +96,8 @@ def build(with_counts=True):
             box(x + 14, y + h - 40, w - 28, 28, color, fill="#21262d", rx=8)
             text(x + 26, y + h - 21, key, 13.5, color, MONO)
 
-    cw, ch, gx, gy = 470, 190, 24, 30
-    x0, y0 = 64, 490
+    gx, gy, x0, y0 = 24, 30, 64, 490
+    cw, ch = (1520 - 24 - x0 - 2 * gx) // 3, 214      # three cards fill panel B with equal margins
     cells = [
         ("originals\\",
          "1,692 RAWs · 64 GB" if with_counts else "your original RAW files",
@@ -137,19 +137,19 @@ def build(with_counts=True):
         store(x, y, cw, ch, t, c, sc, d, col, key=key)
 
     # ---------- join-key arrows (row 1 only; row 2 uses key chips) ----------
-    for x2, y2, label, lx, ly, col in [
-        (300, 490, "originalRelativePath", 240, 430, BLUE),
-        (810, 490, "contentIdOrSha256  (binaryType='xmp_develop')", 810, 430, ORANGE),
-        (1320, 490, "no mapping — perceptual matching", 1290, 430, GREEN),
+    for x2, y2, label, lx, ly, col, anchor in [
+        (500, 490, ["originalRelativePath"], 596, 414, BLUE, "end"),
+        (810, 490, ["contentIdOrSha256", "(binaryType='xmp_develop')"], 822, 392, ORANGE, "start"),
+        (1320, 490, ["no mapping — perceptual matching"], 1152, 414, GREEN, "start"),
     ]:
-        arrow(WFX, WFY, x2, y2, col, label, lx, ly)
+        arrow(WFX, WFY, x2, y2, col, label, lx, ly, anchor=anchor)
 
     # ---------- panel C: traps ----------
-    box(40, 940, 1480, 90, RED, dash="8 5")
-    text(60, 968, "RED HERRINGS", 14, RED, SANS, "bold")
-    text(60, 996, "xmp\\  " + ("2,570 shard folders — " if with_counts else "")
+    box(40, 1000, 1480, 90, RED, dash="8 5")
+    text(60, 1028, "RED HERRINGS", 14, RED, SANS, "bold")
+    text(60, 1056, "xmp\\  " + ("2,570 shard folders — " if with_counts else "")
          + "transient download bay, empty between syncs", 15, DIM, MONO)
-    text(860, 996, "big_table_cache\\  empty  ·  cr_cameraprofiles\\  profiles ship with the app", 15, DIM, MONO)
+    text(860, 1056, "big_table_cache\\  empty  ·  cr_cameraprofiles\\  profiles ship with the app", 15, DIM, MONO)
 
     S.append("</svg>")
     return "\n".join(S)

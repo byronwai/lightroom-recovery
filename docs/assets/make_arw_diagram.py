@@ -155,9 +155,11 @@ y += 34
 
 share = V["strip_len"] / V["size"] * 100
 off_label(OX, y + 40, hx(V["strip_off"]))
-block(LX, y, LW, 74, C["strip"], "RAW sensor strip",
-      f'{V["strip_len"]:,} B — {share:.1f}% of the file · {V["strip_w"]}×{V["strip_h"]} · compression {V["strip_comp"]}{JPG}', True)
-blocks["strip"] = (y, 74); y += 82
+block(LX, y, LW, 84, C["strip"], "RAW sensor strip",
+      f'{V["strip_len"]:,} B — {share:.1f}% of the file', True)
+svg.append(f'<text x="{LX+16}" y="{y + 84//2 + 32}" font-size="11.5" fill="{C["dim"]}">'
+           f'{V["strip_w"]}×{V["strip_h"]} · compression {V["strip_comp"]}{esc(JPG)}</text>')
+blocks["strip"] = (y, 84); y += 92
 
 off_label(OX, y + 18, hx(V["size"]))
 svg.append(f'<text x="{LX+16}" y="{y+18}" font-size="12" fill="{C["dim"]}" font-family="{MONO}">EOF</text>'); y += 30

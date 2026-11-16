@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="960" viewBox="0 0 1600 960" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif"><defs><radialGradient id="bg" cx="50%" cy="35%" r="80%"><stop offset="0" stop-color="#162131"/><stop offset="1" stop-color="#0b0f15"/></radialGradient><filter id="glow" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="960"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter><filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000" flood-opacity="0.6"/></filter><linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0.06"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient><linearGradient id="flow" x1="0" x2="1"><stop offset="0" stop-color="#79c0ff"/><stop offset="0.5" stop-color="#f778ba"/><stop offset="1" stop-color="#ffa657"/></linearGradient><marker id="me6edf3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e6edf3"/></marker><marker id="m8b949e" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b949e"/></marker><marker id="m79c0ff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#79c0ff"/></marker><marker id="m58a6ff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#58a6ff"/></marker><marker id="mffa657" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa657"/></marker><marker id="m7ee787" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7ee787"/></marker><marker id="md2a8ff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d2a8ff"/></marker><marker id="mf778ba" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f778ba"/></marker><marker id="mff7b72" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ff7b72"/></marker><marker id="me3b341" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e3b341"/></marker></defs>
+<rect width="1600" height="960" fill="url(#bg)"/>
+<line x1="0" y1="0" x2="0" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="46" y1="0" x2="46" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="92" y1="0" x2="92" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="138" y1="0" x2="138" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="184" y1="0" x2="184" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="230" y1="0" x2="230" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="276" y1="0" x2="276" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="322" y1="0" x2="322" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="368" y1="0" x2="368" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="414" y1="0" x2="414" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="460" y1="0" x2="460" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="506" y1="0" x2="506" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="552" y1="0" x2="552" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="598" y1="0" x2="598" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="644" y1="0" x2="644" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="690" y1="0" x2="690" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="736" y1="0" x2="736" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="782" y1="0" x2="782" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="828" y1="0" x2="828" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="874" y1="0" x2="874" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="920" y1="0" x2="920" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="966" y1="0" x2="966" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="1012" y1="0" x2="1012" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="1058" y1="0" x2="1058" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="1104" y1="0" x2="1104" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="1150" y1="0" x2="1150" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="1196" y1="0" x2="1196" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="1242" y1="0" x2="1242" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="1288" y1="0" x2="1288" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="1334" y1="0" x2="1334" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="1380" y1="0" x2="1380" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="1426" y1="0" x2="1426" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="1472" y1="0" x2="1472" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="1518" y1="0" x2="1518" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<line x1="1564" y1="0" x2="1564" y2="960" stroke="#ffffff" stroke-opacity="0.025"/>
+<rect x="60" y="34" width="104" height="30" rx="15" fill="#79c0ff" fill-opacity="0.12" stroke="#79c0ff" stroke-opacity="0.7"/>
+<text x="111.8" y="55.0" font-size="15" fill="#79c0ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1" letter-spacing="1">TIFF 101</text>
+<text x="60.0" y="112.0" font-size="36" fill="#e6edf3" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="bold" text-anchor="start" opacity="1">TIFF is a pointer chase, not a stream</text>
+<text x="60.0" y="150.0" font-size="19" fill="#8b949e" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="normal" text-anchor="start" opacity="1">the format under both the ARW and every ACR raster · real offsets and bytes from DSC03049.ARW</text>
+<g filter="url(#shadow)"><rect x="60" y="200" width="1480" height="300" rx="16" fill="#111822"/></g>
+<rect x="60" y="200" width="1480" height="300" rx="16" fill="#79c0ff" fill-opacity="0.05"/>
+<path d="M 76 200 H 1524 A 16 16 0 0 1 1540 216 V 290 H 60 V 216 A 16 16 0 0 1 76 200 Z" fill="url(#sheen)"/>
+<rect x="60" y="200" width="1480" height="300" rx="16" fill="none" stroke="#79c0ff" stroke-opacity="0.8" stroke-width="2"/>
+<circle cx="86" cy="233" r="5" fill="#79c0ff" filter="url(#glow)"/>
+<text x="102.0" y="240.0" font-size="20" fill="#79c0ff" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="bold" text-anchor="start" opacity="1">the file, read by jumping</text>
+<text x="1518.0" y="239.0" font-size="14" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end" opacity="1">not to scale</text>
+<rect x="153" y="350" width="104" height="56" rx="10" fill="#d2a8ff" fill-opacity="0.16" stroke="#d2a8ff" stroke-width="2"/>
+<text x="205.0" y="385.0" font-size="17" fill="#d2a8ff" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="bold" text-anchor="middle" opacity="1">header</text>
+<text x="205.0" y="436.0" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">0x0</text>
+<rect x="263" y="350" width="144" height="56" rx="10" fill="#79c0ff" fill-opacity="0.16" stroke="#79c0ff" stroke-width="2"/>
+<text x="335.0" y="385.0" font-size="17" fill="#79c0ff" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="bold" text-anchor="middle" opacity="1">IFD0</text>
+<text x="335.0" y="436.0" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">0x8</text>
+<rect x="413" y="350" width="144" height="56" rx="10" fill="#8b949e" fill-opacity="0.16" stroke="#8b949e" stroke-width="2"/>
+<text x="485.0" y="385.0" font-size="17" fill="#8b949e" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="bold" text-anchor="middle" opacity="1">ExifIFD</text>
+<text x="485.0" y="436.0" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">0x11C0</text>
+<rect x="566" y="370" width="58" height="16" rx="8" fill="none" stroke="#5b6573" stroke-dasharray="3 5"/>
+<rect x="633" y="350" width="144" height="56" rx="10" fill="#ff7b72" fill-opacity="0.16" stroke="#ff7b72" stroke-width="2"/>
+<text x="705.0" y="385.0" font-size="17" fill="#ff7b72" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="bold" text-anchor="middle" opacity="1">SubIFD</text>
+<text x="705.0" y="436.0" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">0x21D22</text>
+<rect x="786" y="370" width="98" height="16" rx="8" fill="none" stroke="#5b6573" stroke-dasharray="3 5"/>
+<rect x="893" y="350" width="514" height="56" rx="10" fill="#7ee787" fill-opacity="0.16" stroke="#7ee787" stroke-width="2"/>
+<text x="1150.0" y="385.0" font-size="17" fill="#7ee787" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="bold" text-anchor="middle" opacity="1">sensor strip</text>
+<text x="1150.0" y="436.0" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">0x3D0000</text>
+<path d="M 217 346 C 217 280, 323 280, 323 344" fill="none" stroke="#d2a8ff" stroke-width="2.5" marker-end="url(#md2a8ff)" filter="url(#glow)"/>
+<rect x="241.4" y="284.5" width="57.2" height="26" rx="13.0" fill="#0b0f15" stroke="#d2a8ff" stroke-opacity="0.8"/>
+<text x="270.0" y="303.5" font-size="14" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">→ 0x8</text>
+<path d="M 295 346 C 295 230, 693 230, 693 344" fill="none" stroke="#ff7b72" stroke-width="2.5" marker-end="url(#mff7b72)" filter="url(#glow)"/>
+<rect x="461.5" y="247.0" width="65.0" height="26" rx="13.0" fill="#0b0f15" stroke="#ff7b72" stroke-opacity="0.8"/>
+<text x="494.0" y="266.0" font-size="14" fill="#ff7b72" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">0x014A</text>
+<path d="M 375 346 C 375 294, 473 294, 473 344" fill="none" stroke="#8b949e" stroke-width="2.5" marker-end="url(#m8b949e)" filter="url(#glow)"/>
+<rect x="391.5" y="295.0" width="65.0" height="26" rx="13.0" fill="#0b0f15" stroke="#8b949e" stroke-opacity="0.8"/>
+<text x="424.0" y="314.0" font-size="14" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">0x8769</text>
+<path d="M 717 346 C 717 246, 1138 246, 1138 344" fill="none" stroke="#7ee787" stroke-width="2.5" marker-end="url(#m7ee787)" filter="url(#glow)"/>
+<rect x="844.0" y="259.0" width="167.0" height="26" rx="13.0" fill="#0b0f15" stroke="#7ee787" stroke-opacity="0.8"/>
+<text x="927.5" y="278.0" font-size="14" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">0x0111 StripOffsets</text>
+<text x="150.0" y="478.0" font-size="16" fill="#8b949e" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="normal" text-anchor="start" opacity="1">nothing is found by scanning: the 8-byte header points at a directory, the directory points at data</text>
+<g filter="url(#shadow)"><rect x="60" y="540" width="960" height="370" rx="16" fill="#111822"/></g>
+<rect x="60" y="540" width="960" height="370" rx="16" fill="#ffa657" fill-opacity="0.05"/>
+<path d="M 76 540 H 1004 A 16 16 0 0 1 1020 556 V 630 H 60 V 556 A 16 16 0 0 1 76 540 Z" fill="url(#sheen)"/>
+<rect x="60" y="540" width="960" height="370" rx="16" fill="none" stroke="#ffa657" stroke-opacity="0.8" stroke-width="2"/>
+<circle cx="86" cy="573" r="5" fill="#ffa657" filter="url(#glow)"/>
+<text x="102.0" y="580.0" font-size="20" fill="#ffa657" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="bold" text-anchor="start" opacity="1">one IFD entry = 12 bytes</text>
+<text x="998.0" y="579.0" font-size="14" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end" opacity="1">from the SubIFD</text>
+<rect x="102" y="606" width="100" height="44" rx="8" fill="#d2a8ff" fill-opacity="0.18" stroke="#d2a8ff"/>
+<text x="152.0" y="634.0" font-size="15" fill="#d2a8ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">tag · 2 B</text>
+<rect x="206" y="606" width="100" height="44" rx="8" fill="#58a6ff" fill-opacity="0.18" stroke="#58a6ff"/>
+<text x="256.0" y="634.0" font-size="15" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">type · 2 B</text>
+<rect x="310" y="606" width="204" height="44" rx="8" fill="#79c0ff" fill-opacity="0.18" stroke="#79c0ff"/>
+<text x="412.0" y="634.0" font-size="15" fill="#79c0ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">count · 4 B</text>
+<rect x="518" y="606" width="204" height="44" rx="8" fill="#ffa657" fill-opacity="0.18" stroke="#ffa657"/>
+<text x="620.0" y="634.0" font-size="15" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">value / offset · 4 B</text>
+<rect x="102" y="676" width="100" height="50" rx="8" fill="#111822" fill-opacity="1" stroke="#30363d"/>
+<text x="152.0" y="708.0" font-size="16" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">00 01</text>
+<rect x="206" y="676" width="100" height="50" rx="8" fill="#111822" fill-opacity="1" stroke="#30363d"/>
+<text x="256.0" y="708.0" font-size="16" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">03 00</text>
+<rect x="310" y="676" width="204" height="50" rx="8" fill="#111822" fill-opacity="1" stroke="#30363d"/>
+<text x="412.0" y="708.0" font-size="16" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">01 00 00 00</text>
+<rect x="518" y="676" width="204" height="50" rx="8" fill="#7ee787" fill-opacity="0.16" stroke="#7ee787"/>
+<text x="620.0" y="708.0" font-size="16" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">00 1C 00 00</text>
+<text x="750.0" y="698.0" font-size="17" fill="#7ee787" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start" opacity="1">ImageWidth = 7168</text>
+<text x="750.0" y="720.0" font-size="15" fill="#8b949e" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="normal" text-anchor="start" opacity="1">fits in 4 bytes → stored inline</text>
+<rect x="102" y="758" width="100" height="50" rx="8" fill="#111822" fill-opacity="1" stroke="#30363d"/>
+<text x="152.0" y="790.0" font-size="16" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">11 01</text>
+<rect x="206" y="758" width="100" height="50" rx="8" fill="#111822" fill-opacity="1" stroke="#30363d"/>
+<text x="256.0" y="790.0" font-size="16" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">04 00</text>
+<rect x="310" y="758" width="204" height="50" rx="8" fill="#111822" fill-opacity="1" stroke="#30363d"/>
+<text x="412.0" y="790.0" font-size="16" fill="#e6edf3" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">01 00 00 00</text>
+<rect x="518" y="758" width="204" height="50" rx="8" fill="#ffa657" fill-opacity="0.16" stroke="#ffa657"/>
+<text x="620.0" y="790.0" font-size="16" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">00 00 3D 00</text>
+<text x="750.0" y="780.0" font-size="17" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="start" opacity="1">StripOffsets → 0x3D0000</text>
+<text x="750.0" y="802.0" font-size="15" fill="#8b949e" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="normal" text-anchor="start" opacity="1">too big → an offset: jump there</text>
+<rect x="102" y="842" width="620" height="40" rx="8" fill="none" stroke="#5b6573" stroke-dasharray="6 5"/>
+<text x="412.0" y="868.0" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="middle" opacity="1">… N entries, then 4 B: next IFD, or 0</text>
+<text x="750.0" y="868.0" font-size="15" fill="#8b949e" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="normal" text-anchor="start" opacity="1">little-endian: bytes read backwards</text>
+<g filter="url(#shadow)"><rect x="1060" y="540" width="480" height="370" rx="16" fill="#111822"/></g>
+<rect x="1060" y="540" width="480" height="370" rx="16" fill="#7ee787" fill-opacity="0.05"/>
+<path d="M 1076 540 H 1524 A 16 16 0 0 1 1540 556 V 630 H 1060 V 556 A 16 16 0 0 1 1076 540 Z" fill="url(#sheen)"/>
+<rect x="1060" y="540" width="480" height="370" rx="16" fill="none" stroke="#7ee787" stroke-opacity="0.8" stroke-width="2"/>
+<circle cx="1086" cy="573" r="5" fill="#7ee787" filter="url(#glow)"/>
+<text x="1102.0" y="580.0" font-size="20" fill="#7ee787" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="bold" text-anchor="start" opacity="1">stream vs pointer chase</text>
+<text x="1090.0" y="618.0" font-size="16" fill="#e6edf3" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="bold" text-anchor="start" opacity="1">PNG · read top to bottom</text>
+<rect x="1090" y="634" width="76" height="34" rx="7" fill="#58a6ff" fill-opacity="0.15" stroke="#58a6ff"/>
+<text x="1128.0" y="657.0" font-size="14" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">sig</text>
+<rect x="1174" y="634" width="76" height="34" rx="7" fill="#58a6ff" fill-opacity="0.15" stroke="#58a6ff"/>
+<text x="1212.0" y="657.0" font-size="14" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">IHDR</text>
+<rect x="1258" y="634" width="76" height="34" rx="7" fill="#58a6ff" fill-opacity="0.15" stroke="#58a6ff"/>
+<text x="1296.0" y="657.0" font-size="14" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">IDAT</text>
+<rect x="1342" y="634" width="76" height="34" rx="7" fill="#58a6ff" fill-opacity="0.15" stroke="#58a6ff"/>
+<text x="1380.0" y="657.0" font-size="14" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">IDAT</text>
+<rect x="1426" y="634" width="76" height="34" rx="7" fill="#58a6ff" fill-opacity="0.15" stroke="#58a6ff"/>
+<text x="1464.0" y="657.0" font-size="14" fill="#58a6ff" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">IEND</text>
+<path d="M 1090 688 L 1500 688" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#m58a6ff)"/>
+<text x="1090.0" y="740.0" font-size="16" fill="#e6edf3" font-family="'Segoe UI', 'Microsoft JhengHei', sans-serif" font-weight="bold" text-anchor="start" opacity="1">TIFF · jump, jump, jump</text>
+<rect x="1090" y="790" width="92" height="34" rx="7" fill="#ffa657" fill-opacity="0.15" stroke="#ffa657"/>
+<text x="1136.0" y="813.0" font-size="14" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">hdr</text>
+<rect x="1194" y="790" width="92" height="34" rx="7" fill="#ffa657" fill-opacity="0.15" stroke="#ffa657"/>
+<text x="1240.0" y="813.0" font-size="14" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">data</text>
+<rect x="1298" y="790" width="92" height="34" rx="7" fill="#ffa657" fill-opacity="0.15" stroke="#ffa657"/>
+<text x="1344.0" y="813.0" font-size="14" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">IFD</text>
+<rect x="1402" y="790" width="92" height="34" rx="7" fill="#ffa657" fill-opacity="0.15" stroke="#ffa657"/>
+<text x="1448.0" y="813.0" font-size="14" fill="#ffa657" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="bold" text-anchor="middle" opacity="1">data</text>
+<path d="M 1136 786 C 1136 752, 1344 752, 1344 784" fill="none" stroke="#ffa657" stroke-width="2" marker-end="url(#mffa657)"/>
+<path d="M 1330 828 C 1330 852, 1150 852, 1150 830" fill="none" stroke="#ffa657" stroke-width="2" marker-end="url(#mffa657)"/>
+<path d="M 1366 828 C 1366 852, 1440 852, 1440 830" fill="none" stroke="#ffa657" stroke-width="2" marker-end="url(#mffa657)"/>
+<text x="1090.0" y="880.0" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start" opacity="1">ARW: 49 49 2A 00 at byte 0</text>
+<text x="1090.0" y="902.0" font-size="15" fill="#8b949e" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="start" opacity="1">ACR raster: 49 49 2A 00 at byte 16</text>
+<text x="1540.0" y="938.0" font-size="13" fill="#5b6573" font-family="Consolas, 'Cascadia Mono', monospace" font-weight="normal" text-anchor="end" opacity="1">DSC03049 · ARW · XMP · ACR · byronwai.github.io</text></svg>

@@ -19,6 +19,7 @@ from PIL import Image, ImageOps, ImageFilter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from acr_reader import read_table, classify  # noqa: E402
+from blog_theme import SIGNATURE, FAINT     # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BROWSER = (r"C:\Program Files\Google\Chrome\Application\chrome.exe"
@@ -388,6 +389,7 @@ def main():
         s.add(f'<circle cx="{x}" cy="{ly - 5}" r="7" fill="{col}"/>')
         s.text(x + 16, ly, t, 14.5, TXT)
         x += 16 + len(t) * 7.3 + 46
+    s.text(W - 60, H - 14, SIGNATURE, 13, FAINT, MONO, "normal", "end")
     s.render(out)
 
 if __name__ == "__main__":
